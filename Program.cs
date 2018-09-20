@@ -8,7 +8,6 @@ using faction_sim.Classes.Factions;
 
 namespace faction_sim
 {
-
     public class results
     {
         public Classes.Assets.Asset asset { get; set; }
@@ -42,12 +41,41 @@ namespace faction_sim
             members.Add(combatants[0], attacking_assets);
 
             members.Add(combatants[1], defending_assets);
+            List<List<round>> results = new List<List<round>>();
+
+            for (int i = 0; i < 1; i++)
+            {
+                results.Add(run_sim(members));
+            }
+
+            if(System.IO.File.Exists("results.json"))
+            {
+                System.IO.File.Delete("results.json");
+            }
+
+            System.IO.File.WriteAllText("results.json",Newtonsoft.Json.JsonConvert.SerializeObject(results));
         }
 
-        private static List<results> run_sim(Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>> members)
+        private static List<round> run_sim(Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>> members)
         {
-            List<results> results = new List<results>();
+            List<round> results = new List<round>();
 
+            List<Classes.Assets.Asset> attackers = members.First().Value;
+            List<Classes.Assets.Asset> defenders = members.Last().Value;
+
+            Faction attacking_faction = members.First().Key;
+            Faction defending_faction = members.First().Key;
+
+            while(attackers.Where(e=>e.Hp>0 && e.AttackedAlready == false).Count()>0)
+            {
+                Asset rand_attacker = attackers.Where(e=>e.Hp>0 && e.AttackedAlready == false).ToArray()[rand.Next(attackers.Where(e=>e.Hp>0 && e.AttackedAlready == false).Count())];
+
+                Asset rand_defender = defenders.Where(e=>e.Hp>0).ToArray()[rand.Next(defenders.Where(e=>e.Hp>0).Count())];
+
+                round result = run_round(ref rand_attacker, ref rand_defender, attacking_faction, defending_faction);
+
+                results.Add(result);
+            }
 
             return results;
         }
@@ -55,6 +83,8 @@ namespace faction_sim
         private static round run_round(ref Asset attacker, ref Asset defender, Faction atk_faction, Faction def_faction)
         {
             round rnd = new round();
+
+            attacker.AttackedAlready = true;
 
             rnd.attacking_asset = attacker;
 
@@ -64,6 +94,7 @@ namespace faction_sim
             {
                 rnd.damage = 0;
                 rnd.counter_damage = 0;
+                rnd.atk_success = false;
                 rnd.atk_success = false;
                 return rnd;
             }

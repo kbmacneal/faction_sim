@@ -47,6 +47,8 @@ namespace faction_sim.Classes.Assets
 
         [JsonProperty("AttackDice")]
         public string AttackDice { get; set; }
+        [JsonProperty("AttackedAlready")]
+        public bool AttackedAlready { get; set; } = false;
     }
 
     public enum Special { A, AS, ASP, Empty, P, S };
