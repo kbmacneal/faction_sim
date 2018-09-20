@@ -30,35 +30,35 @@ namespace faction_sim
         public static Random rand = new Random();
         static void Main(string[] args)
         {
-            Console.WriteLine("ID of the attacking faction:");
-            int attacking_id = 8;
-
-            Console.WriteLine("CSV of the attacking assets:");
-            string[] attacking_ass = "1,1".Split(",");
-
-            Console.WriteLine("ID of the defending faction:");
-            int defending_id = 9;
-
-            Console.WriteLine("CSV of the defending assets:");
-            string[] defending_ass = "75".Split(",");
-
-            Console.WriteLine("Number of iterations:");
-            int iterations = 5;
-
             // Console.WriteLine("ID of the attacking faction:");
-            // int attacking_id = Convert.ToInt32(Console.ReadLine());
+            // int attacking_id = 8;
 
             // Console.WriteLine("CSV of the attacking assets:");
-            // string[] attacking_ass = Console.ReadLine().Split(",");
+            // string[] attacking_ass = "1,1".Split(",");
 
             // Console.WriteLine("ID of the defending faction:");
-            // int defending_id = Convert.ToInt32(Console.ReadLine());
+            // int defending_id = 9;
 
             // Console.WriteLine("CSV of the defending assets:");
-            // string[] defending_ass = Console.ReadLine().Split(",");
+            // string[] defending_ass = "75".Split(",");
 
             // Console.WriteLine("Number of iterations:");
-            // int iterations = Convert.ToInt32(Console.ReadLine());
+            // int iterations = 5;
+
+            Console.WriteLine("ID of the attacking faction:");
+            int attacking_id = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("CSV of the attacking assets:");
+            string[] attacking_ass = Console.ReadLine().Split(",");
+
+            Console.WriteLine("ID of the defending faction:");
+            int defending_id = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("CSV of the defending assets:");
+            string[] defending_ass = Console.ReadLine().Split(",");
+
+            Console.WriteLine("Number of iterations:");
+            int iterations = Convert.ToInt32(Console.ReadLine());
 
 
             List<List<round>> results = new List<List<round>>();
@@ -101,7 +101,6 @@ namespace faction_sim
         {
             List<round> results = new List<round>();
 
-            List<Classes.Assets.Asset> attackers = initialize_assets(members.First().Value.ToArray());
             List<Classes.Assets.Asset> defenders = initialize_assets(members.Last().Value.ToArray());
 
             Faction attacking_faction = members.First().Key;
@@ -109,8 +108,9 @@ namespace faction_sim
 
 
 
-            foreach (var atk in attackers)
+            foreach (var id in members.First().Value.ToArray())
             {
+                var atk = get_asset(id);
                 List<Asset> eligible_defenders = defenders.Where(e => e.Hp > 0).ToList();
 
                 if (eligible_defenders.Count == 0)
@@ -137,8 +137,6 @@ namespace faction_sim
         private static round run_round(Asset attacker, Asset defender, Faction atk_faction, Faction def_faction)
         {
             round rnd = new round();
-
-            attacker.AttackedAlready = true;
 
             rnd.attacking_asset = attacker;
 
@@ -219,6 +217,11 @@ namespace faction_sim
 
 
             return rtner;
+        }
+
+        private static Asset get_asset(int id)
+        {
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<List<Asset>>(System.IO.File.ReadAllText("assets.json")).First(x=>x.Id == id);
         }
 
         private static List<Classes.Assets.Asset> initialize_assets(int[] ids)

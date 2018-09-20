@@ -2,13 +2,8 @@
   {
     "Name": "Franchise",
     "HP": "3",
-    "Cost": "2",
-    "TL": "2",
-    "Type": "Facility",
     "Attack": "WvW, 1D4",
     "Counterattack": "1d4-1",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 1,
     "AttackStats": "WvW",
     "AttackDice": "1D4"
@@ -16,13 +11,8 @@
   {
     "Name": "Harvesters",
     "HP": "4",
-    "Cost": "2",
-    "TL": "0",
-    "Type": "Facility",
     "Attack": "None",
     "Counterattack": "1d4",
-    "Special": "A",
-    "Upkeep": "",
     "ID": 2,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -30,13 +20,8 @@
   {
     "Name": "Local Investments",
     "HP": "2",
-    "Cost": "1",
-    "TL": "2",
-    "Type": "Facility",
     "Attack": "WvW, 1d4-1",
     "Counterattack": "None",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 3,
     "AttackStats": "WvW",
     "AttackDice": "1d4-1"
@@ -44,13 +29,8 @@
   {
     "Name": "Base Of Influence",
     "HP": "1",
-    "Cost": "*",
-    "TL": "0",
-    "Type": "Special",
     "Attack": "None",
     "Counterattack": "None",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 4,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -58,13 +38,8 @@
   {
     "Name": "Freighter Contract",
     "HP": "4",
-    "Cost": "5",
-    "TL": "4",
-    "Type": "Starship",
     "Attack": "WvW, 1D4",
     "Counterattack": "None",
-    "Special": "A",
-    "Upkeep": "",
     "ID": 5,
     "AttackStats": "WvW",
     "AttackDice": "1D4"
@@ -72,13 +47,8 @@
   {
     "Name": "Lawyers",
     "HP": "4",
-    "Cost": "6",
-    "TL": "0",
-    "Type": "Special Forces",
     "Attack": "CvW, 2d4",
     "Counterattack": "1d6",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 6,
     "AttackStats": "CvW",
     "AttackDice": "2d4"
@@ -86,13 +56,8 @@
   {
     "Name": "Union Toughs",
     "HP": "6",
-    "Cost": "4",
-    "TL": "0",
-    "Type": "Military Unit",
     "Attack": "WvF, 1d4+1",
     "Counterattack": "1d4",
-    "Special": "",
-    "Upkeep": "",
     "ID": 7,
     "AttackStats": "WvF",
     "AttackDice": "1d4+1"
@@ -100,13 +65,8 @@
   {
     "Name": "Surveyors",
     "HP": "4",
-    "Cost": "4",
-    "TL": "4",
-    "Type": "Special Forces",
     "Attack": "None",
     "Counterattack": "1d4",
-    "Special": "A, S",
-    "Upkeep": "",
     "ID": 8,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -114,13 +74,8 @@
   {
     "Name": "Postech Industry",
     "HP": "4",
-    "Cost": "8",
-    "TL": "4",
-    "Type": "Facility",
     "Attack": "None",
     "Counterattack": "1d4",
-    "Special": "A",
-    "Upkeep": "",
     "ID": 9,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -128,13 +83,8 @@
   {
     "Name": "Laboratory",
     "HP": "4",
-    "Cost": "6",
-    "TL": "0",
-    "Type": "Facility",
     "Attack": "None",
     "Counterattack": "None",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 10,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -142,13 +92,8 @@
   {
     "Name": "Mercenaries",
     "HP": "6",
-    "Cost": "8",
-    "TL": "4",
-    "Type": "Military Unit",
     "Attack": "WvF, 2d4+2",
     "Counterattack": "1d6",
-    "Special": "A, S, P",
-    "Upkeep": "1",
     "ID": 11,
     "AttackStats": "WvF",
     "AttackDice": "2d4+2"
@@ -156,13 +101,8 @@
   {
     "Name": "Shipping Combine",
     "HP": "10",
-    "Cost": "10",
-    "TL": "4",
-    "Type": "Facility",
     "Attack": "None",
     "Counterattack": "1d6",
-    "Special": "A",
-    "Upkeep": "",
     "ID": 12,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -170,13 +110,8 @@
   {
     "Name": "Monopoly",
     "HP": "12",
-    "Cost": "8",
-    "TL": "3",
-    "Type": "Facility",
     "Attack": "WvW, 1d6",
     "Counterattack": "1d6",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 13,
     "AttackStats": "WvW",
     "AttackDice": "1d6"
@@ -184,13 +119,8 @@
   {
     "Name": "Medical Center",
     "HP": "8",
-    "Cost": "12",
-    "TL": "4",
-    "Type": "Facility",
     "Attack": "None",
     "Counterattack": "None",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 14,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -198,13 +128,8 @@
   {
     "Name": "Bank",
     "HP": "8",
-    "Cost": "12",
-    "TL": "3",
-    "Type": "Facility",
     "Attack": "None",
     "Counterattack": "None",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 15,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -212,13 +137,8 @@
   {
     "Name": "Marketers",
     "HP": "8",
-    "Cost": "10",
-    "TL": "0",
-    "Type": "Tactic",
     "Attack": "CvW, 1d6",
     "Counterattack": "None",
-    "Special": "A",
-    "Upkeep": "",
     "ID": 16,
     "AttackStats": "CvW",
     "AttackDice": "1d6"
@@ -226,13 +146,8 @@
   {
     "Name": "Pretech Researchers",
     "HP": "6",
-    "Cost": "14",
-    "TL": "4",
-    "Type": "Special Forces",
     "Attack": "None",
     "Counterattack": "None",
-    "Special": "S",
-    "Upkeep": "1",
     "ID": 17,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -240,13 +155,8 @@
   {
     "Name": "Blockade Runners",
     "HP": "6",
-    "Cost": "12",
-    "TL": "4",
-    "Type": "Starship",
     "Attack": "None",
     "Counterattack": "2d4",
-    "Special": "A",
-    "Upkeep": "",
     "ID": 18,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -254,13 +164,8 @@
   {
     "Name": "Venture Capital",
     "HP": "10",
-    "Cost": "15",
-    "TL": "4",
-    "Type": "Facility",
     "Attack": "WvW, 2d6",
     "Counterattack": "1d6",
-    "Special": "A",
-    "Upkeep": "",
     "ID": 19,
     "AttackStats": "WvW",
     "AttackDice": "2d6"
@@ -268,13 +173,8 @@
   {
     "Name": "R&D Department",
     "HP": "15",
-    "Cost": "18",
-    "TL": "4",
-    "Type": "Facility",
     "Attack": "None",
     "Counterattack": "None",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 20,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -282,13 +182,8 @@
   {
     "Name": "Commodities Broker",
     "HP": "10",
-    "Cost": "20",
-    "TL": "0",
-    "Type": "Special Forces",
     "Attack": "WvW, 2d8",
     "Counterattack": "1d8",
-    "Special": "A",
-    "Upkeep": "",
     "ID": 21,
     "AttackStats": "WvW",
     "AttackDice": "2d8"
@@ -296,13 +191,8 @@
   {
     "Name": "Pretech Manufactory",
     "HP": "16",
-    "Cost": "25",
-    "TL": "5",
-    "Type": "Facility",
     "Attack": "None",
     "Counterattack": "None",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 22,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -310,13 +200,8 @@
   {
     "Name": "Hostile Takeover",
     "HP": "10",
-    "Cost": "20",
-    "TL": "4",
-    "Type": "Tactic",
     "Attack": "WvW, 2d10",
     "Counterattack": "2d8",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 23,
     "AttackStats": "WvW",
     "AttackDice": "2d10"
@@ -324,13 +209,8 @@
   {
     "Name": "Transit Web",
     "HP": "5",
-    "Cost": "15",
-    "TL": "5",
-    "Type": "Facility",
     "Attack": "CvC, 1d12",
     "Counterattack": "None",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 24,
     "AttackStats": "CvC",
     "AttackDice": "1d12"
@@ -338,13 +218,8 @@
   {
     "Name": "Scavenger Fleet",
     "HP": "20",
-    "Cost": "30",
-    "TL": "5",
-    "Type": "Starship",
     "Attack": "WvW, 2d10+4",
     "Counterattack": "2d10",
-    "Special": "",
-    "Upkeep": "2",
     "ID": 25,
     "AttackStats": "WvW",
     "AttackDice": "2d10+4"
@@ -352,13 +227,8 @@
   {
     "Name": "Smugglers",
     "HP": "4",
-    "Cost": "2",
-    "TL": "4",
-    "Type": "Starship",
     "Attack": "CvW, 1d4",
     "Counterattack": "None",
-    "Special": "A",
-    "Upkeep": "",
     "ID": 26,
     "AttackStats": "CvW",
     "AttackDice": "1d4"
@@ -366,13 +236,8 @@
   {
     "Name": "Informers",
     "HP": "3",
-    "Cost": "2",
-    "TL": "0",
-    "Type": "Special Forces",
     "Attack": "CvC, Special",
     "Counterattack": "None",
-    "Special": "A, S",
-    "Upkeep": "",
     "ID": 27,
     "AttackStats": "CvC",
     "AttackDice": "Special"
@@ -380,13 +245,8 @@
   {
     "Name": "False Front",
     "HP": "2",
-    "Cost": "1",
-    "TL": "0",
-    "Type": "Logistics Facility",
     "Attack": "None",
     "Counterattack": "None",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 28,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -394,13 +254,8 @@
   {
     "Name": "Base Of Influence",
     "HP": "1",
-    "Cost": "*",
-    "TL": "0",
-    "Type": "Special",
     "Attack": "None",
     "Counterattack": "None",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 29,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -408,13 +263,8 @@
   {
     "Name": "Lobbyists",
     "HP": "4",
-    "Cost": "4",
-    "TL": "0",
-    "Type": "Special Forces",
     "Attack": "CvC, Special",
     "Counterattack": "None",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 30,
     "AttackStats": "CvC",
     "AttackDice": "Special"
@@ -422,13 +272,8 @@
   {
     "Name": "Saboteurs",
     "HP": "6",
-    "Cost": "5",
-    "TL": "0",
-    "Type": "Special Forces",
     "Attack": "CvC, 2d4",
     "Counterattack": "None",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 31,
     "AttackStats": "CvC",
     "AttackDice": "2d4"
@@ -436,13 +281,8 @@
   {
     "Name": "Blackmail",
     "HP": "4",
-    "Cost": "4",
-    "TL": "0",
-    "Type": "Tactic",
     "Attack": "CvC, 1d6+1",
     "Counterattack": "None",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 32,
     "AttackStats": "CvC",
     "AttackDice": "1d6+1"
@@ -450,13 +290,8 @@
   {
     "Name": "Seductress",
     "HP": "4",
-    "Cost": "4",
-    "TL": "0",
-    "Type": "Special Forces",
     "Attack": "CvC, Special",
     "Counterattack": "None",
-    "Special": "A, S",
-    "Upkeep": "",
     "ID": 33,
     "AttackStats": "CvC",
     "AttackDice": "Special"
@@ -464,13 +299,8 @@
   {
     "Name": "Cyberninjas",
     "HP": "4",
-    "Cost": "6",
-    "TL": "4",
-    "Type": "Special Forces",
     "Attack": "CvC, 2d6",
     "Counterattack": "None",
-    "Special": "",
-    "Upkeep": "",
     "ID": 34,
     "AttackStats": "CvC",
     "AttackDice": "2d6"
@@ -478,13 +308,8 @@
   {
     "Name": "Stealth",
     "HP": "0",
-    "Cost": "3",
-    "TL": "0",
-    "Type": "Tactic",
     "Attack": "None",
     "Counterattack": "None",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 35,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -492,13 +317,8 @@
   {
     "Name": "Covert Shipping",
     "HP": "4",
-    "Cost": "8",
-    "TL": "4",
-    "Type": "Logistics Facility",
     "Attack": "None",
     "Counterattack": "None",
-    "Special": "A, S",
-    "Upkeep": "",
     "ID": 36,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -506,13 +326,8 @@
   {
     "Name": "Party Machine",
     "HP": "10",
-    "Cost": "10",
-    "TL": "0",
-    "Type": "Logistics Facility",
     "Attack": "CvC, 2d6",
     "Counterattack": "1d6",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 37,
     "AttackStats": "CvC",
     "AttackDice": "2d6"
@@ -520,13 +335,8 @@
   {
     "Name": "Vanguard Cadres",
     "HP": "12",
-    "Cost": "8",
-    "TL": "3",
-    "Type": "Military Unit",
     "Attack": "CvC, 1d6",
     "Counterattack": "1d6",
-    "Special": "",
-    "Upkeep": "",
     "ID": 38,
     "AttackStats": "CvC",
     "AttackDice": "1d6"
@@ -534,13 +344,8 @@
   {
     "Name": "Tripwire Cells",
     "HP": "8",
-    "Cost": "12",
-    "TL": "4",
-    "Type": "Special Forces",
     "Attack": "None",
     "Counterattack": "1d4",
-    "Special": "A, S",
-    "Upkeep": "",
     "ID": 39,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -548,13 +353,8 @@
   {
     "Name": "Seditionists",
     "HP": "8",
-    "Cost": "12",
-    "TL": "0",
-    "Type": "Special Forces",
     "Attack": "None",
     "Counterattack": "None",
-    "Special": "A",
-    "Upkeep": "",
     "ID": 40,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -562,13 +362,8 @@
   {
     "Name": "Organization Moles",
     "HP": "8",
-    "Cost": "10",
-    "TL": "0",
-    "Type": "Tactic",
     "Attack": "CvC, 2d6",
     "Counterattack": "None",
-    "Special": "",
-    "Upkeep": "",
     "ID": 41,
     "AttackStats": "CvC",
     "AttackDice": "2d6"
@@ -576,13 +371,8 @@
   {
     "Name": "Cracked Comms",
     "HP": "6",
-    "Cost": "14",
-    "TL": "0",
-    "Type": "Tactic",
     "Attack": "None",
     "Counterattack": "Special",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 42,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -590,13 +380,8 @@
   {
     "Name": "Boltholes",
     "HP": "6",
-    "Cost": "12",
-    "TL": "4",
-    "Type": "Logistics Facility",
     "Attack": "None",
     "Counterattack": "2d6",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 43,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -604,13 +389,8 @@
   {
     "Name": "Transport Lockdown",
     "HP": "10",
-    "Cost": "20",
-    "TL": "4",
-    "Type": "Tactic",
     "Attack": "CvC, Special",
     "Counterattack": "None",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 44,
     "AttackStats": "CvC",
     "AttackDice": "Special"
@@ -618,13 +398,8 @@
   {
     "Name": "Covert Transit Net",
     "HP": "15",
-    "Cost": "18",
-    "TL": "4",
-    "Type": "Logistics Facility",
     "Attack": "None",
     "Counterattack": "None",
-    "Special": "A",
-    "Upkeep": "",
     "ID": 45,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -632,13 +407,8 @@
   {
     "Name": "Demagogue",
     "HP": "10",
-    "Cost": "20",
-    "TL": "0",
-    "Type": "Special Forces",
     "Attack": "CvC, 2d8",
     "Counterattack": "1d8",
-    "Special": "",
-    "Upkeep": "",
     "ID": 46,
     "AttackStats": "CvC",
     "AttackDice": "2d8"
@@ -646,13 +416,8 @@
   {
     "Name": "Popular Movement",
     "HP": "16",
-    "Cost": "25",
-    "TL": "4",
-    "Type": "Tactic",
     "Attack": "CvC, 2d6",
     "Counterattack": "1d6",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 47,
     "AttackStats": "CvC",
     "AttackDice": "2d6"
@@ -660,13 +425,8 @@
   {
     "Name": "Book Of Secrets",
     "HP": "10",
-    "Cost": "20",
-    "TL": "4",
-    "Type": "Tactic",
     "Attack": "None",
     "Counterattack": "2d8",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 48,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -674,13 +434,8 @@
   {
     "Name": "Treachery",
     "HP": "5",
-    "Cost": "10",
-    "TL": "0",
-    "Type": "Tactic",
     "Attack": "CvC, Special",
     "Counterattack": "None",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 49,
     "AttackStats": "CvC",
     "AttackDice": "Special"
@@ -688,13 +443,8 @@
   {
     "Name": "Panopticon Matrix",
     "HP": "20",
-    "Cost": "30",
-    "TL": "5",
-    "Type": "Logistics Facility",
     "Attack": "None",
     "Counterattack": "1d6",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 50,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -702,13 +452,8 @@
   {
     "Name": "Security Personnel",
     "HP": "3",
-    "Cost": "2",
-    "TL": "0",
-    "Type": "Military Unit",
     "Attack": "FvF, 1d3+1",
     "Counterattack": "1d4",
-    "Special": "",
-    "Upkeep": "",
     "ID": 51,
     "AttackStats": "FvF",
     "AttackDice": "1d3+1"
@@ -716,13 +461,8 @@
   {
     "Name": "Hitmen",
     "HP": "1",
-    "Cost": "2",
-    "TL": "0",
-    "Type": "Special Forces",
     "Attack": "FvC, 1d6",
     "Counterattack": "None",
-    "Special": "",
-    "Upkeep": "",
     "ID": 52,
     "AttackStats": "FvC",
     "AttackDice": "1d6"
@@ -730,13 +470,8 @@
   {
     "Name": "Militia Unit",
     "HP": "4",
-    "Cost": "4",
-    "TL": "3",
-    "Type": "Military Unit",
     "Attack": "FvF, 1d6",
     "Counterattack": "1d4+1",
-    "Special": "P",
-    "Upkeep": "",
     "ID": 53,
     "AttackStats": "FvF",
     "AttackDice": "1d6"
@@ -744,13 +479,8 @@
   {
     "Name": "Base Of Influence",
     "HP": "1",
-    "Cost": "*",
-    "TL": "0",
-    "Type": "Special",
     "Attack": "None",
     "Counterattack": "None",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 54,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -758,13 +488,8 @@
   {
     "Name": "Heavy Drop Assets",
     "HP": "6",
-    "Cost": "4",
-    "TL": "4",
-    "Type": "Facility",
     "Attack": "None",
     "Counterattack": "None",
-    "Special": "A",
-    "Upkeep": "",
     "ID": 55,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -772,13 +497,8 @@
   {
     "Name": "Elite Skirmishers",
     "HP": "5",
-    "Cost": "5",
-    "TL": "4",
-    "Type": "Military Unit",
     "Attack": "FvF, 2d4",
     "Counterattack": "1d4+1",
-    "Special": "P",
-    "Upkeep": "",
     "ID": 56,
     "AttackStats": "FvF",
     "AttackDice": "2d4"
@@ -786,13 +506,8 @@
   {
     "Name": "Hardened Personnel",
     "HP": "4",
-    "Cost": "4",
-    "TL": "3",
-    "Type": "Special Forces",
     "Attack": "None",
     "Counterattack": "1d4+1",
-    "Special": "",
-    "Upkeep": "",
     "ID": 57,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -800,13 +515,8 @@
   {
     "Name": "Guerilla Populace",
     "HP": "6",
-    "Cost": "4",
-    "TL": "0",
-    "Type": "Military Unit",
     "Attack": "FvC, 1d4+1",
     "Counterattack": "None",
-    "Special": "",
-    "Upkeep": "",
     "ID": 58,
     "AttackStats": "FvC",
     "AttackDice": "1d4+1"
@@ -814,13 +524,8 @@
   {
     "Name": "Zealots",
     "HP": "4",
-    "Cost": "6",
-    "TL": "0",
-    "Type": "Special Forces",
     "Attack": "FvF, 2d6",
     "Counterattack": "2d6",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 59,
     "AttackStats": "FvF",
     "AttackDice": "2d6"
@@ -828,13 +533,8 @@
   {
     "Name": "Cunning Trap",
     "HP": "2",
-    "Cost": "5",
-    "TL": "0",
-    "Type": "Tactic",
     "Attack": "None",
     "Counterattack": "1d6+3",
-    "Special": "",
-    "Upkeep": "",
     "ID": 60,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -842,13 +542,8 @@
   {
     "Name": "Counterintel Unit",
     "HP": "4",
-    "Cost": "6",
-    "TL": "4",
-    "Type": "Special Forces",
     "Attack": "CvC, 1d4+1",
     "Counterattack": "1d6",
-    "Special": "",
-    "Upkeep": "",
     "ID": 61,
     "AttackStats": "CvC",
     "AttackDice": "1d4+1"
@@ -856,13 +551,8 @@
   {
     "Name": "Beachhead Landers",
     "HP": "10",
-    "Cost": "10",
-    "TL": "4",
-    "Type": "Facility",
     "Attack": "None",
     "Counterattack": "None",
-    "Special": "A",
-    "Upkeep": "",
     "ID": 62,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -870,13 +560,8 @@
   {
     "Name": "Extended Theater",
     "HP": "10",
-    "Cost": "10",
-    "TL": "4",
-    "Type": "Facility",
     "Attack": "None",
     "Counterattack": "None",
-    "Special": "A",
-    "Upkeep": "",
     "ID": 63,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -884,13 +569,8 @@
   {
     "Name": "Strike Fleet",
     "HP": "8",
-    "Cost": "12",
-    "TL": "4",
-    "Type": "Starship",
     "Attack": "FvF, 2d6",
     "Counterattack": "1d8",
-    "Special": "A",
-    "Upkeep": "",
     "ID": 64,
     "AttackStats": "FvF",
     "AttackDice": "2d6"
@@ -898,13 +578,8 @@
   {
     "Name": "Postech Infantry",
     "HP": "12",
-    "Cost": "8",
-    "TL": "4",
-    "Type": "Military Unit",
     "Attack": "FvF, 1d8",
     "Counterattack": "1d8",
-    "Special": "P",
-    "Upkeep": "",
     "ID": 65,
     "AttackStats": "FvF",
     "AttackDice": "1d8"
@@ -912,13 +587,8 @@
   {
     "Name": "Blockade Fleet",
     "HP": "8",
-    "Cost": "10",
-    "TL": "4",
-    "Type": "Starship",
     "Attack": "FvW, 1d6*",
     "Counterattack": "None",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 66,
     "AttackStats": "FvW",
     "AttackDice": "1d6*"
@@ -926,13 +596,8 @@
   {
     "Name": "Pretech Logistics",
     "HP": "6",
-    "Cost": "14",
-    "TL": "0",
-    "Type": "Facility",
     "Attack": "None",
     "Counterattack": "None",
-    "Special": "A",
-    "Upkeep": "",
     "ID": 67,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -940,13 +605,8 @@
   {
     "Name": "Psychic Assassins",
     "HP": "4",
-    "Cost": "12",
-    "TL": "4",
-    "Type": "Special Forces",
     "Attack": "CvC, 2d6+2",
     "Counterattack": "None",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 68,
     "AttackStats": "CvC",
     "AttackDice": "2d6+2"
@@ -954,13 +614,8 @@
   {
     "Name": "Pretech Infantry",
     "HP": "16",
-    "Cost": "20",
-    "TL": "5",
-    "Type": "Military Unit",
     "Attack": "FvF, 2d8",
     "Counterattack": "2d8+2",
-    "Special": "P",
-    "Upkeep": "",
     "ID": 69,
     "AttackStats": "FvF",
     "AttackDice": "2d8"
@@ -968,13 +623,8 @@
   {
     "Name": "Planetary Defenses",
     "HP": "20",
-    "Cost": "18",
-    "TL": "4",
-    "Type": "Facility",
     "Attack": "None",
     "Counterattack": "2d6+6 *",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 70,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -982,13 +632,8 @@
   {
     "Name": "Gravtank Formation",
     "HP": "14",
-    "Cost": "25",
-    "TL": "4",
-    "Type": "Military Unit",
     "Attack": "FvF, 2d10+4",
     "Counterattack": "1d10",
-    "Special": "P",
-    "Upkeep": "",
     "ID": 71,
     "AttackStats": "FvF",
     "AttackDice": "2d10+4"
@@ -996,13 +641,8 @@
   {
     "Name": "Deep Strike Landers",
     "HP": "10",
-    "Cost": "25",
-    "TL": "4",
-    "Type": "Facility",
     "Attack": "None",
     "Counterattack": "None",
-    "Special": "A",
-    "Upkeep": "",
     "ID": 72,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -1010,13 +650,8 @@
   {
     "Name": "Integral Protocols",
     "HP": "10",
-    "Cost": "20",
-    "TL": "5",
-    "Type": "Facility",
     "Attack": "None",
     "Counterattack": "2d8+2 *",
-    "Special": "S",
-    "Upkeep": "",
     "ID": 73,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -1024,13 +659,8 @@
   {
     "Name": "Space Marines",
     "HP": "16",
-    "Cost": "30",
-    "TL": "4",
-    "Type": "Military Unit",
     "Attack": "FVF, 2d8+2",
     "Counterattack": "2d8",
-    "Special": "A",
-    "Upkeep": "",
     "ID": 74,
     "AttackStats": "FVF",
     "AttackDice": "2d8+2"
@@ -1038,13 +668,8 @@
   {
     "Name": "Capital Fleet",
     "HP": "30",
-    "Cost": "40",
-    "TL": "4",
-    "Type": "Spaceship",
     "Attack": "FvF, 3d10+4",
     "Counterattack": "3d8",
-    "Special": "A, S",
-    "Upkeep": "",
     "ID": 75,
     "AttackStats": "FvF",
     "AttackDice": "3d10+4"
