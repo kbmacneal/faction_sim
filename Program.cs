@@ -40,7 +40,7 @@ namespace faction_sim
             int defending_id = 9;
 
             Console.WriteLine("CSV of the defending assets:");
-            string[] defending_ass = "3,3".Split(",");
+            string[] defending_ass = "75".Split(",");
 
             Console.WriteLine("Number of iterations:");
             int iterations = 5;
