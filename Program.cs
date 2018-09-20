@@ -6,6 +6,13 @@ using System.Linq;
 
 namespace faction_sim
 {
+
+    public class results
+    {
+        Classes.Assets.Asset asset{get;set;}
+        Classes.Assets.Asset most_damage{get;set;}
+        Classes.Assets.Asset most_threat{get;set;}
+    }
     class Program
     {
         public static Random rand = new Random();
@@ -21,7 +28,15 @@ namespace faction_sim
 
             members.Add(combatants[0],attacking_assets);
 
-            members.Add(combatants[0],defending_assets);
+            members.Add(combatants[1],defending_assets);
+        }
+
+        private static List<results> run_sim (Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>> members)
+        {
+            List<results> results = new List<results>();
+
+
+            return results;
         }
 
         private static List<int> get_ids (string path)

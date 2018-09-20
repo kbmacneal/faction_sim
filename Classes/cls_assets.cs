@@ -11,8 +11,8 @@ namespace faction_sim.Classes.Assets
 
     public partial class Asset
     {
-        [JsonProperty("Asset")]
-        public string AssetAsset { get; set; }
+        [JsonProperty("Name")]
+        public string Name { get; set; }
 
         [JsonProperty("HP")]
         public string Hp { get; set; }
@@ -41,6 +41,12 @@ namespace faction_sim.Classes.Assets
 
         [JsonProperty("ID")]
         public long Id { get; set; }
+
+        [JsonProperty("AttackStats")]
+        public string AttackStats { get; set; }
+
+        [JsonProperty("AttackDice")]
+        public string AttackDice { get; set; }
     }
 
     public enum Special { A, AS, ASP, Empty, P, S };
