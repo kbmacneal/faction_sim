@@ -30,35 +30,35 @@ namespace faction_sim
         public static Random rand = new Random();
         static void Main(string[] args)
         {
-            // Console.WriteLine("ID of the attacking faction:");
-            // int attacking_id = 8;
-
-            // Console.WriteLine("CSV of the attacking assets:");
-            // string[] attacking_ass = "75".Split(",");
-
-            // Console.WriteLine("ID of the defending faction:");
-            // int defending_id = 9;
-
-            // Console.WriteLine("CSV of the defending assets:");
-            // string[] defending_ass = "75".Split(",");
-
-            // Console.WriteLine("Number of iterations:");
-            // int iterations = 5;
-
             Console.WriteLine("ID of the attacking faction:");
-            int attacking_id = Convert.ToInt32(Console.ReadLine());
+            int attacking_id = 8;
 
             Console.WriteLine("CSV of the attacking assets:");
-            string[] attacking_ass = Console.ReadLine().Split(",");
+            string[] attacking_ass = "1,1".Split(",");
 
             Console.WriteLine("ID of the defending faction:");
-            int defending_id = Convert.ToInt32(Console.ReadLine());
+            int defending_id = 9;
 
             Console.WriteLine("CSV of the defending assets:");
-            string[] defending_ass = Console.ReadLine().Split(",");
+            string[] defending_ass = "3,3".Split(",");
 
             Console.WriteLine("Number of iterations:");
-            int iterations = Convert.ToInt32(Console.ReadLine());
+            int iterations = 5;
+
+            // Console.WriteLine("ID of the attacking faction:");
+            // int attacking_id = Convert.ToInt32(Console.ReadLine());
+
+            // Console.WriteLine("CSV of the attacking assets:");
+            // string[] attacking_ass = Console.ReadLine().Split(",");
+
+            // Console.WriteLine("ID of the defending faction:");
+            // int defending_id = Convert.ToInt32(Console.ReadLine());
+
+            // Console.WriteLine("CSV of the defending assets:");
+            // string[] defending_ass = Console.ReadLine().Split(",");
+
+            // Console.WriteLine("Number of iterations:");
+            // int iterations = Convert.ToInt32(Console.ReadLine());
 
 
             List<List<round>> results = new List<List<round>>();
@@ -80,15 +80,15 @@ namespace faction_sim
             System.IO.File.WriteAllText("results.json", Newtonsoft.Json.JsonConvert.SerializeObject(results));
         }
 
-        private static Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>> initialize_stacks(int attacking_id, int defending_id, string[] attacking_ass, string[] defending_ass)
+        private static Dictionary<Classes.Factions.Faction, List<Int32>> initialize_stacks(int attacking_id, int defending_id, string[] attacking_ass, string[] defending_ass)
         {
-            Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>> rtner = new Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>>();
+            Dictionary<Classes.Factions.Faction, List<Int32>> rtner = new Dictionary<Classes.Factions.Faction, List<Int32>>();
 
             List<Classes.Factions.Faction> combatants = initialize_factions(attacking_id, defending_id);
 
-            List<Classes.Assets.Asset> attacking_assets = initialize_assets(get_ids(attacking_ass).ToArray());
+            List<Int32> attacking_assets = get_ids(attacking_ass);
 
-            List<Classes.Assets.Asset> defending_assets = initialize_assets(get_ids(defending_ass).ToArray());
+            List<Int32> defending_assets = get_ids(defending_ass);
 
             rtner.Add(combatants[0], attacking_assets);
 
@@ -97,12 +97,12 @@ namespace faction_sim
             return rtner;
         }
 
-        private static List<round> run_sim(Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>> members)
+        private static List<round> run_sim(Dictionary<Classes.Factions.Faction, List<Int32>> members)
         {
             List<round> results = new List<round>();
 
-            List<Classes.Assets.Asset> attackers = members.First().Value;
-            List<Classes.Assets.Asset> defenders = members.Last().Value;
+            List<Classes.Assets.Asset> attackers = initialize_assets(members.First().Value.ToArray());
+            List<Classes.Assets.Asset> defenders = initialize_assets(members.Last().Value.ToArray());
 
             Faction attacking_faction = members.First().Key;
             Faction defending_faction = members.First().Key;
