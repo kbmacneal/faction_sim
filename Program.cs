@@ -34,13 +34,13 @@ namespace faction_sim
             int attacking_id = 8;
 
             Console.WriteLine("CSV of the attacking assets:");
-            string[] attacking_ass = "1,3".Split(",");
+            string[] attacking_ass = "3,3".Split(",");
 
             Console.WriteLine("ID of the defending faction:");
             int defending_id = 9;
 
             Console.WriteLine("CSV of the defending assets:");
-            string[] defending_ass = "1,3".Split(",");
+            string[] defending_ass = "1,1".Split(",");
 
             Console.WriteLine("Number of iterations:");
             int iterations = 100;
@@ -60,31 +60,26 @@ namespace faction_sim
             // Console.WriteLine("Number of iterations:");
             // int iterations = Convert.ToInt32(Console.ReadLine());
 
-            
+
             List<List<round>> results = new List<List<round>>();
-
-            Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>> stack = initialize_stacks(attacking_id,defending_id,attacking_ass,defending_ass);
-
-            System.IO.File.WriteAllText("stack.json",Newtonsoft.Json.JsonConvert.SerializeObject(stack));
 
             for (int i = 0; i < iterations; i++)
             {
-                
-                var result = run_sim(Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>> >(System.IO.File.ReadAllText("stack.json")));
+                var result = run_sim(initialize_stacks(attacking_id, defending_id, attacking_ass, defending_ass));
                 results.Add(result);
             }
 
-            if(System.IO.File.Exists("results.json"))
+            if (System.IO.File.Exists("results.json"))
             {
                 System.IO.File.Delete("results.json");
             }
 
-            System.IO.File.WriteAllText("results.json",Newtonsoft.Json.JsonConvert.SerializeObject(results));
+            System.IO.File.WriteAllText("results.json", Newtonsoft.Json.JsonConvert.SerializeObject(results));
         }
 
         private static Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>> initialize_stacks(int attacking_id, int defending_id, string[] attacking_ass, string[] defending_ass)
         {
-            Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>>  rtner = new Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>> ();
+            Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>> rtner = new Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>>();
 
             List<Classes.Factions.Faction> combatants = initialize_factions(attacking_id, defending_id);
 
@@ -109,28 +104,21 @@ namespace faction_sim
             Faction attacking_faction = members.First().Key;
             Faction defending_faction = members.First().Key;
 
-            do
+            List<Asset> eligible_defenders = defenders.Where(e => e.Hp > 0).ToList();            
+
+            foreach (var atk in attackers)
             {
-                List<Asset> eligible_attackers = attackers.Where(e=>e.Hp > 0 && e.AttackedAlready == false && e.AttackDice != "None").ToList();
-
-                List<Asset> eligible_defenders = defenders.Where(e=>e.Hp>0).ToList();
-
-                if(eligible_attackers.Count == 0)continue;
-
-                Asset rand_attacker = eligible_attackers.ToArray()[rand.Next(eligible_attackers.Count())];
-
                 Asset rand_defender = eligible_defenders.ToArray()[rand.Next(eligible_defenders.Count())];
-
-                round result = run_round(ref rand_attacker, ref rand_defender, attacking_faction, defending_faction);
+                round result = run_round(atk, rand_defender, attacking_faction, defending_faction);
 
                 results.Add(result);
             }
-            while((attackers.Where(e=>e.Hp > 0 && e.AttackedAlready == false && e.AttackDice != "None").Count()>0));
+
 
             return results;
         }
 
-        private static round run_round(ref Asset attacker, ref Asset defender, Faction atk_faction, Faction def_faction)
+        private static round run_round(Asset attacker, Asset defender, Faction atk_faction, Faction def_faction)
         {
             round rnd = new round();
 
