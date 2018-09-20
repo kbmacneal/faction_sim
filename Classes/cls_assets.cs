@@ -38,6 +38,9 @@ namespace faction_sim.Classes.Assets
 
         [JsonProperty("Upkeep")]
         public string Upkeep { get; set; }
+
+        [JsonProperty("ID")]
+        public long Id { get; set; }
     }
 
     public enum Special { A, AS, ASP, Empty, P, S };
