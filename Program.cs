@@ -43,7 +43,7 @@ namespace faction_sim
             string[] defending_ass = "1,1".Split(",");
 
             Console.WriteLine("Number of iterations:");
-            int iterations = 100;
+            int iterations = 5;
 
             // Console.WriteLine("ID of the attacking faction:");
             // int attacking_id = Convert.ToInt32(Console.ReadLine());
@@ -63,9 +63,12 @@ namespace faction_sim
 
             List<List<round>> results = new List<List<round>>();
 
+
+
             for (int i = 0; i < iterations; i++)
             {
-                var result = run_sim(initialize_stacks(attacking_id, defending_id, attacking_ass, defending_ass));
+                var stacks = initialize_stacks(attacking_id, defending_id, attacking_ass, defending_ass);
+                var result = run_sim(stacks);
                 results.Add(result);
             }
 
@@ -104,14 +107,27 @@ namespace faction_sim
             Faction attacking_faction = members.First().Key;
             Faction defending_faction = members.First().Key;
 
-            List<Asset> eligible_defenders = defenders.Where(e => e.Hp > 0).ToList();            
+
 
             foreach (var atk in attackers)
             {
-                Asset rand_defender = eligible_defenders.ToArray()[rand.Next(eligible_defenders.Count())];
-                round result = run_round(atk, rand_defender, attacking_faction, defending_faction);
+                List<Asset> eligible_defenders = defenders.Where(e => e.Hp > 0).ToList();
 
-                results.Add(result);
+                if (eligible_defenders.Count == 0)
+                {
+                    round result = run_round(atk, null, attacking_faction, defending_faction);
+
+                    results.Add(result);
+                }
+                else
+                {
+                    Asset rand_defender = eligible_defenders.ToArray()[rand.Next(eligible_defenders.Count())];
+                    round result = run_round(atk, rand_defender, attacking_faction, defending_faction);
+
+                    results.Add(result);
+                }
+
+
             }
 
 
@@ -128,12 +144,23 @@ namespace faction_sim
 
             rnd.defending_asset = defender;
 
-            if (attacker.AttackStats == "None" || attacker.Hp == 0)
+            if (defender == null)
             {
-                rnd.damage = 0;
+                string[] vs_roll = attacker.AttackStats.Split("v");
+
+                long atk_mod = (long)helpers.GetPropValue(atk_faction, short_to_long[vs_roll[0]]);
+
+                string atk_roll = "1d10+" + atk_mod.ToString();
+
+                int atk_result = roller.Roll(atk_roll).Sum();
+                rnd.atk_roll = atk_result;
+
+                rnd.atk_success = true;
+
+                rnd.damage = roller.Roll(attacker.AttackDice).Sum();
+
                 rnd.counter_damage = 0;
-                rnd.atk_success = false;
-                rnd.atk_success = false;
+
                 return rnd;
             }
             else
@@ -200,7 +227,12 @@ namespace faction_sim
 
             List<Classes.Assets.Asset> master_list = Classes.Assets.Asset.FromJson(System.IO.File.ReadAllText("assets.json")).ToList();
 
-            ids.ToList().ForEach(e => rtner.Add(master_list.First(f => f.Id == e)));
+            foreach (int id in ids)
+            {
+                Asset asset = new Asset();
+                asset = master_list.First(f => f.Id == id);
+                rtner.Add(asset);
+            }
 
             return rtner;
         }
