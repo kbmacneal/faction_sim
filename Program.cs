@@ -31,19 +31,33 @@ namespace faction_sim
         static void Main(string[] args)
         {
             Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>> members = new Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>>();
+            Console.WriteLine("ID of the attacking faction:");
+            int attacking_id = Convert.ToInt32(Console.ReadLine());
 
-            List<Classes.Factions.Faction> combatants = initialize_factions(8, 9);
+            Console.WriteLine("CSV of the attacking assets:");
+            string[] attacking_ass = Console.ReadLine().Split(",");
 
-            List<Classes.Assets.Asset> attacking_assets = initialize_assets(get_ids("atk.txt").ToArray());
+            Console.WriteLine("ID of the defending faction:");
+            int defending_id = Convert.ToInt32(Console.ReadLine());
 
-            List<Classes.Assets.Asset> defending_assets = initialize_assets(get_ids("def.txt").ToArray());
+            Console.WriteLine("CSV of the defending assets:");
+            string[] defending_ass = Console.ReadLine().Split(",");
+
+            Console.WriteLine("Number of iterations:");
+            int iterations = Convert.ToInt32(Console.ReadLine());
+
+            List<Classes.Factions.Faction> combatants = initialize_factions(attacking_id, defending_id);
+
+            List<Classes.Assets.Asset> attacking_assets = initialize_assets(get_ids(attacking_ass).ToArray());
+
+            List<Classes.Assets.Asset> defending_assets = initialize_assets(get_ids(defending_ass).ToArray());
 
             members.Add(combatants[0], attacking_assets);
 
             members.Add(combatants[1], defending_assets);
             List<List<round>> results = new List<List<round>>();
 
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < iterations; i++)
             {
                 results.Add(run_sim(members));
             }
@@ -146,13 +160,11 @@ namespace faction_sim
 
         }
 
-        private static List<int> get_ids(string path)
+        private static List<int> get_ids(string[] assets)
         {
             List<int> rtner = new List<int>();
 
-            string[] content = System.IO.File.ReadAllLines(path);
-
-            content.ToList().ForEach(e => rtner.Add(Convert.ToInt32(e)));
+            assets.ToList().ForEach(e => rtner.Add(Convert.ToInt32(e)));
 
 
             return rtner;

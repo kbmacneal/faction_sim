@@ -1,0 +1,1 @@
+allows for rolling of any number of scenarios for the FV faction turn
