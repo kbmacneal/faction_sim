@@ -30,36 +30,48 @@ namespace faction_sim
         public static Random rand = new Random();
         static void Main(string[] args)
         {
-            Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>> members = new Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>>();
             Console.WriteLine("ID of the attacking faction:");
-            int attacking_id = Convert.ToInt32(Console.ReadLine());
+            int attacking_id = 8;
 
             Console.WriteLine("CSV of the attacking assets:");
-            string[] attacking_ass = Console.ReadLine().Split(",");
+            string[] attacking_ass = "1,3".Split(",");
 
             Console.WriteLine("ID of the defending faction:");
-            int defending_id = Convert.ToInt32(Console.ReadLine());
+            int defending_id = 9;
 
             Console.WriteLine("CSV of the defending assets:");
-            string[] defending_ass = Console.ReadLine().Split(",");
+            string[] defending_ass = "1,3".Split(",");
 
             Console.WriteLine("Number of iterations:");
-            int iterations = Convert.ToInt32(Console.ReadLine());
+            int iterations = 100;
 
-            List<Classes.Factions.Faction> combatants = initialize_factions(attacking_id, defending_id);
+            // Console.WriteLine("ID of the attacking faction:");
+            // int attacking_id = Convert.ToInt32(Console.ReadLine());
 
-            List<Classes.Assets.Asset> attacking_assets = initialize_assets(get_ids(attacking_ass).ToArray());
+            // Console.WriteLine("CSV of the attacking assets:");
+            // string[] attacking_ass = Console.ReadLine().Split(",");
 
-            List<Classes.Assets.Asset> defending_assets = initialize_assets(get_ids(defending_ass).ToArray());
+            // Console.WriteLine("ID of the defending faction:");
+            // int defending_id = Convert.ToInt32(Console.ReadLine());
 
-            members.Add(combatants[0], attacking_assets);
+            // Console.WriteLine("CSV of the defending assets:");
+            // string[] defending_ass = Console.ReadLine().Split(",");
 
-            members.Add(combatants[1], defending_assets);
+            // Console.WriteLine("Number of iterations:");
+            // int iterations = Convert.ToInt32(Console.ReadLine());
+
+            
             List<List<round>> results = new List<List<round>>();
+
+            Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>> stack = initialize_stacks(attacking_id,defending_id,attacking_ass,defending_ass);
+
+            System.IO.File.WriteAllText("stack.json",Newtonsoft.Json.JsonConvert.SerializeObject(stack));
 
             for (int i = 0; i < iterations; i++)
             {
-                results.Add(run_sim(members));
+                
+                var result = run_sim(Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>> >(System.IO.File.ReadAllText("stack.json")));
+                results.Add(result);
             }
 
             if(System.IO.File.Exists("results.json"))
@@ -68,6 +80,23 @@ namespace faction_sim
             }
 
             System.IO.File.WriteAllText("results.json",Newtonsoft.Json.JsonConvert.SerializeObject(results));
+        }
+
+        private static Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>> initialize_stacks(int attacking_id, int defending_id, string[] attacking_ass, string[] defending_ass)
+        {
+            Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>>  rtner = new Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>> ();
+
+            List<Classes.Factions.Faction> combatants = initialize_factions(attacking_id, defending_id);
+
+            List<Classes.Assets.Asset> attacking_assets = initialize_assets(get_ids(attacking_ass).ToArray());
+
+            List<Classes.Assets.Asset> defending_assets = initialize_assets(get_ids(defending_ass).ToArray());
+
+            rtner.Add(combatants[0], attacking_assets);
+
+            rtner.Add(combatants[1], defending_assets);
+
+            return rtner;
         }
 
         private static List<round> run_sim(Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>> members)
@@ -80,16 +109,23 @@ namespace faction_sim
             Faction attacking_faction = members.First().Key;
             Faction defending_faction = members.First().Key;
 
-            while(attackers.Where(e=>e.Hp>0 && e.AttackedAlready == false && e.AttackDice != "None").Count()>0)
+            do
             {
-                Asset rand_attacker = attackers.Where(e=>e.Hp>0 && e.AttackedAlready == false && e.AttackDice != "None").ToArray()[rand.Next(attackers.Where(e=>e.Hp>0 && e.AttackedAlready == false && e.AttackDice != "None").Count())];
+                List<Asset> eligible_attackers = attackers.Where(e=>e.Hp > 0 && e.AttackedAlready == false && e.AttackDice != "None").ToList();
 
-                Asset rand_defender = defenders.Where(e=>e.Hp>0).ToArray()[rand.Next(defenders.Where(e=>e.Hp>0).Count())];
+                List<Asset> eligible_defenders = defenders.Where(e=>e.Hp>0).ToList();
+
+                if(eligible_attackers.Count == 0)continue;
+
+                Asset rand_attacker = eligible_attackers.ToArray()[rand.Next(eligible_attackers.Count())];
+
+                Asset rand_defender = eligible_defenders.ToArray()[rand.Next(eligible_defenders.Count())];
 
                 round result = run_round(ref rand_attacker, ref rand_defender, attacking_faction, defending_faction);
 
                 results.Add(result);
             }
+            while((attackers.Where(e=>e.Hp > 0 && e.AttackedAlready == false && e.AttackDice != "None").Count()>0));
 
             return results;
         }
