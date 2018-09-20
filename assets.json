@@ -43,7 +43,7 @@
   },
   {
     "Name": "Base Of Influence",
-    "HP": "*",
+    "HP": "1",
     "Cost": "*",
     "TL": "0",
     "Type": "Special",
@@ -393,7 +393,7 @@
   },
   {
     "Name": "Base Of Influence",
-    "HP": "*",
+    "HP": "1",
     "Cost": "*",
     "TL": "0",
     "Type": "Special",
@@ -743,7 +743,7 @@
   },
   {
     "Name": "Base Of Influence",
-    "HP": "*",
+    "HP": "1",
     "Cost": "*",
     "TL": "0",
     "Type": "Special",
