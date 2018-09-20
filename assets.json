@@ -477,7 +477,7 @@
   },
   {
     "Name": "Stealth",
-    "HP": "-",
+    "HP": "0",
     "Cost": "3",
     "TL": "0",
     "Type": "Tactic",

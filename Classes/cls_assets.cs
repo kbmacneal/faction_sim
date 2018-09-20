@@ -15,7 +15,7 @@ namespace faction_sim.Classes.Assets
         public string Name { get; set; }
 
         [JsonProperty("HP")]
-        public int Hp { get; set; }
+        public long Hp { get; set; }
 
         [JsonProperty("Cost")]
         public string Cost { get; set; }

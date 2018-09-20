@@ -32,11 +32,11 @@ namespace faction_sim
         {
             Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>> members = new Dictionary<Classes.Factions.Faction, List<Classes.Assets.Asset>>();
 
-            List<Classes.Factions.Faction> combatants = initialize_factions(Convert.ToInt32(args[0]), Convert.ToInt32(args[1]));
+            List<Classes.Factions.Faction> combatants = initialize_factions(8, 9);
 
-            List<Classes.Assets.Asset> attacking_assets = initialize_assets(get_ids("1.txt").ToArray());
+            List<Classes.Assets.Asset> attacking_assets = initialize_assets(get_ids("atk.txt").ToArray());
 
-            List<Classes.Assets.Asset> defending_assets = initialize_assets(get_ids("2.txt").ToArray());
+            List<Classes.Assets.Asset> defending_assets = initialize_assets(get_ids("def.txt").ToArray());
 
             members.Add(combatants[0], attacking_assets);
 
@@ -66,9 +66,9 @@ namespace faction_sim
             Faction attacking_faction = members.First().Key;
             Faction defending_faction = members.First().Key;
 
-            while(attackers.Where(e=>e.Hp>0 && e.AttackedAlready == false).Count()>0)
+            while(attackers.Where(e=>e.Hp>0 && e.AttackedAlready == false && e.AttackDice != "None").Count()>0)
             {
-                Asset rand_attacker = attackers.Where(e=>e.Hp>0 && e.AttackedAlready == false).ToArray()[rand.Next(attackers.Where(e=>e.Hp>0 && e.AttackedAlready == false).Count())];
+                Asset rand_attacker = attackers.Where(e=>e.Hp>0 && e.AttackedAlready == false && e.AttackDice != "None").ToArray()[rand.Next(attackers.Where(e=>e.Hp>0 && e.AttackedAlready == false && e.AttackDice != "None").Count())];
 
                 Asset rand_defender = defenders.Where(e=>e.Hp>0).ToArray()[rand.Next(defenders.Where(e=>e.Hp>0).Count())];
 
@@ -90,7 +90,7 @@ namespace faction_sim
 
             rnd.defending_asset = defender;
 
-            if (attacker.AttackStats == "None" | attacker.Hp == 0)
+            if (attacker.AttackStats == "None" || attacker.Hp == 0)
             {
                 rnd.damage = 0;
                 rnd.counter_damage = 0;
@@ -102,13 +102,13 @@ namespace faction_sim
             {
                 string[] vs_roll = attacker.AttackStats.Split("v");
 
-                int atk_mod = (int)helpers.GetPropValue(atk_faction, short_to_long[vs_roll[0]]);
+                long atk_mod = (long)helpers.GetPropValue(atk_faction, short_to_long[vs_roll[0]]);
 
-                int def_mod = (int)helpers.GetPropValue(def_faction, short_to_long[vs_roll[1]]);
+                long def_mod = (long)helpers.GetPropValue(def_faction, short_to_long[vs_roll[1]]);
 
-                string atk_roll = "1d10" + atk_mod.ToString();
+                string atk_roll = "1d10+" + atk_mod.ToString();
 
-                string def_roll = "1d10" + def_mod.ToString();
+                string def_roll = "1d10+" + def_mod.ToString();
 
                 int atk_result = roller.Roll(atk_roll).Sum();
                 rnd.atk_roll = atk_result;
