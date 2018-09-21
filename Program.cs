@@ -8,11 +8,13 @@ using faction_sim.Classes.Factions;
 
 namespace faction_sim
 {
-    public class results
+    public class result
     {
         public Classes.Assets.Asset asset { get; set; }
-        public Classes.Assets.Asset most_damage { get; set; }
-        public Classes.Assets.Asset most_threat { get; set; }
+        public int iterations{get;set;}
+        public int avg_damage{get;set;}
+        public int chance_of_death{get;set;}
+        public int hit_chance {get;set;}
     }
 
     public class round
@@ -30,19 +32,10 @@ namespace faction_sim
         public static Random rand = new Random();
         static void Main(string[] args)
         {
-            // Console.WriteLine("ID of the attacking faction:");
             // int attacking_id = 8;
-
-            // Console.WriteLine("CSV of the attacking assets:");
-            // string[] attacking_ass = "1,1,1".Split(",");
-
-            // Console.WriteLine("ID of the defending faction:");
+            // string[] attacking_ass = "1,2,3,4".Split(",");
             // int defending_id = 9;
-
-            // Console.WriteLine("CSV of the defending assets:");
-            // string[] defending_ass = "2,2,2,2,2".Split(",");
-
-            // Console.WriteLine("Number of iterations:");
+            // string[] defending_ass = "75,74,73".Split(",");
             // int iterations = 10;
 
             Console.WriteLine("ID of the attacking faction:");
@@ -80,6 +73,46 @@ namespace faction_sim
             System.IO.File.WriteAllText("results.json", Newtonsoft.Json.JsonConvert.SerializeObject(results));
         }
 
+        private static List<result> get_results(int[] assets, int iterations)
+        {
+            List<result> rtner = new List<result>();
+
+            List<List<round>> results  = Newtonsoft.Json.JsonConvert.DeserializeObject<List<List<round>>>((System.IO.File.ReadAllText("results.json")));
+
+            foreach (var item in assets)
+            {
+                result result = new result();
+                Asset asset = get_asset(item);
+                result.asset=asset;
+
+                int total_damage = 0;
+                int total_successes = 0;
+                int total_attacks = 0;
+                int total_deaths = 0;
+
+                //chance of death
+                //hit chance
+
+                foreach (var round in results)
+                {
+                    if(round.Where(e=>e.attacking_asset.Name == asset.Name).Count() > 0)
+                    {
+                        total_damage += round.Select(e=>e.damage).Sum();
+                        total_successes += round.Where(e=>e.atk_success).Count();
+                    }
+                }
+
+                result.avg_damage = total_damage / total_successes;
+
+                rtner.Add(result);
+
+            }
+
+            return rtner;
+
+        }
+
+
         private static Dictionary<Classes.Factions.Faction, List<Int32>> initialize_stacks(int attacking_id, int defending_id, string[] attacking_ass, string[] defending_ass)
         {
             Dictionary<Classes.Factions.Faction, List<Int32>> rtner = new Dictionary<Classes.Factions.Faction, List<Int32>>();
@@ -112,6 +145,8 @@ namespace faction_sim
             {
                 var atk = get_asset(id);
                 List<Asset> eligible_defenders = defenders.Where(e => e.Hp > 0).ToList();
+
+                if(atk.AttackStats=="None")continue;
 
                 if (eligible_defenders.Count == 0)
                 {
@@ -166,6 +201,8 @@ namespace faction_sim
             else
             {
                 string[] vs_roll = attacker.AttackStats.Split("v");
+
+                // if(vs_roll[0]=="None")continue;
 
                 long atk_mod = (long)helpers.GetPropValue(atk_faction, short_to_long[vs_roll[0]]);
 
@@ -253,6 +290,11 @@ namespace faction_sim
             rtner.Add(master_list.First(e => e.Id == faction_defend));
 
             return rtner;
+        }
+
+        private static void generate_stats()
+        {
+
         }
 
         private static Dictionary<string, string> short_to_long = new Dictionary<string, string>{

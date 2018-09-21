@@ -587,11 +587,11 @@
   {
     "Name": "Blockade Fleet",
     "HP": "8",
-    "Attack": "FvW, 1d6*",
+    "Attack": "FvW, 1d6",
     "Counterattack": "None",
     "ID": 66,
     "AttackStats": "FvW",
-    "AttackDice": "1d6*"
+    "AttackDice": "1d6"
   },
   {
     "Name": "Pretech Logistics",
@@ -624,7 +624,7 @@
     "Name": "Planetary Defenses",
     "HP": "20",
     "Attack": "None",
-    "Counterattack": "2d6+6 *",
+    "Counterattack": "2d6+6",
     "ID": 70,
     "AttackStats": "None",
     "AttackDice": "None"
@@ -651,7 +651,7 @@
     "Name": "Integral Protocols",
     "HP": "10",
     "Attack": "None",
-    "Counterattack": "2d8+2 *",
+    "Counterattack": "2d8+2",
     "ID": 73,
     "AttackStats": "None",
     "AttackDice": "None"
