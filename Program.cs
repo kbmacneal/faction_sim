@@ -1,4 +1,10 @@
-﻿using System;
+﻿//TODO
+//average counter damage taken
+//average attacking faction damage
+//average defending faction damage
+//attacker/defender rerolls
+
+using System;
 using faction_sim.Classes;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,13 +17,13 @@ namespace faction_sim
     public class result
     {
         public Classes.Assets.Asset asset { get; set; }
-        public int iterations{get;set;}
-        public int avg_damage{get;set;}
-        public string chance_of_death{get;set;}
-        public string hit_chance {get;set;}
-        public int total_damage{get;set;}
-        public int total_deaths{get;set;}
-        public int total_successes{get;set;}
+        public int iterations { get; set; }
+        public int avg_damage { get; set; }
+        public string chance_of_death { get; set; }
+        public string hit_chance { get; set; }
+        public int total_damage { get; set; }
+        public int total_deaths { get; set; }
+        public int total_successes { get; set; }
     }
 
     public class round
@@ -29,7 +35,7 @@ namespace faction_sim
         public int def_roll { get; set; }
         public int damage { get; set; }
         public int counter_damage { get; set; }
-        
+
     }
     class Program
     {
@@ -76,7 +82,7 @@ namespace faction_sim
 
             System.IO.File.WriteAllText("results.json", Newtonsoft.Json.JsonConvert.SerializeObject(results));
 
-            var stats = get_results(results, get_ids(attacking_ass).ToArray(),iterations);
+            var stats = get_results(results, get_ids(attacking_ass).ToArray(), iterations);
 
             System.IO.File.WriteAllText("stats.json", Newtonsoft.Json.JsonConvert.SerializeObject(stats));
         }
@@ -89,7 +95,7 @@ namespace faction_sim
             {
                 result result = new result();
                 Asset asset = get_asset(item);
-                result.asset=asset;
+                result.asset = asset;
 
                 int total_damage = 0;
                 int total_successes = 0;
@@ -97,22 +103,23 @@ namespace faction_sim
 
                 foreach (var round in results)
                 {
-                    if(round.Where(e=>e.attacking_asset.Name == asset.Name).Count() > 0)
+                    if (round.Where(e => e.attacking_asset.Name == asset.Name).Count() > 0)
                     {
-                        total_damage += round.Where(e=>e.attacking_asset.Name == asset.Name).Select(e=>e.damage).Sum();
-                        total_successes += round.Where(e=>e.attacking_asset.Name == asset.Name).Where(e=>e.atk_success).Count();
-                        total_deaths += round.Where(e=>e.attacking_asset.Name == asset.Name).Where(e=>e.attacking_asset.Hp<=0).Count();
+                        total_damage += round.Where(e => e.attacking_asset.Name == asset.Name).Select(e => e.damage).Sum();
+                        total_successes += round.Where(e => e.attacking_asset.Name == asset.Name).Where(e => e.atk_success).Count();
+                        total_deaths += round.Where(e => e.attacking_asset.Name == asset.Name).Where(e => e.attacking_asset.Hp <= 0).Count();
                     }
                 }
 
-                if(total_successes!=0)
+                if (total_successes != 0)
                 {
                     result.avg_damage = total_damage / total_successes;
                 }
-                else{
+                else
+                {
                     result.avg_damage = 0;
                 }
-                
+
                 result.total_damage = total_damage;
                 result.total_deaths = total_deaths;
                 result.total_successes = total_successes;
@@ -130,6 +137,7 @@ namespace faction_sim
             //average counter damage taken
             //average attacking faction damage
             //average defending faction damage
+            //attacker/defender rerolls
 
             return rtner;
 
@@ -169,7 +177,7 @@ namespace faction_sim
                 var atk = get_asset(id);
                 List<Asset> eligible_defenders = defenders.Where(e => e.Hp > 0).ToList();
 
-                if(atk.AttackStats=="None")continue;
+                if (atk.AttackStats == "None") continue;
 
                 if (eligible_defenders.Count == 0)
                 {
@@ -283,7 +291,7 @@ namespace faction_sim
 
         private static Asset get_asset(int id)
         {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<List<Asset>>(System.IO.File.ReadAllText("assets.json")).First(x=>x.Id == id);
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<List<Asset>>(System.IO.File.ReadAllText("assets.json")).First(x => x.Id == id);
         }
 
         private static List<Classes.Assets.Asset> initialize_assets(int[] ids)
@@ -313,11 +321,6 @@ namespace faction_sim
             rtner.Add(master_list.First(e => e.Id == faction_defend));
 
             return rtner;
-        }
-
-        private static void generate_stats()
-        {
-
         }
 
         private static Dictionary<string, string> short_to_long = new Dictionary<string, string>{
