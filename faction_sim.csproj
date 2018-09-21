@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-  <None Include="assets.json" CopyToPublishDirectory="Always" />
-  <None Include="factions.json" CopyToPublishDirectory="Always" />
+  <None Include="assets.*" CopyToPublishDirectory="Always" />
+  <None Include="factions.*" CopyToPublishDirectory="Always" />
 </ItemGroup>
 
 </Project>

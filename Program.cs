@@ -3,6 +3,7 @@
 //average attacking faction damage
 //average defending faction damage
 //attacker/defender rerolls
+//average damage per swing
 
 using System;
 using faction_sim.Classes;
@@ -249,7 +250,7 @@ namespace faction_sim
                 int def_result = roller.Roll(def_roll).Sum();
                 rnd.def_roll = def_result;
 
-                if (atk_result > def_result)
+                if (atk_result >= def_result)
                 {
                     rnd.atk_success = true;
 
@@ -257,7 +258,8 @@ namespace faction_sim
                     defender.Hp = defender.Hp - rnd.damage;
                     rnd.counter_damage = 0;
                 }
-                else
+
+                if (def_result >= atk_result)
                 {
                     rnd.atk_success = false;
                     rnd.damage = 0;
@@ -270,7 +272,6 @@ namespace faction_sim
                         rnd.counter_damage = roller.Roll(defender.Counterattack).Sum();
                         attacker.Hp = attacker.Hp - rnd.counter_damage;
                     }
-
                 }
 
                 return rnd;

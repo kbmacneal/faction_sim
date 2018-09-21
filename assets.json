@@ -438,7 +438,7 @@
     "Counterattack": "None",
     "ID": 49,
     "AttackStats": "CvC",
-    "AttackDice": "Special"
+    "AttackDice": "1d2+1000"
   },
   {
     "Name": "Panopticon Matrix",
