@@ -32,26 +32,26 @@ namespace faction_sim
         public static Random rand = new Random();
         static void Main(string[] args)
         {
-            int attacking_id = 8;
-            string[] attacking_ass = "75,74,73".Split(",");
-            int defending_id = 9;
-            string[] defending_ass = "8,9,10,11,12".Split(",");
-            int iterations = 1000000;
+            // int attacking_id = 8;
+            // string[] attacking_ass = "75,74,73".Split(",");
+            // int defending_id = 9;
+            // string[] defending_ass = "8,9,10,11,12".Split(",");
+            // int iterations = 1000000;
 
-            // Console.WriteLine("ID of the attacking faction:");
-            // int attacking_id = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("ID of the attacking faction:");
+            int attacking_id = Convert.ToInt32(Console.ReadLine());
 
-            // Console.WriteLine("CSV of the attacking assets:");
-            // string[] attacking_ass = Console.ReadLine().Split(",");
+            Console.WriteLine("CSV of the attacking assets:");
+            string[] attacking_ass = Console.ReadLine().Split(",");
 
-            // Console.WriteLine("ID of the defending faction:");
-            // int defending_id = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("ID of the defending faction:");
+            int defending_id = Convert.ToInt32(Console.ReadLine());
 
-            // Console.WriteLine("CSV of the defending assets:");
-            // string[] defending_ass = Console.ReadLine().Split(",");
+            Console.WriteLine("CSV of the defending assets:");
+            string[] defending_ass = Console.ReadLine().Split(",");
 
-            // Console.WriteLine("Number of iterations:");
-            // int iterations = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Number of iterations:");
+            int iterations = Convert.ToInt32(Console.ReadLine());
 
 
             List<List<round>> results = new List<List<round>>();
@@ -72,16 +72,14 @@ namespace faction_sim
 
             System.IO.File.WriteAllText("results.json", Newtonsoft.Json.JsonConvert.SerializeObject(results));
 
-            var stats = get_results(get_ids(attacking_ass).ToArray(),iterations);
+            var stats = get_results(results, get_ids(attacking_ass).ToArray(),iterations);
 
             System.IO.File.WriteAllText("stats.json", Newtonsoft.Json.JsonConvert.SerializeObject(stats));
         }
 
-        private static List<result> get_results(int[] assets, int iterations)
+        private static List<result> get_results(List<List<round>> results, int[] assets, int iterations)
         {
             List<result> rtner = new List<result>();
-
-            List<List<round>> results  = Newtonsoft.Json.JsonConvert.DeserializeObject<List<List<round>>>((System.IO.File.ReadAllText("results.json")));
 
             foreach (var item in assets)
             {
