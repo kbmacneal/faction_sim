@@ -659,10 +659,10 @@
   {
     "Name": "Space Marines",
     "HP": "16",
-    "Attack": "FVF, 2d8+2",
+    "Attack": "FvF, 2d8+2",
     "Counterattack": "2d8",
     "ID": 74,
-    "AttackStats": "FVF",
+    "AttackStats": "FvF",
     "AttackDice": "2d8+2"
   },
   {
