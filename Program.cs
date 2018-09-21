@@ -370,6 +370,12 @@ namespace faction_sim
                 {
                     return false;
                 }
+                if(faction.AlwaysRerollAtk)
+                {
+                    faction.NumAttackerRerolls--;
+                    asset.AttackerReroll = true;
+                    return true;
+                }
                 if (rand.Next(2) == 1)
                 {
                     faction.NumAttackerRerolls--;
@@ -383,6 +389,12 @@ namespace faction_sim
                 if(faction.NumDefenderRerolls <= 0)
                 {
                     return false;
+                }
+                if(faction.AlwaysRerollDef)
+                {
+                    faction.NumDefenderRerolls--;
+                    asset.DefenderReroll = true;
+                    return true;
                 }
                 if (rand.Next(2) == 1)
                 {

@@ -12,7 +12,9 @@
     "AttackerRerolled": false,
     "DefenderRerolled": false,
     "NumAttackerRerolls": 0,
-    "NumDefenderRerolls": 0
+    "NumDefenderRerolls": 0,
+    "AlwaysRerollAtk": false,
+    "AlwaysRerollDef": false
   },
   {
     "Faction Name": "House Fornax",
@@ -27,7 +29,9 @@
     "AttackerRerolled": false,
     "DefenderRerolled": false,
     "NumAttackerRerolls": 0,
-    "NumDefenderRerolls": 0
+    "NumDefenderRerolls": 0,
+    "AlwaysRerollAtk": false,
+    "AlwaysRerollDef": false
   },
   {
     "Faction Name": "House Vela",
@@ -42,7 +46,9 @@
     "AttackerRerolled": false,
     "DefenderRerolled": false,
     "NumAttackerRerolls": 0,
-    "NumDefenderRerolls": 0
+    "NumDefenderRerolls": 0,
+    "AlwaysRerollAtk": false,
+    "AlwaysRerollDef": false
   },
   {
     "Faction Name": "The Houses Minor",
@@ -57,7 +63,9 @@
     "AttackerRerolled": false,
     "DefenderRerolled": false,
     "NumAttackerRerolls": 0,
-    "NumDefenderRerolls": 0
+    "NumDefenderRerolls": 0,
+    "AlwaysRerollAtk": false,
+    "AlwaysRerollDef": false
   },
   {
     "Faction Name": "\"House\" Vagrant",
@@ -72,7 +80,9 @@
     "AttackerRerolled": false,
     "DefenderRerolled": false,
     "NumAttackerRerolls": 0,
-    "NumDefenderRerolls": 0
+    "NumDefenderRerolls": 0,
+    "AlwaysRerollAtk": false,
+    "AlwaysRerollDef": false
   },
   {
     "Faction Name": "14 Red Dogs Triad",
@@ -87,7 +97,9 @@
     "AttackerRerolled": false,
     "DefenderRerolled": false,
     "NumAttackerRerolls": 0,
-    "NumDefenderRerolls": 0
+    "NumDefenderRerolls": 0,
+    "AlwaysRerollAtk": false,
+    "AlwaysRerollDef": false
   },
   {
     "Faction Name": "The Deathless",
@@ -102,7 +114,9 @@
     "AttackerRerolled": false,
     "DefenderRerolled": false,
     "NumAttackerRerolls": 0,
-    "NumDefenderRerolls": 0
+    "NumDefenderRerolls": 0,
+    "AlwaysRerollAtk": false,
+    "AlwaysRerollDef": false
   },
   {
     "Faction Name": "The High Church of Messiah-as-Emperox",
@@ -117,7 +131,9 @@
     "AttackerRerolled": false,
     "DefenderRerolled": false,
     "NumAttackerRerolls": 0,
-    "NumDefenderRerolls": 0
+    "NumDefenderRerolls": 0,
+    "AlwaysRerollAtk": false,
+    "AlwaysRerollDef": false
   },
   {
     "Faction Name": "The Church of Humanity, Repentant",
@@ -132,7 +148,9 @@
     "AttackerRerolled": false,
     "DefenderRerolled": false,
     "NumAttackerRerolls": 0,
-    "NumDefenderRerolls": 0
+    "NumDefenderRerolls": 0,
+    "AlwaysRerollAtk": false,
+    "AlwaysRerollDef": false
   },
   {
     "Faction Name": "The Prism Network",
@@ -147,7 +165,9 @@
     "AttackerRerolled": false,
     "DefenderRerolled": false,
     "NumAttackerRerolls": 0,
-    "NumDefenderRerolls": 0
+    "NumDefenderRerolls": 0,
+    "AlwaysRerollAtk": false,
+    "AlwaysRerollDef": false
   },
   {
     "Faction Name": "The Unified People’s Collective",
@@ -162,7 +182,9 @@
     "AttackerRerolled": false,
     "DefenderRerolled": false,
     "NumAttackerRerolls": 0,
-    "NumDefenderRerolls": 0
+    "NumDefenderRerolls": 0,
+    "AlwaysRerollAtk": false,
+    "AlwaysRerollDef": false
   },
   {
     "Faction Name": "ACRE",
@@ -177,7 +199,9 @@
     "AttackerRerolled": false,
     "DefenderRerolled": false,
     "NumAttackerRerolls": 0,
-    "NumDefenderRerolls": 0
+    "NumDefenderRerolls": 0,
+    "AlwaysRerollAtk": false,
+    "AlwaysRerollDef": false
   },
   {
     "Faction Name": "The Trilliant Ring",
@@ -192,6 +216,8 @@
     "AttackerRerolled": false,
     "DefenderRerolled": false,
     "NumAttackerRerolls": 0,
-    "NumDefenderRerolls": 0
+    "NumDefenderRerolls": 0,
+    "AlwaysRerollAtk": false,
+    "AlwaysRerollDef": false
   }
 ]
