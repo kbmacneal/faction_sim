@@ -33,14 +33,28 @@ namespace faction_sim.Classes.Factions
         public bool AttackerReroll { get; set; }
 
         [JsonProperty("AttackerRerollStat")]
-        public bool AttackerRerollStat { get; set; }
+        public string AttackerRerollStat { get; set; }
 
         [JsonProperty("DefenderReroll")]
         public bool DefenderReroll { get; set; }
 
         [JsonProperty("DefenderRerollStat")]
-        public bool DefenderRerollStat { get; set; }
+        public string DefenderRerollStat { get; set; }
+
+        [JsonProperty("AttackerRerolled")]
+        public bool AttackerRerolled { get; set; }
+
+        [JsonProperty("DefenderRerolled")]
+        public bool DefenderRerolled { get; set; }
+
+        [JsonProperty("NumAttackerRerolls")]
+        public int NumAttackerRerolls { get; set; }
+
+        [JsonProperty("NumDefenderRerolls")]
+        public int NumDefenderRerolls { get; set; }
     }
+
+    public enum ErRerollStat { None };
 
     public partial class Faction
     {
@@ -64,6 +78,7 @@ namespace faction_sim.Classes.Factions
         };
     }
 
+    
     internal class ParseStringConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(long) || t == typeof(long?);
@@ -91,7 +106,5 @@ namespace faction_sim.Classes.Factions
             serializer.Serialize(writer, value.ToString());
             return;
         }
-
-        public static readonly ParseStringConverter Singleton = new ParseStringConverter();
     }
 }

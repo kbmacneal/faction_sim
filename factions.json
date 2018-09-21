@@ -6,9 +6,13 @@
     "Wealth": "3",
     "ID": 1,
     "AttackerReroll": false,
-    "AttackerRerollStat": false,
+    "AttackerRerollStat": "None",
     "DefenderReroll": false,
-    "DefenderRerollStat": false
+    "DefenderRerollStat": "None",
+    "AttackerRerolled": false,
+    "DefenderRerolled": false,
+    "NumAttackerRerolls": 0,
+    "NumDefenderRerolls": 0
   },
   {
     "Faction Name": "House Fornax",
@@ -17,9 +21,13 @@
     "Wealth": "6",
     "ID": 2,
     "AttackerReroll": false,
-    "AttackerRerollStat": false,
+    "AttackerRerollStat": "None",
     "DefenderReroll": false,
-    "DefenderRerollStat": false
+    "DefenderRerollStat": "None",
+    "AttackerRerolled": false,
+    "DefenderRerolled": false,
+    "NumAttackerRerolls": 0,
+    "NumDefenderRerolls": 0
   },
   {
     "Faction Name": "House Vela",
@@ -28,9 +36,13 @@
     "Wealth": "5",
     "ID": 3,
     "AttackerReroll": false,
-    "AttackerRerollStat": false,
+    "AttackerRerollStat": "None",
     "DefenderReroll": false,
-    "DefenderRerollStat": false
+    "DefenderRerollStat": "None",
+    "AttackerRerolled": false,
+    "DefenderRerolled": false,
+    "NumAttackerRerolls": 0,
+    "NumDefenderRerolls": 0
   },
   {
     "Faction Name": "The Houses Minor",
@@ -39,9 +51,13 @@
     "Wealth": "7",
     "ID": 4,
     "AttackerReroll": false,
-    "AttackerRerollStat": false,
+    "AttackerRerollStat": "None",
     "DefenderReroll": false,
-    "DefenderRerollStat": false
+    "DefenderRerollStat": "None",
+    "AttackerRerolled": false,
+    "DefenderRerolled": false,
+    "NumAttackerRerolls": 0,
+    "NumDefenderRerolls": 0
   },
   {
     "Faction Name": "\"House\" Vagrant",
@@ -50,9 +66,13 @@
     "Wealth": "3",
     "ID": 5,
     "AttackerReroll": false,
-    "AttackerRerollStat": false,
+    "AttackerRerollStat": "None",
     "DefenderReroll": false,
-    "DefenderRerollStat": false
+    "DefenderRerollStat": "None",
+    "AttackerRerolled": false,
+    "DefenderRerolled": false,
+    "NumAttackerRerolls": 0,
+    "NumDefenderRerolls": 0
   },
   {
     "Faction Name": "14 Red Dogs Triad",
@@ -61,9 +81,13 @@
     "Wealth": "5",
     "ID": 6,
     "AttackerReroll": false,
-    "AttackerRerollStat": false,
+    "AttackerRerollStat": "None",
     "DefenderReroll": false,
-    "DefenderRerollStat": false
+    "DefenderRerollStat": "None",
+    "AttackerRerolled": false,
+    "DefenderRerolled": false,
+    "NumAttackerRerolls": 0,
+    "NumDefenderRerolls": 0
   },
   {
     "Faction Name": "The Deathless",
@@ -72,9 +96,13 @@
     "Wealth": "5",
     "ID": 7,
     "AttackerReroll": false,
-    "AttackerRerollStat": false,
+    "AttackerRerollStat": "None",
     "DefenderReroll": false,
-    "DefenderRerollStat": false
+    "DefenderRerollStat": "None",
+    "AttackerRerolled": false,
+    "DefenderRerolled": false,
+    "NumAttackerRerolls": 0,
+    "NumDefenderRerolls": 0
   },
   {
     "Faction Name": "The High Church of Messiah-as-Emperox",
@@ -83,9 +111,13 @@
     "Wealth": "7",
     "ID": 8,
     "AttackerReroll": false,
-    "AttackerRerollStat": false,
+    "AttackerRerollStat": "None",
     "DefenderReroll": false,
-    "DefenderRerollStat": false
+    "DefenderRerollStat": "None",
+    "AttackerRerolled": false,
+    "DefenderRerolled": false,
+    "NumAttackerRerolls": 0,
+    "NumDefenderRerolls": 0
   },
   {
     "Faction Name": "The Church of Humanity, Repentant",
@@ -94,9 +126,13 @@
     "Wealth": "5",
     "ID": 9,
     "AttackerReroll": false,
-    "AttackerRerollStat": false,
+    "AttackerRerollStat": "None",
     "DefenderReroll": false,
-    "DefenderRerollStat": false
+    "DefenderRerollStat": "None",
+    "AttackerRerolled": false,
+    "DefenderRerolled": false,
+    "NumAttackerRerolls": 0,
+    "NumDefenderRerolls": 0
   },
   {
     "Faction Name": "The Prism Network",
@@ -105,9 +141,13 @@
     "Wealth": "5",
     "ID": 10,
     "AttackerReroll": false,
-    "AttackerRerollStat": false,
+    "AttackerRerollStat": "None",
     "DefenderReroll": false,
-    "DefenderRerollStat": false
+    "DefenderRerollStat": "None",
+    "AttackerRerolled": false,
+    "DefenderRerolled": false,
+    "NumAttackerRerolls": 0,
+    "NumDefenderRerolls": 0
   },
   {
     "Faction Name": "The Unified People’s Collective",
@@ -116,9 +156,13 @@
     "Wealth": "3",
     "ID": 11,
     "AttackerReroll": false,
-    "AttackerRerollStat": false,
+    "AttackerRerollStat": "None",
     "DefenderReroll": false,
-    "DefenderRerollStat": false
+    "DefenderRerollStat": "None",
+    "AttackerRerolled": false,
+    "DefenderRerolled": false,
+    "NumAttackerRerolls": 0,
+    "NumDefenderRerolls": 0
   },
   {
     "Faction Name": "ACRE",
@@ -127,9 +171,13 @@
     "Wealth": "8",
     "ID": 12,
     "AttackerReroll": false,
-    "AttackerRerollStat": false,
+    "AttackerRerollStat": "None",
     "DefenderReroll": false,
-    "DefenderRerollStat": false
+    "DefenderRerollStat": "None",
+    "AttackerRerolled": false,
+    "DefenderRerolled": false,
+    "NumAttackerRerolls": 0,
+    "NumDefenderRerolls": 0
   },
   {
     "Faction Name": "The Trilliant Ring",
@@ -138,8 +186,12 @@
     "Wealth": "6",
     "ID": 13,
     "AttackerReroll": false,
-    "AttackerRerollStat": false,
+    "AttackerRerollStat": "None",
     "DefenderReroll": false,
-    "DefenderRerollStat": false
+    "DefenderRerollStat": "None",
+    "AttackerRerolled": false,
+    "DefenderRerolled": false,
+    "NumAttackerRerolls": 0,
+    "NumDefenderRerolls": 0
   }
 ]

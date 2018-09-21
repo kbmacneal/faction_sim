@@ -2,6 +2,7 @@
 //average attacking faction damage
 //average defending faction damage
 //attacker/defender rerolls
+//defending asset % chance to be destroyed by attacker
 
 using System;
 using faction_sim.Classes;
@@ -131,8 +132,8 @@ namespace faction_sim
                 double doub_hit = (double)total_successes / (double)iterations;
                 result.hit_chance = string.Format("{0:N6}", doub_hit);
                 result.iterations = iterations;
-                result.avg_counter_damage_taken = total_counter/(iterations - total_successes);
-                result.avg_damage_per_swing = total_damage/iterations;
+                result.avg_counter_damage_taken = total_counter / (iterations - total_successes);
+                result.avg_damage_per_swing = total_damage / iterations;
 
                 rtner.Add(result);
 
@@ -236,17 +237,50 @@ namespace faction_sim
 
                 long atk_mod = (long)helpers.GetPropValue(atk_faction, short_to_long[vs_roll[0]]);
 
+                if (atk_faction.AttackerRerollStat == short_to_long[vs_roll[0]])
+                {
+                    should_reroll(ref attacker, atk_faction, "atk");
+                }
+
                 long def_mod = (long)helpers.GetPropValue(def_faction, short_to_long[vs_roll[1]]);
 
-                string atk_roll = "1d10+" + atk_mod.ToString();
+                if (def_faction.DefenderRerollStat == short_to_long[vs_roll[1]])
+                {
+                    should_reroll(ref defender, def_faction, "def");
+                }
+
+
 
                 string def_roll = "1d10+" + def_mod.ToString();
 
-                int atk_result = roller.Roll(atk_roll).Sum();
-                rnd.atk_roll = atk_result;
+                int atk_result = 0;
+                int def_result;
 
-                int def_result = roller.Roll(def_roll).Sum();
-                rnd.def_roll = def_result;
+                if (attacker.AttackerReroll)
+                {
+                    string atk_roll = "2d10+" + atk_mod.ToString();
+                    atk_result = roller.RollKeeps(atk_roll, 1).Sum();
+                    rnd.atk_roll = atk_result;
+                }
+                else
+                {
+                    string atk_roll = "1d10+" + atk_mod.ToString();
+                    atk_result = roller.Roll(atk_roll).Sum();
+                    rnd.atk_roll = atk_result;
+                }
+
+                if (attacker.AttackerReroll)
+                {
+                    string atk_roll = "2d10+" + def_mod.ToString();
+                    def_result = roller.RollKeeps(def_roll, 1).Sum();
+                    rnd.def_roll = def_result;
+                }
+                else
+                {
+                    string atk_roll = "1d10+" + def_mod.ToString();
+                    def_result = roller.Roll(def_roll).Sum();
+                    rnd.def_roll = def_result;
+                }
 
                 if (atk_result >= def_result)
                 {
@@ -272,7 +306,7 @@ namespace faction_sim
                     }
                 }
 
-                if(def_result == atk_result)
+                if (def_result == atk_result)
                 {
                     rnd.atk_success = true;
                 }
@@ -325,6 +359,41 @@ namespace faction_sim
             rtner.Add(master_list.First(e => e.Id == faction_defend));
 
             return rtner;
+        }
+
+        private static bool should_reroll(ref Asset asset, Faction faction, string atk_def)
+        {
+
+            if (atk_def == "atk")
+            {
+                if(faction.NumAttackerRerolls <= 0)
+                {
+                    return false;
+                }
+                if (rand.Next(2) == 1)
+                {
+                    faction.NumAttackerRerolls--;
+                    asset.AttackerReroll = true;
+                    return true;
+                }
+
+            }
+            else
+            {
+                if(faction.NumDefenderRerolls <= 0)
+                {
+                    return false;
+                }
+                if (rand.Next(2) == 1)
+                {
+                    faction.NumDefenderRerolls--;
+                    asset.DefenderReroll = true;
+                    return true;
+                }
+
+            }
+
+            return false;
         }
 
         private static Dictionary<string, string> short_to_long = new Dictionary<string, string>{
