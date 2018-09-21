@@ -15,6 +15,9 @@ namespace faction_sim
         public int avg_damage{get;set;}
         public string chance_of_death{get;set;}
         public string hit_chance {get;set;}
+        public int total_damage{get;set;}
+        public int total_deaths{get;set;}
+        public int total_successes{get;set;}
     }
 
     public class round
@@ -26,6 +29,7 @@ namespace faction_sim
         public int def_roll { get; set; }
         public int damage { get; set; }
         public int counter_damage { get; set; }
+        
     }
     class Program
     {
@@ -36,7 +40,7 @@ namespace faction_sim
             // string[] attacking_ass = "75,74,73".Split(",");
             // int defending_id = 9;
             // string[] defending_ass = "8,9,10,11,12".Split(",");
-            // int iterations = 1000000;
+            // int iterations = 10000;
 
             Console.WriteLine("ID of the attacking faction:");
             int attacking_id = Convert.ToInt32(Console.ReadLine());
@@ -109,8 +113,13 @@ namespace faction_sim
                     result.avg_damage = 0;
                 }
                 
-                result.chance_of_death = string.Format("{0:N6}", (Decimal)(total_deaths / iterations));
-                result.hit_chance = string.Format("{0:N6}", (Decimal)(total_successes / iterations));
+                result.total_damage = total_damage;
+                result.total_deaths = total_deaths;
+                result.total_successes = total_successes;
+                double doub_death = (double)total_deaths / (double)iterations;
+                result.chance_of_death = string.Format("{0:N6}", doub_death);
+                double doub_hit = (double)total_successes / (double)iterations;
+                result.hit_chance = string.Format("{0:N6}", doub_hit);
                 result.iterations = iterations;
 
                 rtner.Add(result);
