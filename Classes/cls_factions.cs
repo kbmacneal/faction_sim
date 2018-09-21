@@ -28,6 +28,18 @@ namespace faction_sim.Classes.Factions
 
         [JsonProperty("ID")]
         public long Id { get; set; }
+
+        [JsonProperty("AttackerReroll")]
+        public bool AttackerReroll { get; set; }
+
+        [JsonProperty("AttackerRerollStat")]
+        public bool AttackerRerollStat { get; set; }
+
+        [JsonProperty("DefenderReroll")]
+        public bool DefenderReroll { get; set; }
+
+        [JsonProperty("DefenderRerollStat")]
+        public bool DefenderRerollStat { get; set; }
     }
 
     public partial class Faction

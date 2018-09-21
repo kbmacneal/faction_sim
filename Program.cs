@@ -1,9 +1,7 @@
 ﻿//TODO
-//average counter damage taken
 //average attacking faction damage
 //average defending faction damage
 //attacker/defender rerolls
-//average damage per swing
 
 using System;
 using faction_sim.Classes;
@@ -22,6 +20,8 @@ namespace faction_sim
         public int avg_damage { get; set; }
         public string chance_of_death { get; set; }
         public string hit_chance { get; set; }
+        public int avg_counter_damage_taken { get; set; }
+        public int avg_damage_per_swing { get; set; }
         public int total_damage { get; set; }
         public int total_deaths { get; set; }
         public int total_successes { get; set; }
@@ -101,6 +101,7 @@ namespace faction_sim
                 int total_damage = 0;
                 int total_successes = 0;
                 int total_deaths = 0;
+                int total_counter = 0;
 
                 foreach (var round in results)
                 {
@@ -109,6 +110,7 @@ namespace faction_sim
                         total_damage += round.Where(e => e.attacking_asset.Name == asset.Name).Select(e => e.damage).Sum();
                         total_successes += round.Where(e => e.attacking_asset.Name == asset.Name).Where(e => e.atk_success).Count();
                         total_deaths += round.Where(e => e.attacking_asset.Name == asset.Name).Where(e => e.attacking_asset.Hp <= 0).Count();
+                        total_counter += round.Where(e => e.attacking_asset.Name == asset.Name).Select(e => e.counter_damage).Sum();
                     }
                 }
 
@@ -129,6 +131,8 @@ namespace faction_sim
                 double doub_hit = (double)total_successes / (double)iterations;
                 result.hit_chance = string.Format("{0:N6}", doub_hit);
                 result.iterations = iterations;
+                result.avg_counter_damage_taken = total_counter/(iterations - total_successes);
+                result.avg_damage_per_swing = total_damage/iterations;
 
                 rtner.Add(result);
 
@@ -266,6 +270,11 @@ namespace faction_sim
                         rnd.counter_damage = roller.Roll(defender.Counterattack).Sum();
                         attacker.Hp = attacker.Hp - rnd.counter_damage;
                     }
+                }
+
+                if(def_result == atk_result)
+                {
+                    rnd.atk_success = true;
                 }
 
                 return rnd;
