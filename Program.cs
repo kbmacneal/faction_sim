@@ -134,12 +134,6 @@ namespace faction_sim
 
             }
 
-            //TODO
-            //average counter damage taken
-            //average attacking faction damage
-            //average defending faction damage
-            //attacker/defender rerolls
-
             return rtner;
 
         }
