@@ -34,16 +34,16 @@ namespace faction_sim
             // int attacking_id = 8;
 
             // Console.WriteLine("CSV of the attacking assets:");
-            // string[] attacking_ass = "1,1".Split(",");
+            // string[] attacking_ass = "1,1,1".Split(",");
 
             // Console.WriteLine("ID of the defending faction:");
             // int defending_id = 9;
 
             // Console.WriteLine("CSV of the defending assets:");
-            // string[] defending_ass = "75".Split(",");
+            // string[] defending_ass = "2,2,2,2,2".Split(",");
 
             // Console.WriteLine("Number of iterations:");
-            // int iterations = 5;
+            // int iterations = 10;
 
             Console.WriteLine("ID of the attacking faction:");
             int attacking_id = Convert.ToInt32(Console.ReadLine());
@@ -140,7 +140,9 @@ namespace faction_sim
 
             rnd.attacking_asset = attacker;
 
-            rnd.defending_asset = defender;
+            Asset private_defender = defender;
+
+            rnd.defending_asset = private_defender;
 
             if (defender == null)
             {
