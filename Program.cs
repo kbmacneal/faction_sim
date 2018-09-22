@@ -40,7 +40,7 @@ namespace faction_sim {
         public static Random rand = new Random ();
         static void Main (string[] args) {
             // int attacking_id = 9;
-            // string[] attacking_ass = "23,21,21,21,74,74,37".Split(",");
+            // string[] attacking_ass = "23,21,74,37".Split(",");
             // int defending_id = 8;
             // string[] defending_ass = "47,23,46,21,15".Split(",");
             // int iterations = 100000;
@@ -223,7 +223,7 @@ namespace faction_sim {
                 int atk_result = 0;
                 int def_result;
 
-                if (attacker.AttackerReroll || atk_faction.AlwaysRerollAtk) {
+                if ((attacker.AttackerReroll || atk_faction.AlwaysRerollAtk) && short_to_long[vs_roll[0]] == atk_faction.AttackerRerollStat) {
                     string atk_roll = "2d10+" + atk_mod.ToString ();
                     atk_result = roller.RollKeeps (atk_roll, 1).Sum ();
                     rnd.atk_roll = atk_result;
@@ -233,7 +233,7 @@ namespace faction_sim {
                     rnd.atk_roll = atk_result;
                 }
 
-                if (attacker.AttackerReroll || def_faction.AlwaysRerollDef) {
+                if ((attacker.AttackerReroll || def_faction.AlwaysRerollDef) && short_to_long[vs_roll[1]] == atk_faction.DefenderRerollStat) {
                     string atk_roll = "2d10+" + def_mod.ToString ();
                     def_result = roller.RollKeeps (def_roll, 1).Sum ();
                     rnd.def_roll = def_result;

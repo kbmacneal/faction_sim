@@ -133,7 +133,7 @@
     "NumAttackerRerolls": 0,
     "NumDefenderRerolls": 0,
     "AlwaysRerollAtk": false,
-    "AlwaysRerollDef": true
+    "AlwaysRerollDef": false
   },
   {
     "Faction Name": "The Church of Humanity, Repentant",
