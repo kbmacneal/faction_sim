@@ -161,6 +161,8 @@ namespace faction_sim {
             Faction attacking_faction = members.First ().Key;
             Faction defending_faction = members.Last ().Key;
 
+            
+
             foreach (var id in members.First ().Value.ToArray ()) {
                 var atk = get_asset (id);
                 List<Asset> eligible_defenders = defenders.Where (e => e.Hp > 0).ToList ();
@@ -191,6 +193,8 @@ namespace faction_sim {
             Asset private_defender = defender;
 
             rnd.defending_asset = private_defender;
+
+            Console.WriteLine(attacker.Name + " is attacking " + defender.Name);
 
             if (defender == null) {
                 string[] vs_roll = attacker.AttackStats.Split ("v");
