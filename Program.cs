@@ -250,7 +250,7 @@ namespace faction_sim {
                     rnd.damage = roller.Roll (attacker.AttackDice).Sum ();
                     if(rnd.damage >= defender.Hp)
                     {
-                        rnd.damage = defender.Hp;
+                        rnd.damage = Convert.ToInt32(defender.Hp);
                         defender.Hp = 0;
                     }
                     else
