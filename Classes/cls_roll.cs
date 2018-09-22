@@ -14,9 +14,14 @@ namespace faction_sim.Classes
 
     public class roller
     {
-       public static List<int> RollKeeps(string base_roll, int keep_int)
+       public static List<int> RollKeeps(string base_roll)
         {            
-            return Roll(base_roll).OrderBy(x=>x).Take(keep_int).ToList();
+            int num_dice = Convert.ToInt32(base_roll[0]);
+
+            // base_roll[0] = num_dice++.ToString();
+
+            base_roll = num_dice++.ToString() + base_roll.Substring(1,base_roll.Length-1);
+            return Roll(base_roll).OrderBy(x=>x).Take(num_dice).ToList();
         }
         
         public static List<int> Roll(string roll)

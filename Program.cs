@@ -39,11 +39,11 @@ namespace faction_sim {
     class Program {
         public static Random rand = new Random ();
         static void Main (string[] args) {
-            // int attacking_id = 9;
-            // string[] attacking_ass = "23,21,74,37".Split(",");
+            // int attacking_id = 12;
+            // string[] attacking_ass = "23,21,74,37".Split (",");
             // int defending_id = 8;
-            // string[] defending_ass = "47,23,46,21,15".Split(",");
-            // int iterations = 100000;
+            // string[] defending_ass = "47,23,46,21,15".Split (",");
+            // int iterations = 10000;
 
             Console.WriteLine ("ID of the attacking faction:");
             int attacking_id = Convert.ToInt32 (Console.ReadLine ());
@@ -126,8 +126,8 @@ namespace faction_sim {
                 result.iterations = iterations;
                 result.avg_counter_damage_taken = total_counter / (iterations - total_successes);
                 result.avg_damage_per_swing = total_damage / iterations;
-                result.average_faction_atk_damage = atk_faction_damage/iterations;
-                result.average_faction_def_damage = def_faction_damage/iterations;
+                result.average_faction_atk_damage = atk_faction_damage / iterations;
+                result.average_faction_def_damage = def_faction_damage / iterations;
 
                 rtner.Add (result);
 
@@ -159,7 +159,7 @@ namespace faction_sim {
             List<Classes.Assets.Asset> defenders = initialize_assets (members.Last ().Value.ToArray ());
 
             Faction attacking_faction = members.First ().Key;
-            Faction defending_faction = members.First ().Key;
+            Faction defending_faction = members.Last ().Key;
 
             foreach (var id in members.First ().Value.ToArray ()) {
                 var atk = get_asset (id);
@@ -218,27 +218,24 @@ namespace faction_sim {
 
                 long def_mod = (long) helpers.GetPropValue (def_faction, short_to_long[vs_roll[1]]);
 
-                string def_roll = "1d10+" + def_mod.ToString ();
-
                 int atk_result = 0;
-                int def_result;
+                int def_result = 0;
 
-                if ((attacker.AttackerReroll || atk_faction.AlwaysRerollAtk) && short_to_long[vs_roll[0]] == atk_faction.AttackerRerollStat) {
-                    string atk_roll = "2d10+" + atk_mod.ToString ();
-                    atk_result = roller.RollKeeps (atk_roll, 1).Sum ();
+                string atk_roll = calculate_diceroll (atk_faction, short_to_long[vs_roll[0]]) + "+" + atk_mod.ToString ();
+                string def_roll = calculate_diceroll (def_faction, short_to_long[vs_roll[1]]) + "+" + def_mod.ToString ();
+
+                if (atk_faction.AlwaysRerollAtk && short_to_long[vs_roll[0]] == atk_faction.AttackerRerollStat) {
+                    atk_result = roller.RollKeeps (atk_roll).Sum ();
                     rnd.atk_roll = atk_result;
                 } else {
-                    string atk_roll = "1d10+" + atk_mod.ToString ();
                     atk_result = roller.Roll (atk_roll).Sum ();
                     rnd.atk_roll = atk_result;
                 }
 
-                if ((attacker.AttackerReroll || def_faction.AlwaysRerollDef) && short_to_long[vs_roll[1]] == atk_faction.DefenderRerollStat) {
-                    string atk_roll = "2d10+" + def_mod.ToString ();
-                    def_result = roller.RollKeeps (def_roll, 1).Sum ();
+                if (def_faction.AlwaysRerollDef && short_to_long[vs_roll[1]] == def_faction.DefenderRerollStat) {
+                    def_result = roller.RollKeeps (def_roll).Sum ();
                     rnd.def_roll = def_result;
                 } else {
-                    string atk_roll = "1d10+" + def_mod.ToString ();
                     def_result = roller.Roll (def_roll).Sum ();
                     rnd.def_roll = def_result;
                 }
@@ -306,6 +303,14 @@ namespace faction_sim {
             rtner.Add (master_list.First (e => e.Id == faction_defend));
 
             return rtner;
+        }
+
+        private static string calculate_diceroll (Faction faction, string roll_stat) {
+            int num_dice = 1;
+
+            if (faction.PMax && roll_stat == "Cunning") num_dice++;
+
+            return num_dice.ToString () + "d10";
         }
 
         private static Dictionary<string, string> short_to_long = new Dictionary<string, string> { { "C", "Cunning" },
