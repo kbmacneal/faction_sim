@@ -246,9 +246,19 @@ namespace faction_sim {
 
                 if (atk_result >= def_result) {
                     rnd.atk_success = true;
-
+                    
                     rnd.damage = roller.Roll (attacker.AttackDice).Sum ();
-                    defender.Hp = defender.Hp - rnd.damage;
+                    if(rnd.damage >= defender.Hp)
+                    {
+                        rnd.damage = defender.Hp;
+                        defender.Hp = 0;
+                    }
+                    else
+                    {
+                        defender.Hp = defender.Hp - rnd.damage;
+                    }
+
+                    
                     rnd.counter_damage = 0;
                 }
 
