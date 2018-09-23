@@ -39,26 +39,26 @@ namespace faction_sim {
     class Program {
         public static Random rand = new Random ();
         static void Main (string[] args) {
-            // int attacking_id = 12;
-            // string[] attacking_ass = "23,21,74,37".Split (",");
-            // int defending_id = 8;
-            // string[] defending_ass = "47,23,46,21,15".Split (",");
-            // int iterations = 10000;
+            int attacking_id = 12;
+            string[] attacking_ass = "23,21,74,37".Split (",");
+            int defending_id = 8;
+            string[] defending_ass = "47,23,46,21,15".Split (",");
+            int iterations = 100000;
 
-            Console.WriteLine ("ID of the attacking faction:");
-            int attacking_id = Convert.ToInt32 (Console.ReadLine ());
+            // Console.WriteLine ("ID of the attacking faction:");
+            // int attacking_id = Convert.ToInt32 (Console.ReadLine ());
 
-            Console.WriteLine ("CSV of the attacking assets:");
-            string[] attacking_ass = Console.ReadLine ().Split (",");
+            // Console.WriteLine ("CSV of the attacking assets:");
+            // string[] attacking_ass = Console.ReadLine ().Split (",");
 
-            Console.WriteLine ("ID of the defending faction:");
-            int defending_id = Convert.ToInt32 (Console.ReadLine ());
+            // Console.WriteLine ("ID of the defending faction:");
+            // int defending_id = Convert.ToInt32 (Console.ReadLine ());
 
-            Console.WriteLine ("CSV of the defending assets:");
-            string[] defending_ass = Console.ReadLine ().Split (",");
+            // Console.WriteLine ("CSV of the defending assets:");
+            // string[] defending_ass = Console.ReadLine ().Split (",");
 
-            Console.WriteLine ("Number of iterations:");
-            int iterations = Convert.ToInt32 (Console.ReadLine ());
+            // Console.WriteLine ("Number of iterations:");
+            // int iterations = Convert.ToInt32 (Console.ReadLine ());
 
             List<List<round>> results = new List<List<round>> ();
 
@@ -225,8 +225,8 @@ namespace faction_sim {
                 int atk_result = 0;
                 int def_result = 0;
 
-                string atk_roll = calculate_diceroll (atk_faction, short_to_long[vs_roll[0]]) + "+" + atk_mod.ToString ();
-                string def_roll = calculate_diceroll (def_faction, short_to_long[vs_roll[1]]) + "+" + def_mod.ToString ();
+                string atk_roll = calculate_diceroll (atk_faction, attacker, short_to_long[vs_roll[0]], "atk") + "+" + atk_mod.ToString ();
+                string def_roll = calculate_diceroll (def_faction, defender, short_to_long[vs_roll[1]], "def") + "+" + def_mod.ToString ();
 
                 if (atk_faction.AlwaysRerollAtk && short_to_long[vs_roll[0]] == atk_faction.AttackerRerollStat) {
                     atk_result = roller.RollKeeps (atk_roll).Sum ();
@@ -319,10 +319,25 @@ namespace faction_sim {
             return rtner;
         }
 
-        private static string calculate_diceroll (Faction faction, string roll_stat) {
+        private static string calculate_diceroll (Faction faction, Asset asset, string roll_stat, string atk_def) {
             int num_dice = 1;
 
-            if (faction.PMax && roll_stat == "Cunning") num_dice++;
+            if (faction.PMax && roll_stat == "Cunning") 
+            {
+                num_dice++;
+            }
+            
+            if(atk_def == "atk" && asset.AttackerReroll)
+            {
+                num_dice++;
+            }
+            
+            if(atk_def == "def" && asset.DefenderReroll)
+            {
+                num_dice++;
+            }
+
+
 
             return num_dice.ToString () + "d10";
         }
