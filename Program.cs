@@ -68,20 +68,20 @@ namespace faction_sim
             // string[] defending_ass = "47,23,46,21,15".Split (",");
             // int iterations = 100000;
 
-            Console.WriteLine("ID of the attacking faction:");
-            int attacking_id = Convert.ToInt32(Console.ReadLine());
+            // Console.WriteLine("ID of the attacking faction:");
+            // int attacking_id = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("CSV of the attacking assets:");
-            string[] attacking_ass = Console.ReadLine().Split(",");
+            // Console.WriteLine("CSV of the attacking assets:");
+            // string[] attacking_ass = Console.ReadLine().Split(",");
 
-            Console.WriteLine("ID of the defending faction:");
-            int defending_id = Convert.ToInt32(Console.ReadLine());
+            // Console.WriteLine("ID of the defending faction:");
+            // int defending_id = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("CSV of the defending assets:");
-            string[] defending_ass = Console.ReadLine().Split(",");
+            // Console.WriteLine("CSV of the defending assets:");
+            // string[] defending_ass = Console.ReadLine().Split(",");
 
-            Console.WriteLine("Number of iterations:");
-            int iterations = Convert.ToInt32(Console.ReadLine());
+            // Console.WriteLine("Number of iterations:");
+            // int iterations = Convert.ToInt32(Console.ReadLine());
 
 
         }
@@ -94,8 +94,10 @@ namespace faction_sim
                 {3,"Set Defending Faction"},
                 {4,"Add Defending Faction Asset"},
                 {5,"Set Iteration Count"},
-                {7,"Run"}
+                {6,"Run"}
             };
+
+            Console.Clear();
 
             List<Asset> assets = Asset.FromJson(System.IO.File.ReadAllText("assets.json")).ToList();
             List<Faction> factions = Faction.FromJson(System.IO.File.ReadAllText("factions.json")).ToList();
@@ -129,18 +131,46 @@ namespace faction_sim
             switch (selection)
             {
                 case 1:
+                    Console.WriteLine("Enter the Faction Name:");
+                    string faction = Console.ReadLine();
+
+                    _runoptions.attacking_id = factions.FirstOrDefault(e => e.FactionName == faction).Id;
+
+                    display_options();
                     break;
                 case 2:
+                    Console.WriteLine("Enter the Asset Name:");
+                    string asset = Console.ReadLine();
+
+                    _runoptions.attacking_assets.Add(Convert.ToInt32(assets.FirstOrDefault(e => e.Name == asset).Id));
+
+                    display_options();
+
                     break;
                 case 3:
+                    Console.WriteLine("Enter the Faction Name:");
+                    string faction = Console.ReadLine();
+
+                    _runoptions.defending_id = factions.FirstOrDefault(e => e.FactionName == faction).Id;
+
+                    display_options();
                     break;
                 case 4:
+                    Console.WriteLine("Enter the Asset Name:");
+                    string asset = Console.ReadLine();
+
+                    _runoptions.defending_assets.Add(Convert.ToInt32(assets.FirstOrDefault(e => e.Name == asset).Id));
+
+                    display_options();
                     break;
                 case 5:
+                    Console.WriteLine("Enter iterations:");
+
+                    _runoptions = Convert.ToInt32(Console.ReadLine());
+
+                    display_options();
                     break;
                 case 6:
-                    break;
-                case 7:
                     List<List<round>> results = new List<List<round>>();
 
                     for (int i = 0; i < _runoptions.iterations; i++)
