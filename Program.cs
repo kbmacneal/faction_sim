@@ -134,7 +134,7 @@ namespace faction_sim
                     Console.WriteLine("Enter the Faction Name:");
                     string faction = Console.ReadLine();
 
-                    _runoptions.attacking_id = factions.FirstOrDefault(e => e.FactionName == faction).Id;
+                    _runoptions.attacking_id = Convert.ToInt32(factions.FirstOrDefault(e => e.FactionName == faction).Id);
 
                     display_options();
                     break;
@@ -149,24 +149,24 @@ namespace faction_sim
                     break;
                 case 3:
                     Console.WriteLine("Enter the Faction Name:");
-                    string faction = Console.ReadLine();
+                    string fac = Console.ReadLine();
 
-                    _runoptions.defending_id = factions.FirstOrDefault(e => e.FactionName == faction).Id;
+                    _runoptions.defending_id = Convert.ToInt32(factions.FirstOrDefault(e => e.FactionName == fac).Id);
 
                     display_options();
                     break;
                 case 4:
                     Console.WriteLine("Enter the Asset Name:");
-                    string asset = Console.ReadLine();
+                    string ass = Console.ReadLine();
 
-                    _runoptions.defending_assets.Add(Convert.ToInt32(assets.FirstOrDefault(e => e.Name == asset).Id));
+                    _runoptions.defending_assets.Add(Convert.ToInt32(assets.FirstOrDefault(e => e.Name == ass).Id));
 
                     display_options();
                     break;
                 case 5:
                     Console.WriteLine("Enter iterations:");
 
-                    _runoptions = Convert.ToInt32(Console.ReadLine());
+                    _runoptions.iterations = Convert.ToInt32(Console.ReadLine());
 
                     display_options();
                     break;
