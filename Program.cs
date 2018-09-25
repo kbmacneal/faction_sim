@@ -34,8 +34,22 @@ namespace faction_sim {
         public int def_roll { get; set; }
         public int damage { get; set; }
         public int counter_damage { get; set; }
-
     }
+
+    public class run_options
+    {
+        public int attacking_id{get;set;}
+        public List<int> attacking_assets{get;set;}
+        public int defending_id{get;set;}
+        public List<int> defending_assets{get;set;}
+
+        public run_options()
+        {
+            this.attacking_assets = new List<int>();
+            this.defending_assets = new List<int>();
+        }
+    }
+
     class Program {
         public static Random rand = new Random ();
         static void Main (string[] args) {
@@ -77,6 +91,11 @@ namespace faction_sim {
             var stats = get_results (results, get_ids (attacking_ass).ToArray (), iterations);
 
             System.IO.File.WriteAllText ("stats.json", Newtonsoft.Json.JsonConvert.SerializeObject (stats));
+        }
+
+        private static void display_options()
+        {
+
         }
 
         private static void get_defense_results (List<List<round>> results, int[] defenders, int interactions) {
