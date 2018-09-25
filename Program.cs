@@ -83,6 +83,7 @@ namespace faction_sim
             // Console.WriteLine("Number of iterations:");
             // int iterations = Convert.ToInt32(Console.ReadLine());
 
+            display_options();
 
         }
 
@@ -102,23 +103,38 @@ namespace faction_sim
             List<Asset> assets = Asset.FromJson(System.IO.File.ReadAllText("assets.json")).ToList();
             List<Faction> factions = Faction.FromJson(System.IO.File.ReadAllText("factions.json")).ToList();
 
-            Faction attacking_faction = factions.First(e => e.Id == _runoptions.attacking_id);
-            Faction defending_faction = factions.First(e => e.Id == _runoptions.defending_id);
+            Faction attacking_faction = factions.FirstOrDefault(e => e.Id == _runoptions.attacking_id);
+            Faction defending_faction = factions.FirstOrDefault(e => e.Id == _runoptions.defending_id);
 
             List<Asset> attacking_assets = assets.Where(e => _runoptions.attacking_assets.Contains((int)e.Id)).ToList();
             List<Asset> defending_assets = assets.Where(e => _runoptions.defending_assets.Contains((int)e.Id)).ToList();
 
             Console.WriteLine("Attacking Faction");
-            Console.WriteLine(attacking_faction.FactionName);
+            if(attacking_faction != null)
+            {
+                Console.WriteLine(attacking_faction.FactionName);
+            }           
 
             Console.WriteLine("Attacking Assets");
-            Console.WriteLine(string.Join(", ", attacking_assets));
+            Console.WriteLine(string.Join(", ", attacking_assets.Select(e=>e.Name)));
+
+            Console.WriteLine("");
 
             Console.WriteLine("Defending Faction");
-            Console.WriteLine(defending_faction.FactionName);
+            if(defending_faction != null)
+            {
+                Console.WriteLine(defending_faction.FactionName);
+            }            
 
             Console.WriteLine("Defending Assets");
-            Console.WriteLine(string.Join(", ", defending_assets));
+            Console.WriteLine(string.Join(", ", defending_assets.Select(e=>e.Name)));
+
+            Console.WriteLine("");
+
+            Console.WriteLine("Interations:");
+            Console.WriteLine(_runoptions.iterations.ToString());
+
+            Console.WriteLine("");
 
             foreach (var item in options)
             {
