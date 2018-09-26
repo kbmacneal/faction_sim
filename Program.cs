@@ -62,7 +62,7 @@ namespace faction_sim {
             if (args[0] == "-f") {
                 List<List<round>> results = new List<List<round>> ();
 
-                _runoptions = Newtonsoft.Json.JsonConvert.DeserializeObject<run_options>(System.IO.File.ReadAllText("options.json"));
+                _runoptions = Newtonsoft.Json.JsonConvert.DeserializeObject<run_options> (System.IO.File.ReadAllText ("options.json"));
 
                 for (int i = 0; i < _runoptions.iterations; i++) {
                     string[] atk_assets = _runoptions.attacking_assets.Select (e => e.ToString ()).ToArray ();
@@ -88,7 +88,6 @@ namespace faction_sim {
 
             if (args[0] == "i") {
                 display_options ();
-                return;
             }
 
         }
@@ -327,7 +326,7 @@ namespace faction_sim {
 
             rnd.defending_asset = private_defender;
 
-            Console.WriteLine (attacker.Name + " is attacking " + defender.Name);
+            // Console.WriteLine (attacker.Name + " is attacking " + defender.Name);
 
             if (defender == null) {
                 string[] vs_roll = attacker.AttackStats.Split ("v");
