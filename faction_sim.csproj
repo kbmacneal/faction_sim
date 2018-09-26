@@ -12,6 +12,7 @@
   <ItemGroup>
   <None Include="assets.*" CopyToPublishDirectory="Always" />
   <None Include="factions.*" CopyToPublishDirectory="Always" />
+  <None Include="options.json" CopyToPublishDirectory="Always" />
   <None Include="output.css" CopyToPublishDirectory="Always" />
 </ItemGroup>
 
