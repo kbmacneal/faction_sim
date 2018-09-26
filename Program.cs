@@ -62,7 +62,7 @@ namespace faction_sim {
             if (args[0] == "-f") {
                 List<List<round>> results = new List<List<round>> ();
 
-                _runoptions = Newtonsoft.Json.JsonConvert.DeserializeObject<run_options>(System.IO.File.ReadAllText("options.txt"));
+                _runoptions = Newtonsoft.Json.JsonConvert.DeserializeObject<run_options>(System.IO.File.ReadAllText("options.json"));
 
                 for (int i = 0; i < _runoptions.iterations; i++) {
                     string[] atk_assets = _runoptions.attacking_assets.Select (e => e.ToString ()).ToArray ();
