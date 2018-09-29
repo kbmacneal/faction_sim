@@ -92,6 +92,19 @@ namespace faction_sim {
 
         }
 
+        private static bool reroll_same_or_other (int value_a, int value_b) {
+            bool reroll_same = false;
+
+            if (value_a > value_b) reroll_same = true;
+
+            return reroll_same;
+            //Value A = 10 minus the unmodified Houses Minor roll
+            //   Value B = unmodified Other Faction roll minus 1
+
+            // If value A > value B, use the Book of Secrets to reroll our die.
+            // If value A <= value B, use the Book of Screts to reroll the other faction's die.
+        }
+
         private static void display_options () {
             Dictionary<int, string> options = new Dictionary<int, string> { { 1, "Set Attacking Faction" },
                 { 2, "Add Attacking Faction Asset" },
@@ -360,21 +373,43 @@ namespace faction_sim {
                 string atk_roll = calculate_diceroll (atk_faction, attacker, short_to_long[vs_roll[0]], "atk") + "+" + atk_mod.ToString ();
                 string def_roll = calculate_diceroll (def_faction, defender, short_to_long[vs_roll[1]], "def") + "+" + def_mod.ToString ();
 
-                if (atk_faction.AlwaysRerollAtk && short_to_long[vs_roll[0]] == atk_faction.AttackerRerollStat) {
-                    atk_result = roller.RollKeeps (atk_roll).Sum ();
-                    rnd.atk_roll = atk_result;
-                } else {
+                if (attacker.AttackerReroll) {
                     atk_result = roller.Roll (atk_roll).Sum ();
-                    rnd.atk_roll = atk_result;
+                    def_result = roller.Roll (def_roll).Sum ();
+
+                    if (reroll_same_or_other (atk_result, def_result)) {
+                        atk_result = roller.Roll (atk_roll).Sum ();
+                    } else {
+                        def_result = roller.Roll (def_roll).Sum ();
+                    }
                 }
 
-                if (def_faction.AlwaysRerollDef && short_to_long[vs_roll[1]] == def_faction.DefenderRerollStat) {
-                    def_result = roller.RollKeeps (def_roll).Sum ();
-                    rnd.def_roll = def_result;
-                } else {
+                if (defender.DefenderReroll) {
+                    atk_result = roller.Roll (atk_roll).Sum ();
                     def_result = roller.Roll (def_roll).Sum ();
-                    rnd.def_roll = def_result;
+
+                    if (reroll_same_or_other (def_result, atk_result)) {
+                        def_result = roller.Roll (def_roll).Sum ();
+                    } else {
+                        atk_result = roller.Roll (atk_roll).Sum ();
+                    }
                 }
+
+                // if (atk_faction.AlwaysRerollAtk && short_to_long[vs_roll[0]] == atk_faction.AttackerRerollStat) {
+                //     atk_result = roller.RollKeeps (atk_roll).Sum ();
+                //     rnd.atk_roll = atk_result;
+                // } else {
+                //     atk_result = roller.Roll (atk_roll).Sum ();
+                //     rnd.atk_roll = atk_result;
+                // }
+
+                // if (def_faction.AlwaysRerollDef && short_to_long[vs_roll[1]] == def_faction.DefenderRerollStat) {
+                //     def_result = roller.RollKeeps (def_roll).Sum ();
+                //     rnd.def_roll = def_result;
+                // } else {
+                //     def_result = roller.Roll (def_roll).Sum ();
+                //     rnd.def_roll = def_result;
+                // }
 
                 if (atk_result >= def_result) {
                     rnd.atk_success = true;
