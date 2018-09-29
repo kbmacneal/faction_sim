@@ -56,14 +56,16 @@ namespace faction_sim {
         public static run_options _runoptions = new run_options ();
         static void Main (string[] args) {
             if (args.Length == 0) {
-            //     Console.WriteLine ("-f for a file input, -i for an interactive input");
-            //     return;
-            // }
+                Console.WriteLine ("-f for a file input, -i for an interactive input. after input file specify full output location");
+                return;
+            }
 
-            // if (args[0] == "-f") {
+            if (args[0] == "-f") {
                 List<List<round>> results = new List<List<round>> ();
 
-                _runoptions = Newtonsoft.Json.JsonConvert.DeserializeObject<run_options> (System.IO.File.ReadAllText ("options.json"));
+                _runoptions = Newtonsoft.Json.JsonConvert.DeserializeObject<run_options> (System.IO.File.ReadAllText (args[1]));
+
+                string out_location = args[3];
 
                 for (int i = 0; i < _runoptions.iterations; i++) {
                     string[] atk_assets = _runoptions.attacking_assets.Select (e => e.ToString ()).ToArray ();
@@ -83,7 +85,7 @@ namespace faction_sim {
 
                 var stats = get_results (results, get_ids (_runoptions.attacking_assets.Select (e => e.ToString ()).ToArray ()).ToArray (), _runoptions.iterations);
 
-                System.IO.File.WriteAllText ("stats.json", Newtonsoft.Json.JsonConvert.SerializeObject (stats));
+                System.IO.File.WriteAllText (out_location, Newtonsoft.Json.JsonConvert.SerializeObject (stats));
                 return;
             }
 
@@ -253,7 +255,7 @@ namespace faction_sim {
                         total_successes += round.Where (e => e.attacking_asset.Name == asset.Name).Where (e => e.atk_success).Count ();
                         total_deaths += round.Where (e => e.attacking_asset.Name == asset.Name).Where (e => e.attacking_asset.Hp <= 0).Count ();
                         total_counter += round.Where (e => e.attacking_asset.Name == asset.Name).Select (e => e.counter_damage).Sum ();
-                        total_kills += round.Where (e => e.attacking_asset.Name == asset.Name).Where(e=>e.defending_asset.Hp <=0).Count();
+                        total_kills += round.Where (e => e.attacking_asset.Name == asset.Name).Where(e=>e.defending_asset!=null).Where(e=>e.defending_asset.Hp <=0).Count();
                         atk_faction_damage += round.Select (e => e.damage).Sum ();
                         def_faction_damage += round.Select (e => e.counter_damage).Sum ();
 
