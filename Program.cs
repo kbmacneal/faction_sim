@@ -25,6 +25,7 @@ namespace faction_sim {
         public int total_successes { get; set; }
         public int average_faction_atk_damage { get; set; }
         public int average_faction_def_damage { get; set; }
+        public string chance_of_kill{get;set;}
     }
 
     public class round {
@@ -243,6 +244,7 @@ namespace faction_sim {
                 int total_deaths = 0;
                 int total_counter = 0;
                 int atk_faction_damage = 0;
+                int total_kills = 0;
                 int def_faction_damage = 0;
 
                 foreach (var round in results) {
@@ -251,6 +253,7 @@ namespace faction_sim {
                         total_successes += round.Where (e => e.attacking_asset.Name == asset.Name).Where (e => e.atk_success).Count ();
                         total_deaths += round.Where (e => e.attacking_asset.Name == asset.Name).Where (e => e.attacking_asset.Hp <= 0).Count ();
                         total_counter += round.Where (e => e.attacking_asset.Name == asset.Name).Select (e => e.counter_damage).Sum ();
+                        total_kills += round.Where (e => e.attacking_asset.Name == asset.Name).Where(e=>e.defending_asset.Hp <=0).Count();
                         atk_faction_damage += round.Select (e => e.damage).Sum ();
                         def_faction_damage += round.Select (e => e.counter_damage).Sum ();
 
@@ -275,6 +278,8 @@ namespace faction_sim {
                 result.avg_damage_per_swing = total_damage / iterations;
                 result.average_faction_atk_damage = atk_faction_damage / iterations;
                 result.average_faction_def_damage = def_faction_damage / iterations;
+                double doub_kill = (double)total_kills/(double)total_successes;
+                result.chance_of_kill = string.Format("{0:N6}",doub_kill);
 
                 rtner.Add (result);
 
