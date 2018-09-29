@@ -56,11 +56,11 @@ namespace faction_sim {
         public static run_options _runoptions = new run_options ();
         static void Main (string[] args) {
             if (args.Length == 0) {
-                Console.WriteLine ("-f for a file input, -i for an interactive input");
-                return;
-            }
+            //     Console.WriteLine ("-f for a file input, -i for an interactive input");
+            //     return;
+            // }
 
-            if (args[0] == "-f") {
+            // if (args[0] == "-f") {
                 List<List<round>> results = new List<List<round>> ();
 
                 _runoptions = Newtonsoft.Json.JsonConvert.DeserializeObject<run_options> (System.IO.File.ReadAllText ("options.json"));
@@ -274,7 +274,15 @@ namespace faction_sim {
                 double doub_hit = (double) total_successes / (double) iterations;
                 result.hit_chance = string.Format ("{0:N6}", doub_hit);
                 result.iterations = iterations;
-                result.avg_counter_damage_taken = total_counter / (iterations - total_successes);
+                if(iterations == total_successes)
+                {
+                    result.avg_counter_damage_taken = 0;
+                }
+                else
+                {
+                    result.avg_counter_damage_taken = total_counter / (iterations - total_successes);
+                }
+                
                 result.avg_damage_per_swing = total_damage / iterations;
                 result.average_faction_atk_damage = atk_faction_damage / iterations;
                 result.average_faction_def_damage = def_faction_damage / iterations;
