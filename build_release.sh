@@ -20,7 +20,6 @@ dotnet publish --self-contained=yes -r osx-x64
 cd bin/Debug/netcoreapp2.1
 
 zip -r win10-x64.zip win10-x64/*
-zip -r asset_smasher.zip win10-x64/*
 zip -r win10-x86.zip win10-x86/*
 zip -r linux-x64.zip linux-x64/*
 zip -r centos-x64.zip centos-x64/*

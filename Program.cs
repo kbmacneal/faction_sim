@@ -26,6 +26,7 @@ namespace faction_sim {
         public int average_faction_atk_damage { get; set; }
         public int average_faction_def_damage { get; set; }
         public string chance_of_kill{get;set;}
+        public string attacker_average_faction_damage{get;set;}
     }
 
     public class round {
@@ -248,6 +249,7 @@ namespace faction_sim {
                 int atk_faction_damage = 0;
                 int total_kills = 0;
                 int def_faction_damage = 0;
+                int attacker_direct_damage = 0;
 
                 foreach (var round in results) {
                     if (round.Where (e => e.attacking_asset.Name == asset.Name).Count () > 0) {
@@ -258,12 +260,20 @@ namespace faction_sim {
                         total_kills += round.Where (e => e.attacking_asset.Name == asset.Name).Where(e=>e.defending_asset!=null).Where(e=>e.defending_asset.Hp <=0).Count();
                         atk_faction_damage += round.Select (e => e.damage).Sum ();
                         def_faction_damage += round.Select (e => e.counter_damage).Sum ();
+                        attacker_direct_damage += round.Where(e=>e.defending_asset == null).Select(e=> e.damage).Sum();
 
                     }
                 }
 
                 if (total_successes != 0) {
                     result.avg_damage = total_damage / total_successes;
+                } else {
+                    result.avg_damage = 0;
+                }
+
+                if (total_successes != 0) {
+                    double doub_direct = (double)attacker_direct_damage/(double)total_successes;
+                    result.attacker_average_faction_damage = string.Format("{0:N6", doub_direct);
                 } else {
                     result.avg_damage = 0;
                 }
