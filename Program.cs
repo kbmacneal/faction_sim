@@ -273,7 +273,7 @@ namespace faction_sim {
 
                 if (total_successes != 0) {
                     double doub_direct = (double)attacker_direct_damage/(double)total_successes;
-                    result.attacker_average_faction_damage = string.Format("{0:N6", doub_direct);
+                    result.attacker_average_faction_damage = string.Format("{0:N6}", doub_direct);
                 } else {
                     result.avg_damage = 0;
                 }
