@@ -57,16 +57,16 @@ namespace faction_sim {
         public static run_options _runoptions = new run_options ();
         static void Main (string[] args) {
             if (args.Length == 0) {
-                Console.WriteLine ("-f for a file input, -i for an interactive input. after input file specify full output location");
-                return;
-            }
+            //     Console.WriteLine ("-f for a file input, -i for an interactive input. after input file specify full output location");
+            //     return;
+            // }
 
-            if (args[0] == "-f") {
+            // if (args[0] == "-f") {
                 List<List<round>> results = new List<List<round>> ();
 
-                _runoptions = Newtonsoft.Json.JsonConvert.DeserializeObject<run_options> (System.IO.File.ReadAllText (args[1]));
+                _runoptions = Newtonsoft.Json.JsonConvert.DeserializeObject<run_options> (System.IO.File.ReadAllText ("options.json"));
 
-                string out_location = args[3];
+                string out_location = "stats.json";
 
                 for (int i = 0; i < _runoptions.iterations; i++) {
                     string[] atk_assets = _runoptions.attacking_assets.Select (e => e.ToString ()).ToArray ();
@@ -400,45 +400,34 @@ namespace faction_sim {
                 int def_result = 0;
 
                 string atk_roll = calculate_diceroll (atk_faction, attacker, short_to_long[vs_roll[0]], "atk") + "+" + atk_mod.ToString ();
+
                 string def_roll = calculate_diceroll (def_faction, defender, short_to_long[vs_roll[1]], "def") + "+" + def_mod.ToString ();
 
-                if (attacker.AttackerReroll) {
-                    atk_result = roller.Roll (atk_roll).Sum ();
-                    def_result = roller.Roll (def_roll).Sum ();
 
+                atk_result = roller.Roll(atk_roll).Sum();
+                rnd.atk_roll = atk_result;
+                def_result = roller.Roll(def_roll).Sum();
+                rnd.def_roll = def_result;
+
+                if (attacker.AttackerReroll) {
                     if (reroll_same_or_other (atk_result, def_result)) {
                         atk_result = roller.Roll (atk_roll).Sum ();
+                        rnd.atk_roll = atk_result;
                     } else {
                         def_result = roller.Roll (def_roll).Sum ();
                     }
                 }
 
                 if (defender.DefenderReroll) {
-                    atk_result = roller.Roll (atk_roll).Sum ();
-                    def_result = roller.Roll (def_roll).Sum ();
 
                     if (reroll_same_or_other (def_result, atk_result)) {
                         def_result = roller.Roll (def_roll).Sum ();
+                        rnd.def_roll = def_result;
                     } else {
                         atk_result = roller.Roll (atk_roll).Sum ();
+                        rnd.atk_roll = atk_result;
                     }
                 }
-
-                // if (atk_faction.AlwaysRerollAtk && short_to_long[vs_roll[0]] == atk_faction.AttackerRerollStat) {
-                //     atk_result = roller.RollKeeps (atk_roll).Sum ();
-                //     rnd.atk_roll = atk_result;
-                // } else {
-                //     atk_result = roller.Roll (atk_roll).Sum ();
-                //     rnd.atk_roll = atk_result;
-                // }
-
-                // if (def_faction.AlwaysRerollDef && short_to_long[vs_roll[1]] == def_faction.DefenderRerollStat) {
-                //     def_result = roller.RollKeeps (def_roll).Sum ();
-                //     rnd.def_roll = def_result;
-                // } else {
-                //     def_result = roller.Roll (def_roll).Sum ();
-                //     rnd.def_roll = def_result;
-                // }
 
                 if (atk_result >= def_result) {
                     rnd.atk_success = true;
