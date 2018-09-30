@@ -399,9 +399,9 @@ namespace faction_sim {
                 int atk_result = 0;
                 int def_result = 0;
 
-                string atk_roll = calculate_diceroll (atk_faction, attacker, short_to_long[vs_roll[0]], "atk") + "+" + atk_mod.ToString ();
+                string atk_roll = calculate_diceroll (atk_faction, short_to_long[vs_roll[0]]) + "+" + atk_mod.ToString ();
 
-                string def_roll = calculate_diceroll (def_faction, defender, short_to_long[vs_roll[1]], "def") + "+" + def_mod.ToString ();
+                string def_roll = calculate_diceroll (def_faction, short_to_long[vs_roll[1]]) + "+" + def_mod.ToString ();
 
 
                 atk_result = roller.Roll(atk_roll).Sum();
@@ -500,18 +500,10 @@ namespace faction_sim {
             return rtner;
         }
 
-        private static string calculate_diceroll (Faction faction, Asset asset, string roll_stat, string atk_def) {
+        private static string calculate_diceroll (Faction faction, string roll_stat) {
             int num_dice = 1;
 
             if (faction.PMax && roll_stat == "Cunning") {
-                num_dice++;
-            }
-
-            if (atk_def == "atk" && asset.AttackerReroll) {
-                num_dice++;
-            }
-
-            if (atk_def == "def" && asset.DefenderReroll) {
                 num_dice++;
             }
 
