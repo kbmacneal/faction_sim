@@ -57,16 +57,16 @@ namespace faction_sim {
         public static run_options _runoptions = new run_options ();
         static void Main (string[] args) {
             if (args.Length == 0) {
-            //     Console.WriteLine ("-f for a file input, -i for an interactive input. after input file specify full output location");
-            //     return;
-            // }
+                Console.WriteLine ("-f for a file input, -i for an interactive input. after input file specify full output location");
+                return;
+            }
 
-            // if (args[0] == "-f") {
+            if (args[0] == "-f") {
                 List<List<round>> results = new List<List<round>> ();
 
-                _runoptions = Newtonsoft.Json.JsonConvert.DeserializeObject<run_options> (System.IO.File.ReadAllText ("options.json"));
+                _runoptions = Newtonsoft.Json.JsonConvert.DeserializeObject<run_options> (System.IO.File.ReadAllText (args[1]));
 
-                string out_location = "stats.json";
+                string out_location = args[3];
 
                 for (int i = 0; i < _runoptions.iterations; i++) {
                     string[] atk_assets = _runoptions.attacking_assets.Select (e => e.ToString ()).ToArray ();
