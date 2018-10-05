@@ -117,7 +117,7 @@ namespace faction_sim
 
             return reroll_same;
             //Value A = 10 minus the unmodified Houses Minor roll
-            //   Value B = unmodified Other Faction roll minus 1
+            //Value B = unmodified Other Faction roll minus 1
 
             // If value A > value B, use the Book of Secrets to reroll our die.
             // If value A <= value B, use the Book of Screts to reroll the other faction's die.
