@@ -38,6 +38,12 @@ namespace faction_sim.Classes.Assets
 
         [JsonProperty("AttackerReroll")]
         public bool AttackerReroll { get; set; }
+
+        [JsonProperty("AttackerExtraDice")]
+        public bool AttackerExtraDice { get; set; }
+
+        [JsonProperty("DefenderExtraDice")]
+        public bool DefenderExtraDice { get; set; }
     }
 
     public enum AttackStats { CvC, CvW, FvC, FvF, FvW, None, WvF, WvW };

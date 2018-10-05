@@ -8,7 +8,9 @@
     "AttackStats": "WvW",
     "AttackDice": "1D4",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Harvesters",
@@ -19,7 +21,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Local Investments",
@@ -30,7 +34,9 @@
     "AttackStats": "WvW",
     "AttackDice": "1d4-1",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Base Of Influence",
@@ -41,7 +47,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Freighter Contract",
@@ -52,7 +60,9 @@
     "AttackStats": "WvW",
     "AttackDice": "1D4",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Lawyers",
@@ -63,7 +73,9 @@
     "AttackStats": "CvW",
     "AttackDice": "2d4",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Union Toughs",
@@ -74,7 +86,9 @@
     "AttackStats": "WvF",
     "AttackDice": "1d4+1",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Surveyors",
@@ -85,7 +99,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Postech Industry",
@@ -96,7 +112,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Laboratory",
@@ -107,7 +125,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Mercenaries",
@@ -118,7 +138,9 @@
     "AttackStats": "WvF",
     "AttackDice": "2d4+2",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Shipping Combine",
@@ -129,7 +151,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Monopoly",
@@ -140,7 +164,9 @@
     "AttackStats": "WvW",
     "AttackDice": "1d6",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Medical Center",
@@ -151,7 +177,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Bank",
@@ -162,7 +190,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Marketers",
@@ -173,7 +203,9 @@
     "AttackStats": "CvW",
     "AttackDice": "1d6",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Pretech Researchers",
@@ -184,7 +216,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Blockade Runners",
@@ -195,7 +229,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Venture Capital",
@@ -206,7 +242,9 @@
     "AttackStats": "WvW",
     "AttackDice": "2d6",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "R&D Department",
@@ -217,7 +255,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Commodities Broker",
@@ -228,7 +268,9 @@
     "AttackStats": "WvW",
     "AttackDice": "2d8",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Pretech Manufactory",
@@ -239,7 +281,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Hostile Takeover",
@@ -250,7 +294,9 @@
     "AttackStats": "WvW",
     "AttackDice": "2d10",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Transit Web",
@@ -261,7 +307,9 @@
     "AttackStats": "CvC",
     "AttackDice": "1d12",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Scavenger Fleet",
@@ -272,7 +320,9 @@
     "AttackStats": "WvW",
     "AttackDice": "2d10+4",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Smugglers",
@@ -283,7 +333,9 @@
     "AttackStats": "CvW",
     "AttackDice": "1d4",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Informers",
@@ -294,7 +346,9 @@
     "AttackStats": "CvC",
     "AttackDice": "Special",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "False Front",
@@ -305,7 +359,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Base Of Influence",
@@ -316,7 +372,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Lobbyists",
@@ -327,7 +385,9 @@
     "AttackStats": "CvC",
     "AttackDice": "Special",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Saboteurs",
@@ -338,7 +398,9 @@
     "AttackStats": "CvC",
     "AttackDice": "2d4",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Blackmail",
@@ -349,7 +411,9 @@
     "AttackStats": "CvC",
     "AttackDice": "1d6+1",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Seductress",
@@ -360,7 +424,9 @@
     "AttackStats": "CvC",
     "AttackDice": "Special",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Cyberninjas",
@@ -371,7 +437,9 @@
     "AttackStats": "CvC",
     "AttackDice": "2d6",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Stealth",
@@ -382,7 +450,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Covert Shipping",
@@ -393,7 +463,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Party Machine",
@@ -404,7 +476,9 @@
     "AttackStats": "CvC",
     "AttackDice": "2d6",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Vanguard Cadres",
@@ -415,7 +489,9 @@
     "AttackStats": "CvC",
     "AttackDice": "1d6",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Tripwire Cells",
@@ -426,7 +502,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Seditionists",
@@ -437,7 +515,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Organization Moles",
@@ -448,7 +528,9 @@
     "AttackStats": "CvC",
     "AttackDice": "2d6",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Cracked Comms",
@@ -459,7 +541,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Boltholes",
@@ -470,7 +554,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Transport Lockdown",
@@ -481,7 +567,9 @@
     "AttackStats": "CvC",
     "AttackDice": "Special",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Covert Transit Net",
@@ -492,7 +580,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Demagogue",
@@ -503,7 +593,9 @@
     "AttackStats": "CvC",
     "AttackDice": "2d8",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Popular Movement",
@@ -514,7 +606,9 @@
     "AttackStats": "CvC",
     "AttackDice": "2d6",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Book Of Secrets",
@@ -525,7 +619,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Treachery",
@@ -536,7 +632,9 @@
     "AttackStats": "CvC",
     "AttackDice": "1d2+1000",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Panopticon Matrix",
@@ -547,7 +645,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Security Personnel",
@@ -558,7 +658,9 @@
     "AttackStats": "FvF",
     "AttackDice": "1d3+1",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Hitmen",
@@ -569,7 +671,9 @@
     "AttackStats": "FvC",
     "AttackDice": "1d6",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Militia Unit",
@@ -580,7 +684,9 @@
     "AttackStats": "FvF",
     "AttackDice": "1d6",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Base Of Influence",
@@ -591,7 +697,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Heavy Drop Assets",
@@ -602,7 +710,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Elite Skirmishers",
@@ -613,7 +723,9 @@
     "AttackStats": "FvF",
     "AttackDice": "2d4",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Hardened Personnel",
@@ -624,7 +736,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Guerilla Populace",
@@ -635,7 +749,9 @@
     "AttackStats": "FvC",
     "AttackDice": "1d4+1",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Zealots",
@@ -646,7 +762,9 @@
     "AttackStats": "FvF",
     "AttackDice": "2d6",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Cunning Trap",
@@ -657,7 +775,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Counterintel Unit",
@@ -668,7 +788,9 @@
     "AttackStats": "CvC",
     "AttackDice": "1d4+1",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Beachhead Landers",
@@ -679,7 +801,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Extended Theater",
@@ -690,7 +814,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Strike Fleet",
@@ -701,7 +827,9 @@
     "AttackStats": "FvF",
     "AttackDice": "2d6",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Postech Infantry",
@@ -712,7 +840,9 @@
     "AttackStats": "FvF",
     "AttackDice": "1d8",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Blockade Fleet",
@@ -723,7 +853,9 @@
     "AttackStats": "FvW",
     "AttackDice": "1d6",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Pretech Logistics",
@@ -734,7 +866,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Psychic Assassins",
@@ -745,7 +879,9 @@
     "AttackStats": "CvC",
     "AttackDice": "2d6+2",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Pretech Infantry",
@@ -756,7 +892,9 @@
     "AttackStats": "FvF",
     "AttackDice": "2d8",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Planetary Defenses",
@@ -767,7 +905,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Gravtank Formation",
@@ -778,7 +918,9 @@
     "AttackStats": "FvF",
     "AttackDice": "2d10+4",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Deep Strike Landers",
@@ -789,7 +931,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Integral Protocols",
@@ -800,7 +944,9 @@
     "AttackStats": "None",
     "AttackDice": "None",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Space Marines",
@@ -811,7 +957,9 @@
     "AttackStats": "FvF",
     "AttackDice": "2d8+2",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   },
   {
     "Name": "Capital Fleet",
@@ -822,6 +970,8 @@
     "AttackStats": "FvF",
     "AttackDice": "3d10+4",
     "DefenderReroll": false,
-    "AttackerReroll": false
+    "AttackerReroll": false,
+    "AttackerExtraDice": false,
+    "DefenderExtraDice": false
   }
 ]

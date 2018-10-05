@@ -1,6 +1,4 @@
 ﻿//TODO
-//multithreading
-//defending asset % chance to be destroyed by attacker
 
 using System;
 using System.Collections;
@@ -403,6 +401,16 @@ namespace faction_sim {
 
                 string def_roll = calculate_diceroll (def_faction, short_to_long[vs_roll[1]]) + "+" + def_mod.ToString ();
 
+                if(attacker.AttackerExtraDice)
+                {
+                    atk_roll = add_dice(atk_roll);
+                }
+
+                if(defender.DefenderExtraDice)
+                {
+                    def_roll = add_dice(def_roll);
+                }
+
 
                 atk_result = roller.Roll(atk_roll).Sum();
                 rnd.atk_roll = atk_result;
@@ -508,6 +516,22 @@ namespace faction_sim {
             }
 
             return num_dice.ToString () + "d10";
+        }
+
+        private static string add_dice(string diceroll)
+        {
+            string[] roll = diceroll.Split("d");
+
+            if(roll.Length == 2)
+            {
+                int num_dice = Convert.ToInt32(roll[0])++;
+
+                return string.Concat(num_dice,"d",roll[1]);
+            }
+            else
+            {
+                return string.Concat(2,diceroll);
+            }
         }
 
         private static Dictionary<string, string> short_to_long = new Dictionary<string, string> { { "C", "Cunning" },

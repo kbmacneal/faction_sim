@@ -29,41 +29,9 @@ namespace faction_sim.Classes.Factions
         [JsonProperty("ID")]
         public long Id { get; set; }
 
-        [JsonProperty("AttackerReroll")]
-        public bool AttackerReroll { get; set; }
-
-        [JsonProperty("AttackerRerollStat")]
-        public string AttackerRerollStat { get; set; }
-
-        [JsonProperty("DefenderReroll")]
-        public bool DefenderReroll { get; set; }
-
-        [JsonProperty("DefenderRerollStat")]
-        public string DefenderRerollStat { get; set; }
-
-        [JsonProperty("AttackerRerolled")]
-        public bool AttackerRerolled { get; set; }
-
-        [JsonProperty("DefenderRerolled")]
-        public bool DefenderRerolled { get; set; }
-
-        [JsonProperty("NumAttackerRerolls")]
-        public long NumAttackerRerolls { get; set; }
-
-        [JsonProperty("NumDefenderRerolls")]
-        public long NumDefenderRerolls { get; set; }
-
-        [JsonProperty("AlwaysRerollAtk")]
-        public bool AlwaysRerollAtk { get; set; }
-
-        [JsonProperty("AlwaysRerollDef")]
-        public bool AlwaysRerollDef { get; set; }
-
         [JsonProperty("PMax")]
         public bool PMax { get; set; }
     }
-
-    public enum ErRerollStat { None };
 
     public partial class Faction
     {
@@ -82,44 +50,9 @@ namespace faction_sim.Classes.Factions
             MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
             DateParseHandling = DateParseHandling.None,
             Converters = {
-                ErRerollStatConverter.Singleton,
                 new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
             },
         };
-    }
-
-    internal class ErRerollStatConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(ErRerollStat) || t == typeof(ErRerollStat?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            if (value == "None")
-            {
-                return ErRerollStat.None;
-            }
-            throw new Exception("Cannot unmarshal type ErRerollStat");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (ErRerollStat)untypedValue;
-            if (value == ErRerollStat.None)
-            {
-                serializer.Serialize(writer, "None");
-                return;
-            }
-            throw new Exception("Cannot marshal type ErRerollStat");
-        }
-
-        public static readonly ErRerollStatConverter Singleton = new ErRerollStatConverter();
     }
 
     internal class ParseStringConverter : JsonConverter
