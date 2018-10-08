@@ -585,7 +585,7 @@ namespace faction_sim
 
             if (roll.Length == 2)
             {
-                int num_dice = Convert.ToInt32(roll[0])++;
+                int num_dice = Convert.ToInt32(roll[0]) + 1;
 
                 return string.Concat(num_dice, "d", roll[1]);
             }
