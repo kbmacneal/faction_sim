@@ -28,6 +28,7 @@ namespace faction_sim
         public string chance_of_kill { get; set; }
         public string attacker_average_faction_damage { get; set; }
         public string hit_chance_less_death_chance{get;set;}
+        public string average_total_stack_damage{get;set;}
     }
 
     public class round
@@ -270,6 +271,7 @@ namespace faction_sim
                 int total_kills = 0;
                 int def_faction_damage = 0;
                 int attacker_direct_damage = 0;
+                int round_damage = 0;
 
                 foreach (var round in results)
                 {
@@ -285,6 +287,8 @@ namespace faction_sim
                         attacker_direct_damage += round.Where(e => e.defending_asset == null).Select(e => e.damage).Sum();
 
                     }
+
+                    round_damage += round.Select(e=>e.damage).Sum();
                 }
 
                 if (total_successes != 0)
@@ -326,8 +330,10 @@ namespace faction_sim
                 }
 
                 result.avg_damage_per_swing = total_damage / iterations;
-                result.average_faction_atk_damage = string.Format("{0:N6}", (double)atk_faction_damage / (double)iterations);
+                result.average_faction_atk_damage = atk_faction_damage / iterations;
                 result.average_faction_def_damage = def_faction_damage / iterations;
+                result.average_total_stack_damage = (double)round_damage / (double)total_successes;
+                
                 if (total_successes > 0)
                 {
                     double doub_kill = (double)total_kills / (double)total_successes;
