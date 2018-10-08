@@ -27,6 +27,7 @@ namespace faction_sim
         public int average_faction_def_damage { get; set; }
         public string chance_of_kill { get; set; }
         public string attacker_average_faction_damage { get; set; }
+        public string hit_chance_less_death_chance{get;set;}
     }
 
     public class round
@@ -311,6 +312,8 @@ namespace faction_sim
                 double doub_death = (double)total_deaths / (double)iterations;
                 result.chance_of_death = string.Format("{0:N6}", doub_death);
                 double doub_hit = (double)total_successes / (double)iterations;
+
+                result.hit_chance_less_death_chance = string.Format("{0:N6}", ((double)total_successes / (double)iterations)-((double)total_deaths / (double)iterations));
                 result.hit_chance = string.Format("{0:N6}", doub_hit);
                 result.iterations = iterations;
                 if (iterations == total_successes)
@@ -323,7 +326,7 @@ namespace faction_sim
                 }
 
                 result.avg_damage_per_swing = total_damage / iterations;
-                result.average_faction_atk_damage = atk_faction_damage / iterations;
+                result.average_faction_atk_damage = string.Format("{0:N6}", (double)atk_faction_damage / (double)iterations);
                 result.average_faction_def_damage = def_faction_damage / iterations;
                 if (total_successes > 0)
                 {
