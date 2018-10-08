@@ -332,7 +332,7 @@ namespace faction_sim
                 result.avg_damage_per_swing = total_damage / iterations;
                 result.average_faction_atk_damage = atk_faction_damage / iterations;
                 result.average_faction_def_damage = def_faction_damage / iterations;
-                result.average_total_stack_damage = (double)round_damage / (double)total_successes;
+                result.average_total_stack_damage = string.Format("{0:N6}",(double)round_damage / (double)total_successes);
                 
                 if (total_successes > 0)
                 {
