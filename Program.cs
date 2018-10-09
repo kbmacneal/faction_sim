@@ -27,8 +27,8 @@ namespace faction_sim
         public int average_faction_def_damage { get; set; }
         public string chance_of_kill { get; set; }
         public string attacker_average_faction_damage { get; set; }
-        public string hit_chance_less_death_chance{get;set;}
-        public string average_total_stack_damage{get;set;}
+        public string hit_chance_less_death_chance { get; set; }
+        public string average_total_stack_damage { get; set; }
     }
 
     public class round
@@ -112,7 +112,7 @@ namespace faction_sim
         {
             bool reroll_same = false;
 
-            int value_a = 10-raw_a;
+            int value_a = 10 - raw_a;
             int value_b = raw_b - 1;
 
             if (value_a > value_b) reroll_same = true;
@@ -288,7 +288,7 @@ namespace faction_sim
 
                     }
 
-                    round_damage += round.Select(e=>e.damage).Sum();
+                    round_damage += round.Select(e => e.damage).Sum();
                 }
 
                 if (total_successes != 0)
@@ -317,7 +317,7 @@ namespace faction_sim
                 result.chance_of_death = string.Format("{0:N6}", doub_death);
                 double doub_hit = (double)total_successes / (double)iterations;
 
-                result.hit_chance_less_death_chance = string.Format("{0:N6}", ((double)total_successes / (double)iterations)-((double)total_deaths / (double)iterations));
+                result.hit_chance_less_death_chance = string.Format("{0:N6}", ((double)total_successes / (double)iterations) - ((double)total_deaths / (double)iterations));
                 result.hit_chance = string.Format("{0:N6}", doub_hit);
                 result.iterations = iterations;
                 if (iterations == total_successes)
@@ -332,8 +332,8 @@ namespace faction_sim
                 result.avg_damage_per_swing = total_damage / iterations;
                 result.average_faction_atk_damage = atk_faction_damage / iterations;
                 result.average_faction_def_damage = def_faction_damage / iterations;
-                result.average_total_stack_damage = string.Format("{0:N6}",(double)round_damage / (double)total_successes);
-                
+                result.average_total_stack_damage = string.Format("{0:N6}", (double)round_damage / (double)total_successes);
+
                 if (total_successes > 0)
                 {
                     double doub_kill = (double)total_kills / (double)total_successes;
@@ -450,29 +450,39 @@ namespace faction_sim
                 if (attacker.AttackerExtraDice)
                 {
                     atk_roll = add_dice(atk_roll);
+                    atk_result = roller.RollKeeps(atk_roll).Sum();
+                    rnd.atk_roll = atk_result;
+                }
+                else
+                {
+                    atk_result = roller.Roll(atk_roll).Sum();
+                    rnd.atk_roll = atk_result;
                 }
 
                 if (defender.DefenderExtraDice)
                 {
                     def_roll = add_dice(def_roll);
+                    def_result = roller.RollKeeps(def_roll).Sum();
+                    rnd.def_roll = def_result;
+                }
+                else
+                {
+                    def_result = roller.Roll(def_roll).Sum();
+                    rnd.def_roll = def_result;
                 }
 
 
-                atk_result = roller.Roll(atk_roll).Sum();
-                rnd.atk_roll = atk_result;
-                def_result = roller.Roll(def_roll).Sum();
-                rnd.def_roll = def_result;
 
                 if (attacker.AttackerReroll)
                 {
                     if (reroll_same_or_other(atk_result, def_result))
                     {
-                        atk_result = roller.Roll(atk_roll).Sum();
+                        atk_result = roller.Roll(calculate_diceroll(atk_faction, short_to_long[vs_roll[0]]) + "+" + atk_mod.ToString()).Sum();
                         rnd.atk_roll = atk_result;
                     }
                     else
                     {
-                        def_result = roller.Roll(def_roll).Sum();
+                        def_result = roller.Roll(calculate_diceroll(def_faction, short_to_long[vs_roll[1]]) + "+" + def_mod.ToString()).Sum();
                     }
                 }
 
@@ -481,12 +491,12 @@ namespace faction_sim
 
                     if (reroll_same_or_other(def_result, atk_result))
                     {
-                        def_result = roller.Roll(def_roll).Sum();
+                        def_result = roller.Roll(calculate_diceroll(def_faction, short_to_long[vs_roll[1]]) + "+" + def_mod.ToString()).Sum();
                         rnd.def_roll = def_result;
                     }
                     else
                     {
-                        atk_result = roller.Roll(atk_roll).Sum();
+                        atk_result = roller.Roll(calculate_diceroll(atk_faction, short_to_long[vs_roll[0]]) + "+" + atk_mod.ToString()).Sum();
                         rnd.atk_roll = atk_result;
                     }
                 }
