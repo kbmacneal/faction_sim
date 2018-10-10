@@ -44,9 +44,17 @@ namespace faction_sim.Classes.Assets
 
         [JsonProperty("DefenderExtraDice")]
         public bool DefenderExtraDice { get; set; }
+
+        [JsonProperty("Description")]
+        public string Description { get; set; }
+
+        [JsonProperty("Type")]
+        public string Type { get; set; }
     }
 
     public enum AttackStats { CvC, CvW, FvC, FvF, FvW, None, WvF, WvW };
+
+    public enum TypeEnum { Cunning, Force, Special, Wealth };
 
     public partial class Asset
     {
@@ -66,6 +74,7 @@ namespace faction_sim.Classes.Assets
             DateParseHandling = DateParseHandling.None,
             Converters = {
                 AttackStatsConverter.Singleton,
+                TypeEnumConverter.Singleton,
                 new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
             },
         };
@@ -171,5 +180,56 @@ namespace faction_sim.Classes.Assets
         }
 
         public static readonly ParseStringConverter Singleton = new ParseStringConverter();
+    }
+
+    internal class TypeEnumConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(TypeEnum) || t == typeof(TypeEnum?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "Cunning":
+                    return TypeEnum.Cunning;
+                case "Force":
+                    return TypeEnum.Force;
+                case "Special":
+                    return TypeEnum.Special;
+                case "Wealth":
+                    return TypeEnum.Wealth;
+            }
+            throw new Exception("Cannot unmarshal type TypeEnum");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (TypeEnum)untypedValue;
+            switch (value)
+            {
+                case TypeEnum.Cunning:
+                    serializer.Serialize(writer, "Cunning");
+                    return;
+                case TypeEnum.Force:
+                    serializer.Serialize(writer, "Force");
+                    return;
+                case TypeEnum.Special:
+                    serializer.Serialize(writer, "Special");
+                    return;
+                case TypeEnum.Wealth:
+                    serializer.Serialize(writer, "Wealth");
+                    return;
+            }
+            throw new Exception("Cannot marshal type TypeEnum");
+        }
+
+        public static readonly TypeEnumConverter Singleton = new TypeEnumConverter();
     }
 }
