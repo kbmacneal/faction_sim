@@ -237,13 +237,6 @@ namespace faction_sim
                         results.Add(result);
                     }
 
-                    if (System.IO.File.Exists("results.json"))
-                    {
-                        System.IO.File.Delete("results.json");
-                    }
-
-                    System.IO.File.WriteAllText("results.json", Newtonsoft.Json.JsonConvert.SerializeObject(results, Formatting.Indented));
-
                     var stats = get_results(results, get_ids(_runoptions.attacking_assets.Select(e => e.ToString()).ToArray()).ToArray(), _runoptions.iterations);
 
                     System.IO.File.WriteAllText("stats.json", Newtonsoft.Json.JsonConvert.SerializeObject(stats, Formatting.Indented));
