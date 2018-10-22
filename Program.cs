@@ -459,7 +459,7 @@ namespace faction_sim
 
 
 
-                if (attacker.AttackerReroll)
+                if (atk_result < def_result && attacker.AttackerReroll)
                 {
                     if (reroll_same_or_other(atk_result, def_result))
                     {
@@ -472,7 +472,7 @@ namespace faction_sim
                     }
                 }
 
-                if (defender.DefenderReroll)
+                if (atk_result >= def_result && defender.DefenderReroll)
                 {
 
                     if (reroll_same_or_other(def_result, atk_result))
