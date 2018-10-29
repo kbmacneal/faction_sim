@@ -285,11 +285,11 @@ namespace faction_sim
                         total_kills += round.Where(e => e.attacking_asset.instance_discriminator == asset.instance_discriminator).Where(e => e.defending_asset != null).Where(e => e.defending_asset.Hp <= 0).Count();
                         atk_faction_damage += round.Select(e => e.damage).Sum();
                         def_faction_damage += round.Select(e => e.counter_damage).Sum();
-                        attacker_direct_damage += round.Where(e => e.defending_asset == null).Select(e => e.damage).Sum();
+                        attacker_direct_damage += round.Where(e => e.defending_asset == null && e.attacking_asset.Name != "Treachery").Select(e => e.damage).Sum();
 
                     }
 
-                    round_damage += round.Select(e => e.damage).Sum();
+                    round_damage += round.Where(e=> e.attacking_asset.Name != "Treachery").Select(e => e.damage).Sum();
                 }
 
                 if (total_successes != 0)
@@ -301,7 +301,7 @@ namespace faction_sim
                     result.avg_damage = 0;
                 }
 
-                if (total_successes != 0 && asset.Name != " Treachery")
+                if (total_successes != 0)
                 {
                     double doub_direct = (double)attacker_direct_damage / (double)total_successes;
                     result.attacker_average_faction_damage = string.Format("{0:N6}", doub_direct);
