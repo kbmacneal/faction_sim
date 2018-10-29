@@ -65,11 +65,11 @@ namespace faction_sim
         {
             if (args.Length == 0)
             {
-            //     List<Asset> assets = Asset.FromJson(System.IO.File.ReadAllText("assets.json")).ToList();
-            // List<Faction> factions = Faction.FromJson(System.IO.File.ReadAllText("factions.json")).ToList();
+                //     List<Asset> assets = Asset.FromJson(System.IO.File.ReadAllText("assets.json")).ToList();
+                // List<Faction> factions = Faction.FromJson(System.IO.File.ReadAllText("factions.json")).ToList();
 
-            // assets.ForEach(e=> Classes.Assets.Asset.InsertAsset(e));
-            // factions.ForEach(e=> Classes.Factions.Faction.InsertFaction(e));
+                // assets.ForEach(e=> Classes.Assets.Asset.InsertAsset(e));
+                // factions.ForEach(e=> Classes.Factions.Faction.InsertFaction(e));
                 Console.WriteLine("-f for a file input, -i for an interactive input. after input file specify full output location");
                 return;
             }
@@ -85,18 +85,21 @@ namespace faction_sim
                 string out_location = args[3];
                 // string out_location = "options_results.json";
 
+                int[] atk_assets = _runoptions.attacking_assets.Select(e => e).ToArray();
+
+                int[] def_assets = _runoptions.defending_assets.Select(e => e).ToArray();
+
+                List<Asset> attacking_assets = initialize_assets(atk_assets);
+
+                List<Asset> defending_assets = initialize_assets(def_assets);
+
                 for (int i = 0; i < _runoptions.iterations; i++)
                 {
-                    string[] atk_assets = _runoptions.attacking_assets.Select(e => e.ToString()).ToArray();
-
-                    string[] def_assets = _runoptions.defending_assets.Select(e => e.ToString()).ToArray();
-
-                    var stacks = initialize_stacks(_runoptions.attacking_id, _runoptions.defending_id, atk_assets, def_assets);
-                    var result = run_sim(stacks);
+                    var result = run_sim(Faction.GetFaction(_runoptions.attacking_id), Faction.GetFaction(_runoptions.defending_id), attacking_assets, defending_assets);
                     results.Add(result);
                 }
 
-                var stats = get_results(results, get_ids(_runoptions.attacking_assets.Select(e => e.ToString()).ToArray()).ToArray(), _runoptions.iterations);
+                var stats = get_results(results, attacking_assets, _runoptions.iterations);
 
                 System.IO.File.WriteAllText(out_location, Newtonsoft.Json.JsonConvert.SerializeObject(stats, Formatting.Indented));
                 return;
@@ -228,18 +231,21 @@ namespace faction_sim
                 case 6:
                     List<List<round>> results = new List<List<round>>();
 
+                    int[] atk_assets = _runoptions.attacking_assets.Select(e => e).ToArray();
+
+                    int[] def_assets = _runoptions.defending_assets.Select(e => e).ToArray();
+
+                    List<Asset> at_assets = initialize_assets(atk_assets);
+
+                    List<Asset> de_assets = initialize_assets(def_assets);
+
                     for (int i = 0; i < _runoptions.iterations; i++)
                     {
-                        string[] atk_assets = _runoptions.attacking_assets.Select(e => e.ToString()).ToArray();
-
-                        string[] def_assets = _runoptions.defending_assets.Select(e => e.ToString()).ToArray();
-
-                        var stacks = initialize_stacks(_runoptions.attacking_id, _runoptions.defending_id, atk_assets, def_assets);
-                        var result = run_sim(stacks);
+                        var result = run_sim(Faction.GetFaction(_runoptions.attacking_id), Faction.GetFaction(_runoptions.defending_id), at_assets, de_assets);
                         results.Add(result);
                     }
 
-                    var stats = get_results(results, get_ids(_runoptions.attacking_assets.Select(e => e.ToString()).ToArray()).ToArray(), _runoptions.iterations);
+                    var stats = get_results(results, at_assets, _runoptions.iterations);
 
                     System.IO.File.WriteAllText("stats.json", Newtonsoft.Json.JsonConvert.SerializeObject(stats, Formatting.Indented));
                     break;
@@ -248,14 +254,13 @@ namespace faction_sim
             }
         }
 
-        private static List<result> get_results(List<List<round>> results, int[] assets, int iterations)
+        private static List<result> get_results(List<List<round>> results, List<Asset> assets, int iterations)
         {
             List<result> rtner = new List<result>();
 
-            foreach (var item in assets)
+            foreach (var asset in assets)
             {
                 result result = new result();
-                Asset asset = Asset.GetAsset(item);
                 result.asset = asset;
 
                 int total_damage = 0;
@@ -363,18 +368,13 @@ namespace faction_sim
             return rtner;
         }
 
-        private static List<round> run_sim(Dictionary<Classes.Factions.Faction, List<Int32>> members)
+        private static List<round> run_sim(Faction attacking_faction, Faction defending_faction, List<Asset> attackers, List<Asset> defenders)
         {
             List<round> results = new List<round>();
 
-            List<Classes.Assets.Asset> defenders = initialize_assets(members.Last().Value.ToArray());
-
-            Faction attacking_faction = members.First().Key;
-            Faction defending_faction = members.Last().Key;
-
-            foreach (var id in members.First().Value.ToArray())
+            foreach (Asset attacker in attackers)
             {
-                var atk = Asset.GetAsset(id);
+                var atk = attacker;
                 List<Asset> eligible_defenders = defenders.Where(e => e.Hp > 0).ToList();
 
                 if (atk.AttackStats == "None") continue;
