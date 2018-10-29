@@ -4,9 +4,10 @@ namespace faction_sim.Classes.Assets
 {
     using System;
     using System.Collections.Generic;
-
+    using System.Linq;
     using System.Globalization;
     using Newtonsoft.Json;
+    using JsonFlatFileDataStore;
     using Newtonsoft.Json.Converters;
 
     public partial class Asset
@@ -52,6 +53,57 @@ namespace faction_sim.Classes.Assets
         public string Type { get; set; }
 
         public int instance_discriminator {get;set;} = faction_sim.Program.rand.Next(0,Int32.MaxValue-5);
+
+        public static List<Asset> GetAsset()
+        {
+            // Open database (create new if file doesn't exist)
+            var store = new DataStore ("data.json");
+
+            // Get employee collection
+            var returner = store.GetCollection<Asset> ().AsQueryable ().ToList ();
+
+            store.Dispose();
+
+            return returner;
+        }
+
+        public static Asset GetAsset(long ID)
+        {
+            // Open database (create new if file doesn't exist)
+            var store = new DataStore ("data.json");
+
+            // Get employee collection
+            var returner = store.GetCollection<Asset> ().AsQueryable ().ToList().FirstOrDefault(e=> e.Id == ID);
+
+            store.Dispose();
+
+            return returner;
+        }
+
+        public Asset GetAsset(string name)
+        {
+            // Open database (create new if file doesn't exist)
+            var store = new DataStore ("data.json");
+
+            // Get employee collection
+            var returner = store.GetCollection<Asset> ().AsQueryable ().ToList().FirstOrDefault(e=> e.Name == name);
+
+            store.Dispose();
+
+            return returner;
+        }
+
+        public static void InsertAsset(Asset asset)
+        {
+            // Open database (create new if file doesn't exist)
+            var store = new DataStore ("data.json");
+
+            // Get employee collection
+            store.GetCollection<Asset> ().InsertOneAsync(asset).GetAwaiter().GetResult();
+
+            store.Dispose();
+            return;
+        }
     }
 
     public enum AttackStats { CvC, CvW, FvC, FvF, FvW, None, WvF, WvW };

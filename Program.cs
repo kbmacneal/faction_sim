@@ -65,6 +65,11 @@ namespace faction_sim
         {
             if (args.Length == 0)
             {
+            //     List<Asset> assets = Asset.FromJson(System.IO.File.ReadAllText("assets.json")).ToList();
+            // List<Faction> factions = Faction.FromJson(System.IO.File.ReadAllText("factions.json")).ToList();
+
+            // assets.ForEach(e=> Classes.Assets.Asset.InsertAsset(e));
+            // factions.ForEach(e=> Classes.Factions.Faction.InsertFaction(e));
                 Console.WriteLine("-f for a file input, -i for an interactive input. after input file specify full output location");
                 return;
             }
@@ -75,7 +80,10 @@ namespace faction_sim
 
                 _runoptions = Newtonsoft.Json.JsonConvert.DeserializeObject<run_options>(System.IO.File.ReadAllText(args[1]));
 
+                // _runoptions = Newtonsoft.Json.JsonConvert.DeserializeObject<run_options>(System.IO.File.ReadAllText("options.json"));
+
                 string out_location = args[3];
+                // string out_location = "options_results.json";
 
                 for (int i = 0; i < _runoptions.iterations; i++)
                 {
@@ -130,9 +138,10 @@ namespace faction_sim
 
             Console.Clear();
 
-            List<Asset> assets = Asset.FromJson(System.IO.File.ReadAllText("assets.json")).ToList();
-            List<Faction> factions = Faction.FromJson(System.IO.File.ReadAllText("factions.json")).ToList();
-
+            // List<Asset> assets = Asset.FromJson(System.IO.File.ReadAllText("assets.json")).ToList();
+            List<Asset> assets = Asset.GetAsset();
+            // List<Faction> factions = Faction.FromJson(System.IO.File.ReadAllText("factions.json")).ToList();
+            List<Faction> factions = Faction.GetFaction();
             Faction attacking_faction = factions.FirstOrDefault(e => e.Id == _runoptions.attacking_id);
             Faction defending_faction = factions.FirstOrDefault(e => e.Id == _runoptions.defending_id);
 
@@ -246,7 +255,7 @@ namespace faction_sim
             foreach (var item in assets)
             {
                 result result = new result();
-                Asset asset = get_asset(item);
+                Asset asset = Asset.GetAsset(item);
                 result.asset = asset;
 
                 int total_damage = 0;
@@ -365,7 +374,7 @@ namespace faction_sim
 
             foreach (var id in members.First().Value.ToArray())
             {
-                var atk = get_asset(id);
+                var atk = Asset.GetAsset(id);
                 List<Asset> eligible_defenders = defenders.Where(e => e.Hp > 0).ToList();
 
                 if (atk.AttackStats == "None") continue;
@@ -535,16 +544,11 @@ namespace faction_sim
             return rtner;
         }
 
-        private static Asset get_asset(int id)
-        {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<List<Asset>>(System.IO.File.ReadAllText("assets.json")).First(x => x.Id == id);
-        }
-
         private static List<Classes.Assets.Asset> initialize_assets(int[] ids)
         {
             List<Classes.Assets.Asset> rtner = new List<Classes.Assets.Asset>();
 
-            List<Classes.Assets.Asset> master_list = Classes.Assets.Asset.FromJson(System.IO.File.ReadAllText("assets.json")).ToList();
+            List<Classes.Assets.Asset> master_list = Asset.GetAsset();
 
             foreach (int id in ids)
             {
@@ -560,7 +564,7 @@ namespace faction_sim
         {
             List<Classes.Factions.Faction> rtner = new List<Classes.Factions.Faction>();
 
-            List<Classes.Factions.Faction> master_list = Classes.Factions.Faction.FromJson(System.IO.File.ReadAllText("factions.json")).ToList();
+            List<Classes.Factions.Faction> master_list = Faction.GetFaction();
 
             rtner.Add(master_list.First(e => e.Id == faction_atk));
             rtner.Add(master_list.First(e => e.Id == faction_defend));

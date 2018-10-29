@@ -4,9 +4,10 @@ namespace faction_sim.Classes.Factions
 {
     using System;
     using System.Collections.Generic;
-
+    using JsonFlatFileDataStore;
     using System.Globalization;
     using Newtonsoft.Json;
+    using System.Linq;
     using Newtonsoft.Json.Converters;
 
     public partial class Faction
@@ -31,6 +32,57 @@ namespace faction_sim.Classes.Factions
 
         [JsonProperty("PMax")]
         public bool PMax { get; set; }
+
+        public static List<Faction> GetFaction()
+        {
+            // Open database (create new if file doesn't exist)
+            var store = new DataStore ("data.json");
+
+            // Get employee collection
+            var returner = store.GetCollection<Faction> ().AsQueryable ().ToList ();
+
+            store.Dispose();
+
+            return returner;
+        }
+
+        public static Faction GetFaction(long ID)
+        {
+            // Open database (create new if file doesn't exist)
+            var store = new DataStore ("data.json");
+
+            // Get employee collection
+            var returner = store.GetCollection<Faction> ().AsQueryable ().ToList().FirstOrDefault(e=> e.Id == ID);
+
+            store.Dispose();
+
+            return returner;
+        }
+
+        public Faction GetFaction(string name)
+        {
+            // Open database (create new if file doesn't exist)
+            var store = new DataStore ("data.json");
+
+            // Get employee collection
+            var returner = store.GetCollection<Faction> ().AsQueryable ().ToList().FirstOrDefault(e=> e.FactionName == name);
+
+            store.Dispose();
+
+            return returner;
+        }
+
+        public static void InsertFaction(Faction faction)
+        {
+            // Open database (create new if file doesn't exist)
+            var store = new DataStore ("data.json");
+
+            // Get employee collection
+            store.GetCollection<Faction> ().InsertOneAsync(faction).GetAwaiter().GetResult();
+
+            store.Dispose();
+            return;
+        }
     }
 
     public partial class Faction

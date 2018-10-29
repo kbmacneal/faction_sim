@@ -7,12 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="JsonFlatFileDataStore" Version="2.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-  <None Include="assets.*" CopyToPublishDirectory="Always" />
-  <None Include="factions.*" CopyToPublishDirectory="Always" />
+  <None Include="data.json" CopyToPublishDirectory="Always" />
   <None Include="options.json" CopyToPublishDirectory="Always" />
   <None Include="output.css" CopyToPublishDirectory="Always" />
 </ItemGroup>
