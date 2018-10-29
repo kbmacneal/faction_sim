@@ -256,11 +256,15 @@ namespace faction_sim
 
         private static List<result> get_results(List<List<round>> results, List<Asset> assets, int iterations)
         {
+            // System.IO.File.WriteAllText("results.json", JsonConvert.SerializeObject(results));
             List<result> rtner = new List<result>();
 
             foreach (var asset in assets)
             {
-
+                if (asset.Name == "Treachery")
+                {
+                    continue;
+                }
                 result result = new result();
                 result.asset = asset;
 
@@ -276,7 +280,7 @@ namespace faction_sim
 
                 foreach (var round in results)
                 {
-                    if (round.Where(e => e.attacking_asset.instance_discriminator == asset.instance_discriminator).Count() > 0 && asset.Name !="Asset")
+                    if (round.Where(e => e.attacking_asset.instance_discriminator == asset.instance_discriminator).Count() > 0)
                     {
                         total_damage += round.Where(e => e.attacking_asset.instance_discriminator == asset.instance_discriminator).Select(e => e.damage).Sum();
                         total_successes += round.Where(e => e.attacking_asset.instance_discriminator == asset.instance_discriminator).Where(e => e.atk_success).Count();
@@ -285,11 +289,11 @@ namespace faction_sim
                         total_kills += round.Where(e => e.attacking_asset.instance_discriminator == asset.instance_discriminator).Where(e => e.defending_asset != null).Where(e => e.defending_asset.Hp <= 0).Count();
                         atk_faction_damage += round.Select(e => e.damage).Sum();
                         def_faction_damage += round.Select(e => e.counter_damage).Sum();
-                        attacker_direct_damage += round.Where(e => e.defending_asset == null && e.attacking_asset.Name != "Treachery").Select(e => e.damage).Sum();
+                        attacker_direct_damage += round.Where(e => e.defending_asset == null).Select(e => e.damage).Sum();
 
                     }
 
-                    round_damage += round.Where(e=> e.attacking_asset.Name != "Treachery").Select(e => e.damage).Sum();
+                    round_damage += round.Select(e => e.damage).Sum();
                 }
 
                 if (total_successes != 0)
@@ -449,8 +453,17 @@ namespace faction_sim
                 }
                 else
                 {
-                    atk_result = roller.Roll(atk_roll).Sum();
-                    rnd.atk_roll = atk_result;
+                    if (atk_faction.PMax)
+                    {
+                        atk_result = roller.RollKeeps(atk_roll).Sum();
+                        rnd.atk_roll = atk_result;
+                    }
+                    else
+                    {
+                        atk_result = roller.Roll(atk_roll).Sum();
+                        rnd.atk_roll = atk_result;
+                    }
+
                 }
 
                 if (defender.DefenderExtraDice)
@@ -461,8 +474,17 @@ namespace faction_sim
                 }
                 else
                 {
-                    def_result = roller.Roll(def_roll).Sum();
-                    rnd.def_roll = def_result;
+                    if (def_faction.PMax)
+                    {
+                        def_result = roller.RollKeeps(def_roll).Sum();
+                        rnd.def_roll = def_result;
+                    }
+                    else
+                    {
+                        def_result = roller.Roll(def_roll).Sum();
+                        rnd.def_roll = def_result;
+                    }
+
                 }
 
                 if (atk_result < def_result && attacker.AttackerReroll)
