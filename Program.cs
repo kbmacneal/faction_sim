@@ -395,9 +395,7 @@ namespace faction_sim
 
             rnd.attacking_asset = attacker;
 
-            Asset private_defender = defender;
-
-            rnd.defending_asset = private_defender;
+            rnd.defending_asset = defender;
 
             if (defender == null)
             {
@@ -456,8 +454,6 @@ namespace faction_sim
                     def_result = roller.Roll(def_roll).Sum();
                     rnd.def_roll = def_result;
                 }
-
-
 
                 if (atk_result < def_result && attacker.AttackerReroll)
                 {
