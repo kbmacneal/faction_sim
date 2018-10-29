@@ -54,6 +54,11 @@ namespace faction_sim.Classes.Assets
 
         public int instance_discriminator {get;set;} = faction_sim.Program.rand.Next(0,Int32.MaxValue-5);
 
+        public void resetHP()
+        {
+            this.Hp = GetAsset(this.Id).Hp;
+        }
+
         public static List<Asset> GetAsset()
         {
             // Open database (create new if file doesn't exist)
