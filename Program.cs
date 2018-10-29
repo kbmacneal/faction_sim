@@ -260,6 +260,7 @@ namespace faction_sim
 
             foreach (var asset in assets)
             {
+                
                 result result = new result();
                 result.asset = asset;
 
@@ -289,6 +290,28 @@ namespace faction_sim
                     }
 
                     round_damage += round.Select(e => e.damage).Sum();
+                }
+
+                if(asset.Name == "Treachery")
+                {
+                    result.total_deaths = total_deaths;
+                result.total_successes = total_successes;
+                double doub_death = (double)total_deaths / (double)iterations;
+                result.chance_of_death = string.Format("{0:N6}", doub_death);
+                double doub_hit = (double)total_successes / (double)iterations;
+
+                result.hit_chance_less_death_chance = string.Format("{0:N6}", ((double)total_successes / (double)iterations) - ((double)total_deaths / (double)iterations));
+                result.hit_chance = string.Format("{0:N6}", doub_hit);
+                result.iterations = iterations;
+                if (iterations == total_successes)
+                {
+                    result.avg_counter_damage_taken = 0;
+                }
+                else
+                {
+                    result.avg_counter_damage_taken = total_counter / (iterations - total_successes);
+                }
+                    continue;
                 }
 
                 if (total_successes != 0)
