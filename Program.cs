@@ -261,13 +261,13 @@ namespace faction_sim
 
                 foreach (var round in results)
                 {
-                    if (round.Where(e => e.attacking_asset.Name == asset.Name).Count() > 0)
+                    if (round.Where(e => e.attacking_asset.instance_discriminator == asset.instance_discriminator).Count() > 0)
                     {
-                        total_damage += round.Where(e => e.attacking_asset.Name == asset.Name).Select(e => e.damage).Sum();
-                        total_successes += round.Where(e => e.attacking_asset.Name == asset.Name).Where(e => e.atk_success).Count();
-                        total_deaths += round.Where(e => e.attacking_asset.Name == asset.Name).Where(e => e.attacking_asset.Hp <= 0).Count();
-                        total_counter += round.Where(e => e.attacking_asset.Name == asset.Name).Select(e => e.counter_damage).Sum();
-                        total_kills += round.Where(e => e.attacking_asset.Name == asset.Name).Where(e => e.defending_asset != null).Where(e => e.defending_asset.Hp <= 0).Count();
+                        total_damage += round.Where(e => e.attacking_asset.instance_discriminator == asset.instance_discriminator).Select(e => e.damage).Sum();
+                        total_successes += round.Where(e => e.attacking_asset.instance_discriminator == asset.instance_discriminator).Where(e => e.atk_success).Count();
+                        total_deaths += round.Where(e => e.attacking_asset.instance_discriminator == asset.instance_discriminator).Where(e => e.attacking_asset.Hp <= 0).Count();
+                        total_counter += round.Where(e => e.attacking_asset.instance_discriminator == asset.instance_discriminator).Select(e => e.counter_damage).Sum();
+                        total_kills += round.Where(e => e.attacking_asset.instance_discriminator == asset.instance_discriminator).Where(e => e.defending_asset != null).Where(e => e.defending_asset.Hp <= 0).Count();
                         atk_faction_damage += round.Select(e => e.damage).Sum();
                         def_faction_damage += round.Select(e => e.counter_damage).Sum();
                         attacker_direct_damage += round.Where(e => e.defending_asset == null).Select(e => e.damage).Sum();
