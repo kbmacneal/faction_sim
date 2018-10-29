@@ -259,42 +259,36 @@ namespace faction_sim
             // System.IO.File.WriteAllText("results.json", JsonConvert.SerializeObject(results));
             List<result> rtner = new List<result>();
 
+            int total_attacker_damage = 0;
+
             foreach (var asset in assets)
             {
+
+                List<round> result_set = new List<round>();
+                
+                results.ForEach(e=> e.Where(f=>f.attacking_asset.instance_discriminator == asset.instance_discriminator).ToList().ForEach(g=>result_set.Add(g)));
+
+                int total_damage = result_set.Select(e=>e.damage).Sum();
+                int total_successes = result_set.Where(e=>e.atk_success).Count();
+                int total_deaths = result_set.Where(e=>e.attacking_asset.Hp == 0).Count();
+                int total_counter = result_set.Select(e=>e.counter_damage).Sum();
+                int atk_faction_damage = result_set.Select(e=>e.damage).Sum();
+                total_attacker_damage += atk_faction_damage;
+
+                int total_kills = result_set.Where(e=>e.defending_asset != null).Where(e=>e.defending_asset.Hp == 0).Count();
+                int def_faction_damage = result_set.Select(e=>e.counter_damage).Sum();
+                int attacker_direct_damage = result_set.Where(e=>e.defending_asset == null).Select(e=>e.damage).Sum();
+
+                int round_damage = 0;
+
+                results.ForEach(e=> e.Where(f=>f.attacking_asset.instance_discriminator == asset.instance_discriminator).ToList().ForEach(g=> round_damage += g.damage));
+
                 if (asset.Name == "Treachery")
                 {
                     continue;
                 }
                 result result = new result();
                 result.asset = asset;
-
-                int total_damage = 0;
-                int total_successes = 0;
-                int total_deaths = 0;
-                int total_counter = 0;
-                int atk_faction_damage = 0;
-                int total_kills = 0;
-                int def_faction_damage = 0;
-                int attacker_direct_damage = 0;
-                int round_damage = 0;
-
-                foreach (var round in results)
-                {
-                    if (round.Where(e => e.attacking_asset.instance_discriminator == asset.instance_discriminator).Count() > 0)
-                    {
-                        total_damage += round.Where(e => e.attacking_asset.instance_discriminator == asset.instance_discriminator).Select(e => e.damage).Sum();
-                        total_successes += round.Where(e => e.attacking_asset.instance_discriminator == asset.instance_discriminator).Where(e => e.atk_success).Count();
-                        total_deaths += round.Where(e => e.attacking_asset.instance_discriminator == asset.instance_discriminator).Where(e => e.attacking_asset.Hp <= 0).Count();
-                        total_counter += round.Where(e => e.attacking_asset.instance_discriminator == asset.instance_discriminator).Select(e => e.counter_damage).Sum();
-                        total_kills += round.Where(e => e.attacking_asset.instance_discriminator == asset.instance_discriminator).Where(e => e.defending_asset != null).Where(e => e.defending_asset.Hp <= 0).Count();
-                        atk_faction_damage += round.Select(e => e.damage).Sum();
-                        def_faction_damage += round.Select(e => e.counter_damage).Sum();
-                        attacker_direct_damage += round.Where(e => e.defending_asset == null).Select(e => e.damage).Sum();
-
-                    }
-
-                    round_damage += round.Select(e => e.damage).Sum();
-                }
 
                 if (total_successes != 0)
                 {
@@ -337,7 +331,7 @@ namespace faction_sim
                 result.avg_damage_per_swing = total_damage / iterations;
                 result.average_faction_atk_damage = atk_faction_damage / iterations;
                 result.average_faction_def_damage = def_faction_damage / iterations;
-                result.average_total_stack_damage = string.Format("{0:N6}", (double)round_damage / (double)total_successes);
+                
 
                 if (total_successes > 0)
                 {
@@ -351,6 +345,10 @@ namespace faction_sim
                 rtner.Add(result);
 
             }
+
+            double average_faction_dmg = (double)rtner.Select(e=>e.avg_damage).Average() * (double)assets.Count();
+
+            rtner.ForEach(e=>e.average_total_stack_damage = string.Format("{0:N6}", average_faction_dmg));
 
             return rtner;
 
