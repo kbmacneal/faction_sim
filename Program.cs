@@ -288,10 +288,10 @@ namespace faction_sim
 
                 results.ForEach(e=> e.Where(f=>f.attacking_asset.instance_discriminator == asset.instance_discriminator).ToList().ForEach(g=> round_damage += g.damage));
 
-                if (asset.Name == "Treachery")
-                {
-                    continue;
-                }
+                // if (asset.Name == "Treachery")
+                // {
+                //     continue;
+                // }
                 result result = new result();
                 result.asset = asset;
 
@@ -351,6 +351,7 @@ namespace faction_sim
 
             }
 
+            
             double average_faction_dmg = (double)rtner.Select(e=>e.avg_damage).Average() * (double)assets.Count();
 
             rtner.ForEach(e=>e.average_total_stack_damage = string.Format("{0:N6}", average_faction_dmg));
