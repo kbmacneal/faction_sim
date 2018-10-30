@@ -727,7 +727,7 @@
       "counterattack": "None",
       "id": 48,
       "attackStats": "CvC",
-      "attackDice": "1d2+1000",
+      "attackDice": "1d1-1",
       "defenderReroll": false,
       "attackerReroll": false,
       "attackerExtraDice": false,
