@@ -17,9 +17,8 @@ namespace faction_sim.Classes.Assets
 
         [JsonProperty("HP")]
         [JsonConverter(typeof(ParseStringConverter))]
-        public long Hp { get; set; }
-        
-        public long max_hp { get; set; } = this.Hp;
+        public long Hp { get; set; }        
+        public long max_hp { get; set; } = 0;
 
         [JsonProperty("Attack")]
         public string Attack { get; set; }
@@ -54,7 +53,14 @@ namespace faction_sim.Classes.Assets
         [JsonProperty("Type")]
         public string Type { get; set; }
 
-        public int instance_discriminator {get;set;} = faction_sim.Program.rand.Next(0,Int32.MaxValue-5);
+        public int instance_discriminator {get;set;}
+
+        public Asset()
+        {
+            this.instance_discriminator = faction_sim.Program.rand.Next(0,Int32.MaxValue-5);
+
+            this.max_hp = Hp;
+        }
 
         public void resetHP()
         {
