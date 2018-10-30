@@ -18,6 +18,8 @@ namespace faction_sim.Classes.Assets
         [JsonProperty("HP")]
         [JsonConverter(typeof(ParseStringConverter))]
         public long Hp { get; set; }
+        
+        public long max_hp { get; set; } = this.Hp;
 
         [JsonProperty("Attack")]
         public string Attack { get; set; }
@@ -56,7 +58,7 @@ namespace faction_sim.Classes.Assets
 
         public void resetHP()
         {
-            this.Hp = GetAsset(this.Id).Hp;
+            this.Hp = this.max_hp;
         }
 
         public static List<Asset> GetAsset()
