@@ -271,7 +271,7 @@ namespace faction_sim
                 
                 results.ForEach(e=> e.Where(f=>f.attacking_asset.instance_discriminator == asset.instance_discriminator).ToList().ForEach(g=>result_set.Add(g)));
 
-                System.IO.File.WriteAllText("result_set.json",JsonConvert.SerializeObject(result_set));
+                // System.IO.File.WriteAllText("result_set.json",JsonConvert.SerializeObject(result_set));
 
                 int total_damage = result_set.Select(e=>e.damage).Sum();
                 int total_successes = result_set.Where(e=>e.atk_success).Count();
