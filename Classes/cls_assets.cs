@@ -17,7 +17,7 @@ namespace faction_sim.Classes.Assets
 
         [JsonProperty("HP")]
         [JsonConverter(typeof(ParseStringConverter))]
-        public long Hp { get; set; }        
+        public long Hp { get; set; }
         public long max_hp { get; set; } = 0;
 
         [JsonProperty("Attack")]
@@ -53,14 +53,7 @@ namespace faction_sim.Classes.Assets
         [JsonProperty("Type")]
         public string Type { get; set; }
 
-        public int instance_discriminator {get;set;}
-
-        public Asset()
-        {
-            this.instance_discriminator = faction_sim.Program.rand.Next(0,Int32.MaxValue-5);
-
-            this.max_hp = Hp;
-        }
+        public int instance_discriminator { get; set; } = faction_sim.Program.rand.Next(0, Int32.MaxValue - 5);
 
         public void resetHP()
         {
@@ -70,12 +63,14 @@ namespace faction_sim.Classes.Assets
         public static List<Asset> GetAsset()
         {
             // Open database (create new if file doesn't exist)
-            var store = new DataStore ("data.json");
+            var store = new DataStore("data.json");
 
             // Get employee collection
-            var returner = store.GetCollection<Asset> ().AsQueryable ().ToList ();
+            var returner = store.GetCollection<Asset>().AsQueryable().ToList();
 
             store.Dispose();
+
+            returner.ForEach(e=>e.max_hp = e.Hp);
 
             return returner;
         }
@@ -83,12 +78,14 @@ namespace faction_sim.Classes.Assets
         public static Asset GetAsset(long ID)
         {
             // Open database (create new if file doesn't exist)
-            var store = new DataStore ("data.json");
+            var store = new DataStore("data.json");
 
             // Get employee collection
-            var returner = store.GetCollection<Asset> ().AsQueryable ().ToList().FirstOrDefault(e=> e.Id == ID);
+            var returner = store.GetCollection<Asset>().AsQueryable().ToList().FirstOrDefault(e => e.Id == ID);
 
             store.Dispose();
+
+            returner.max_hp = returner.Hp;
 
             return returner;
         }
@@ -96,12 +93,14 @@ namespace faction_sim.Classes.Assets
         public Asset GetAsset(string name)
         {
             // Open database (create new if file doesn't exist)
-            var store = new DataStore ("data.json");
+            var store = new DataStore("data.json");
 
             // Get employee collection
-            var returner = store.GetCollection<Asset> ().AsQueryable ().ToList().FirstOrDefault(e=> e.Name == name);
+            var returner = store.GetCollection<Asset>().AsQueryable().ToList().FirstOrDefault(e => e.Name == name);
 
             store.Dispose();
+
+            returner.max_hp = returner.Hp;
 
             return returner;
         }
@@ -109,10 +108,10 @@ namespace faction_sim.Classes.Assets
         public static void InsertAsset(Asset asset)
         {
             // Open database (create new if file doesn't exist)
-            var store = new DataStore ("data.json");
+            var store = new DataStore("data.json");
 
             // Get employee collection
-            store.GetCollection<Asset> ().InsertOneAsync(asset).GetAwaiter().GetResult();
+            store.GetCollection<Asset>().InsertOneAsync(asset).GetAwaiter().GetResult();
 
             store.Dispose();
             return;
