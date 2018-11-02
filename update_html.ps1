@@ -1,6 +1,6 @@
 $obj = get-content $PSScriptRoot/assets.json | convertfrom-json
 
-$obj | Select-Object -Property ID,Name,HP,Attack,Counterattack,AttackStats,AttackDice,DefenderReroll,AttackerReroll | ConvertTo-Html -CssUri $PSScriptRoot/output.css | out-file $PSScriptRoot/assets.html
+$obj | Select-Object -Property ID,Name,Description,HP,Attack,Counterattack,AttackStats,AttackDice,DefenderReroll,AttackerReroll | ConvertTo-Html -CssUri $PSScriptRoot/output.css | out-file $PSScriptRoot/assets.html
 
 $obj = get-content $PSScriptRoot/factions.json | ConvertFrom-Json
 
