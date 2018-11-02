@@ -130,7 +130,18 @@ namespace faction_sim {
 
                 List<round> result_set = new List<round> ();
 
-                results.ForEach (e => e.Where (f => f.attacking_asset.instance_discriminator == asset.instance_discriminator).ToList ().ForEach (g => result_set.Add (g)));
+                // results.ForEach (e => e.Where (f => f.attacking_asset.instance_discriminator == asset.instance_discriminator).ToList ().ForEach (g => result_set.Add (g)));
+
+                foreach(var round_list in results)
+                {
+                    foreach(var instance in round_list)
+                    {
+                        if(instance.attacking_asset.instance_discriminator == asset.instance_discriminator)
+                        {
+                            result_set.Add(instance);
+                        }
+                    }
+                }
 
                 // System.IO.File.WriteAllText("result_set.json",JsonConvert.SerializeObject(result_set));
 
@@ -387,6 +398,14 @@ namespace faction_sim {
                 Asset asset = new Asset ();
                 asset = master_list.First (f => f.Id == id);
                 rtner.Add (asset);
+            }
+
+            foreach(var asset in rtner)
+            {
+                if(rtner.Count(e=>e.instance_discriminator == asset.instance_discriminator) > 1)
+                {
+                    asset.instance_discriminator = Program.rand.Next(0,Int32.MaxValue-5);
+                }
             }
 
             return rtner;
