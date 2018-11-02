@@ -4,4 +4,4 @@ $obj | Select-Object -Property ID,Name,Description,HP,Attack,Counterattack,Attac
 
 $obj = get-content $PSScriptRoot/factions.json | ConvertFrom-Json
 
-$obj | Select-Object ID,"Faction Name",Force,Cunning,Wealth,AttackerReroll,AttackerRerollStat,DefenderReroll,DefenderRerollStat,AttackerRerolled,DefenderRerolled,NumAttackerRerolls,NumDefenderRerolls,AlwaysRerollAtk,AlwaysRerollDef,PMax  | ConvertTo-Html -CssUri $PSScriptRoot/output.css | out-file $PSScriptRoot/factions.html
+$obj | Select-Object ID,"Faction Name",Force,Cunning,Wealth,PMax  | ConvertTo-Html -CssUri $PSScriptRoot/output.css | out-file $PSScriptRoot/factions.html
