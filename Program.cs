@@ -392,20 +392,10 @@ namespace faction_sim {
         private static List<Classes.Assets.Asset> initialize_assets (int[] ids) {
             List<Classes.Assets.Asset> rtner = new List<Classes.Assets.Asset> ();
 
-            List<Classes.Assets.Asset> master_list = Asset.GetAsset ();
-
             foreach (int id in ids) {
                 Asset asset = new Asset ();
-                asset = master_list.First (f => f.Id == id);
+                asset = Asset.GetAsset(id);
                 rtner.Add (asset);
-            }
-
-            foreach(var asset in rtner)
-            {
-                if(rtner.Count(e=>e.instance_discriminator == asset.instance_discriminator) > 1)
-                {
-                    asset.instance_discriminator = Program.rand.Next(0,Int32.MaxValue-5);
-                }
             }
 
             return rtner;
