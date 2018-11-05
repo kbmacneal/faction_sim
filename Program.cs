@@ -47,6 +47,8 @@ namespace faction_sim {
         public int iterations { get; set; }
         public List<long> atk_reroll_ids { get; set; } = new List<long> ();
         public List<long> def_reroll_ids { get; set; } = new List<long> ();
+        public bool attacker_pmax {get;set;} = false;
+        public bool defender_pmax {get;set;} = false;
 
         public run_options () {
             this.attacking_assets = new List<int> ();
@@ -89,11 +91,17 @@ namespace faction_sim {
 
             defending_assets.Where (e => _runoptions.def_reroll_ids.Contains (e.Id)).ToList ().ForEach (e => e.DefenderReroll = true);
 
+            Faction attacking_faction = Faction.GetFaction (_runoptions.attacking_id);
+            attacking_faction.PMax = _runoptions.attacker_pmax;
+
+            Faction defending_faction = Faction.GetFaction (_runoptions.defending_id);
+            attacking_faction.PMax = _runoptions.defender_pmax;
+
             for (int i = 0; i < _runoptions.iterations; i++) {
 
                 attacking_assets.ForEach (e => e.resetHP ());
                 defending_assets.ForEach (e => e.resetHP ());
-                var result = run_sim (Faction.GetFaction (_runoptions.attacking_id), Faction.GetFaction (_runoptions.defending_id), attacking_assets, defending_assets);
+                var result = run_sim (attacking_faction, defending_faction, attacking_assets, defending_assets);
                 results.Add (result);
             }
 
