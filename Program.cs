@@ -218,7 +218,7 @@ namespace faction_sim {
 
             }
 
-            double average_faction_dmg = (double) rtner.Select (e => e.avg_damage).Average () * (double) assets.Count ();
+            double average_faction_dmg = (double) rtner.Select (e => e.total_damage).Sum() / (double) iterations ();
 
             rtner.ForEach (e => e.average_total_stack_damage = string.Format ("{0:N6}", average_faction_dmg));
 
