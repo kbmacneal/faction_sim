@@ -317,21 +317,19 @@ namespace faction_sim {
 
             }
 
-            if (defender != null) {
-                if (defender.DefenderExtraDice) {
-                    def_roll = add_dice (def_roll);
+            if (defender.DefenderExtraDice) {
+                def_roll = add_dice (def_roll);
+                def_result = roller.RollKeeps (def_roll).Sum ();
+                rnd.def_roll = def_result;
+            } else {
+                if (def_faction.PMax) {
                     def_result = roller.RollKeeps (def_roll).Sum ();
                     rnd.def_roll = def_result;
                 } else {
-                    if (def_faction.PMax) {
-                        def_result = roller.RollKeeps (def_roll).Sum ();
-                        rnd.def_roll = def_result;
-                    } else {
-                        def_result = roller.Roll (def_roll).Sum ();
-                        rnd.def_roll = def_result;
-                    }
-
+                    def_result = roller.Roll (def_roll).Sum ();
+                    rnd.def_roll = def_result;
                 }
+
             }
 
             if (atk_result < def_result && attacker.AttackerReroll) {
@@ -343,16 +341,14 @@ namespace faction_sim {
                 }
             }
 
-            if (defender != null) {
-                if (atk_result >= def_result && defender.DefenderReroll) {
+            if (atk_result >= def_result && defender.DefenderReroll) {
 
-                    if (reroll_same_or_other (def_result, atk_result)) {
-                        def_result = roller.Roll (calculate_diceroll (def_faction, short_to_long[vs_roll[1]]) + "+" + def_mod.ToString ()).Sum ();
-                        rnd.def_roll = def_result;
-                    } else {
-                        atk_result = roller.Roll (calculate_diceroll (atk_faction, short_to_long[vs_roll[0]]) + "+" + atk_mod.ToString ()).Sum ();
-                        rnd.atk_roll = atk_result;
-                    }
+                if (reroll_same_or_other (def_result, atk_result)) {
+                    def_result = roller.Roll (calculate_diceroll (def_faction, short_to_long[vs_roll[1]]) + "+" + def_mod.ToString ()).Sum ();
+                    rnd.def_roll = def_result;
+                } else {
+                    atk_result = roller.Roll (calculate_diceroll (atk_faction, short_to_long[vs_roll[0]]) + "+" + atk_mod.ToString ()).Sum ();
+                    rnd.atk_roll = atk_result;
                 }
             }
 
