@@ -52,6 +52,7 @@ namespace faction_sim.Classes.Assets
 
         [JsonProperty("Type")]
         public string Type { get; set; }
+        public Factions.Faction owner{get;set;}
 
         public int instance_discriminator { get; set; } = faction_sim.Program.rand.Next(0, Int32.MaxValue - 5);
 
