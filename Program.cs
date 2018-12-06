@@ -314,17 +314,39 @@ namespace faction_sim
         {
             List<round> results = new List<round>();
 
+            if (attacking_faction == null)
+            {
+                for (int i = 0; i < _runoptions.attacking_faction_ids.Count(); i++)
+                {
+                    attackers[i].owner = Faction.GetFaction(_runoptions.attacking_faction_ids[i]);
+                }
+            }
+            else
+            {
+
+                foreach(var attacker in attackers)
+                {
+                    attacker.owner=attacking_faction;
+                }
+            }
+
+            if (defending_faction == null)
+            {
+                for (int i = 0; i < _runoptions.defending_faction_ids.Count(); i++)
+                {
+                    defenders[i].owner = Faction.GetFaction(_runoptions.defending_faction_ids[i]);
+                }
+            }
+            else
+            {
+                foreach(var defender in defenders)
+                {
+                    defender.owner=defending_faction;
+                }
+            }
+
             foreach (Asset attacker in attackers)
             {
-                if (attacking_faction == null)
-                {
-                    attacker.owner = Faction.GetFaction(_runoptions.attacking_faction_ids[attackers.IndexOf(attacker)]);
-                }
-                else{
-                    attacker.owner = attacking_faction;
-                }
-
-
                 var atk = attacker;
                 List<Asset> eligible_defenders = defenders.Where(e => e.Hp > 0).ToList();
 
@@ -339,14 +361,6 @@ namespace faction_sim
                 else
                 {
                     Asset rand_defender = eligible_defenders.ToArray()[rand.Next(eligible_defenders.Count())];
-
-                    if (defending_faction == null)
-                    {
-                        rand_defender.owner = Faction.GetFaction(_runoptions.defending_faction_ids[defenders.IndexOf(rand_defender)]);
-                    }
-                    else{
-                        rand_defender.owner=defending_faction;
-                    }
 
                     round result = run_round(atk, rand_defender, attacker.owner, rand_defender.owner);
 
