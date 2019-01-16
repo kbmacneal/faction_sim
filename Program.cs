@@ -40,6 +40,7 @@ namespace faction_sim
         public int def_roll { get; set; }
         public int damage { get; set; }
         public int counter_damage { get; set; }
+        public int defender_hp_at_start_of_round {get;set;}
     }
 
     public class run_options
@@ -217,7 +218,7 @@ namespace faction_sim
                 int atk_faction_damage = result_set.Select(e => e.damage).Sum();
                 total_attacker_damage += atk_faction_damage;
 
-                int total_kills = result_set.Where(e => e.defending_asset != null).Where(e => e.defending_asset.hp == 0).Count();
+                int total_kills = result_set.Where(e => e.defending_asset != null).Where(e => e.damage >= e.defender_hp_at_start_of_round).Count();
                 int def_faction_damage = result_set.Select(e => e.counter_damage).Sum();
                 int attacker_direct_damage = result_set.Where(e => e.defending_asset == null).Select(e => e.damage).Sum();
                 
@@ -382,6 +383,8 @@ namespace faction_sim
 
             rnd.attacking_asset = attacker;
 
+            
+
             if (defender == null)
             {
                 rnd.defending_asset = null;
@@ -446,6 +449,7 @@ namespace faction_sim
             else
             {
                 rnd.defending_asset = defender;
+                rnd.defender_hp_at_start_of_round = (int)defender.hp;
                 string[] vs_roll = attacker.AttackStats.Split("v");
 
                 long atk_mod = (long)helpers.GetPropValue(atk_faction, short_to_long[vs_roll[0]]);
