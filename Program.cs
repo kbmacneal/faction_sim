@@ -220,9 +220,7 @@ namespace faction_sim
                 int total_kills = result_set.Where(e => e.defending_asset != null).Where(e => e.defending_asset.hp == 0).Count();
                 int def_faction_damage = result_set.Select(e => e.counter_damage).Sum();
                 int attacker_direct_damage = result_set.Where(e => e.defending_asset == null).Select(e => e.damage).Sum();
-
-
-                var test = result_set.Select(e=>e.defending_asset);
+                
                 int round_damage = 0;
 
                 results.ForEach(e => e.Where(f => f.attacking_asset.instance_discriminator == asset.instance_discriminator).ToList().ForEach(g => round_damage += g.damage));
@@ -421,23 +419,23 @@ namespace faction_sim
 
                 }
 
-                
-                    if (def_faction.PMax)
-                    {
-                        def_result = roller.RollKeeps(def_roll).Sum();
-                        rnd.def_roll = def_result;
-                    }
-                    else
-                    {
-                        def_result = roller.Roll(def_roll).Sum();
-                        rnd.def_roll = def_result;
-                    }
+
+                if (def_faction.PMax)
+                {
+                    def_result = roller.RollKeeps(def_roll).Sum();
+                    rnd.def_roll = def_result;
+                }
+                else
+                {
+                    def_result = roller.Roll(def_roll).Sum();
+                    rnd.def_roll = def_result;
+                }
 
                 if (atk_result >= def_result)
                 {
-                        atk_result = roller.Roll(calculate_diceroll(atk_faction, short_to_long[vs_roll[0]]) + "+" + atk_mod.ToString()).Sum();
-                        rnd.atk_roll = atk_result;
-                    
+                    atk_result = roller.Roll(calculate_diceroll(atk_faction, short_to_long[vs_roll[0]]) + "+" + atk_mod.ToString()).Sum();
+                    rnd.atk_roll = atk_result;
+
                 }
 
                 resolve_attack(ref atk_result, ref def_result, ref attacker, ref defender, ref rnd);
@@ -551,6 +549,12 @@ namespace faction_sim
                     rnd.counter_damage = 0;
                     rnd.attacking_asset = attacker;
                     rnd.defending_asset = defender;
+                    if (rnd.defending_asset != null)
+                    {
+                        rnd.defending_asset.hp -= rnd.damage;
+                        if (rnd.defending_asset.hp < 0) rnd.defending_asset.hp = 0;
+                    }
+
                 }
 
                 if (def_result > atk_result)
@@ -573,9 +577,16 @@ namespace faction_sim
                     rnd.counter_damage = 0;
                     rnd.attacking_asset = attacker;
                     rnd.defending_asset = defender;
+                    if (rnd.defending_asset != null)
+                    {
+                        rnd.defending_asset.hp -= rnd.damage;
+                        if (rnd.defending_asset.hp < 0) rnd.defending_asset.hp = 0;
+                    }
                 }
                 if (def_result > atk_result)
                 {
+                    rnd.attacking_asset = attacker;
+                    rnd.defending_asset = defender;
                     rnd.atk_success = false;
                     rnd.damage = 0;
                     if (defender.Counterattack == "None")
@@ -585,15 +596,21 @@ namespace faction_sim
                     else
                     {
                         rnd.counter_damage = roller.Roll(defender.Counterattack).Sum();
-                        attacker.hp = attacker.hp - rnd.counter_damage;
+                        if (rnd.attacking_asset != null)
+                        {
+                            rnd.attacking_asset.hp -= rnd.counter_damage;
+                            if (rnd.attacking_asset.hp < 0) rnd.attacking_asset.hp = 0;
+                        }
+
                     }
 
-                    rnd.attacking_asset = attacker;
-                    rnd.defending_asset = defender;
+
                 }
 
                 if (def_result == atk_result)
                 {
+                    rnd.attacking_asset = attacker;
+                    rnd.defending_asset = defender;
                     rnd.atk_success = true;
                     rnd.damage = 0;
                     if (defender.Counterattack == "None")
@@ -603,12 +620,20 @@ namespace faction_sim
                     else
                     {
                         rnd.counter_damage = roller.Roll(defender.Counterattack).Sum();
-                        attacker.hp = attacker.hp - rnd.counter_damage;
+                        if (rnd.attacking_asset != null)
+                        {
+                            rnd.attacking_asset.hp -= rnd.counter_damage;
+                            if (rnd.attacking_asset.hp < 0) rnd.attacking_asset.hp = 0;
+                        }
                     }
 
                     rnd.damage = roller.Roll(attacker.AttackDice).Sum();
-                    rnd.attacking_asset = attacker;
-                    rnd.defending_asset = defender;
+                    if (rnd.defending_asset != null)
+                    {
+                        rnd.defending_asset.hp -= rnd.damage;
+                        if (rnd.defending_asset.hp < 0) rnd.defending_asset.hp = 0;
+                    }
+
                 }
             }
         }
