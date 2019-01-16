@@ -212,15 +212,17 @@ namespace faction_sim
 
                 int total_damage = result_set.Select(e => e.damage).Sum();
                 int total_successes = result_set.Where(e => e.atk_success).Count();
-                int total_deaths = result_set.Where(e => e.attacking_asset.Hp == 0).Count();
+                int total_deaths = result_set.Where(e => e.attacking_asset.hp == 0).Count();
                 int total_counter = result_set.Select(e => e.counter_damage).Sum();
                 int atk_faction_damage = result_set.Select(e => e.damage).Sum();
                 total_attacker_damage += atk_faction_damage;
 
-                int total_kills = result_set.Where(e => e.defending_asset != null).Where(e => e.defending_asset.Hp == 0).Count();
+                int total_kills = result_set.Where(e => e.defending_asset != null).Where(e => e.defending_asset.hp == 0).Count();
                 int def_faction_damage = result_set.Select(e => e.counter_damage).Sum();
                 int attacker_direct_damage = result_set.Where(e => e.defending_asset == null).Select(e => e.damage).Sum();
 
+
+                var test = result_set.Select(e=>e.defending_asset);
                 int round_damage = 0;
 
                 results.ForEach(e => e.Where(f => f.attacking_asset.instance_discriminator == asset.instance_discriminator).ToList().ForEach(g => round_damage += g.damage));
@@ -327,9 +329,9 @@ namespace faction_sim
             else
             {
 
-                foreach(var attacker in attackers)
+                foreach (var attacker in attackers)
                 {
-                    attacker.owner=attacking_faction;
+                    attacker.owner = attacking_faction;
                 }
             }
 
@@ -343,22 +345,22 @@ namespace faction_sim
             }
             else
             {
-                foreach(var defender in defenders)
+                foreach (var defender in defenders)
                 {
-                    defender.owner=defending_faction;
+                    defender.owner = defending_faction;
                 }
             }
 
             foreach (Asset attacker in attackers)
             {
                 var atk = attacker;
-                List<Asset> eligible_defenders = defenders.Where(e => e.Hp > 0).ToList();
+                List<Asset> eligible_defenders = defenders.Where(e => e.hp > 0).ToList();
 
-                if (atk.AttackStats == "None") continue;
+                if (atk.AttackStats == "None" || attacker.hp == 0) continue;
 
                 if (eligible_defenders.Count == 0)
                 {
-                    round result = run_round(atk, null, attacker.owner, defending_faction);
+                    round result = run_round(atk, null, attacker.owner, defenders.Select(e => e.owner).First());
 
                     results.Add(result);
                 }
@@ -382,93 +384,159 @@ namespace faction_sim
 
             rnd.attacking_asset = attacker;
 
-            rnd.defending_asset = defender;
-            string[] vs_roll = attacker.AttackStats.Split("v");
-
-            long atk_mod = (long)helpers.GetPropValue(atk_faction, short_to_long[vs_roll[0]]);
-
-            long def_mod = (long)helpers.GetPropValue(def_faction, short_to_long[vs_roll[1]]);
-
-            int atk_result = 0;
-            int def_result = 0;
-
-            string atk_roll = calculate_diceroll(atk_faction, short_to_long[vs_roll[0]]) + "+" + atk_mod.ToString();
-
-            string def_roll = calculate_diceroll(def_faction, short_to_long[vs_roll[1]]) + "+" + def_mod.ToString();
-
-            if (attacker.AttackerExtraDice)
+            if (defender == null)
             {
-                atk_roll = add_dice(atk_roll);
-                atk_result = roller.RollKeeps(atk_roll).Sum();
-                rnd.atk_roll = atk_result;
-            }
-            else
-            {
-                if (atk_faction.PMax)
+                rnd.defending_asset = null;
+                string[] vs_roll = attacker.AttackStats.Split("v");
+
+                long atk_mod = (long)helpers.GetPropValue(atk_faction, short_to_long[vs_roll[0]]);
+
+                long def_mod = (long)helpers.GetPropValue(def_faction, short_to_long[vs_roll[1]]);
+
+                int atk_result = 0;
+                int def_result = 0;
+
+                string atk_roll = calculate_diceroll(atk_faction, short_to_long[vs_roll[0]]) + "+" + atk_mod.ToString();
+
+                string def_roll = calculate_diceroll(def_faction, short_to_long[vs_roll[1]]) + "+" + def_mod.ToString();
+
+                if (attacker.AttackerExtraDice)
                 {
+                    atk_roll = add_dice(atk_roll);
                     atk_result = roller.RollKeeps(atk_roll).Sum();
                     rnd.atk_roll = atk_result;
                 }
                 else
                 {
-                    atk_result = roller.Roll(atk_roll).Sum();
-                    rnd.atk_roll = atk_result;
+                    if (atk_faction.PMax)
+                    {
+                        atk_result = roller.RollKeeps(atk_roll).Sum();
+                        rnd.atk_roll = atk_result;
+                    }
+                    else
+                    {
+                        atk_result = roller.Roll(atk_roll).Sum();
+                        rnd.atk_roll = atk_result;
+                    }
+
                 }
 
+                
+                    if (def_faction.PMax)
+                    {
+                        def_result = roller.RollKeeps(def_roll).Sum();
+                        rnd.def_roll = def_result;
+                    }
+                    else
+                    {
+                        def_result = roller.Roll(def_roll).Sum();
+                        rnd.def_roll = def_result;
+                    }
+
+                if (atk_result >= def_result)
+                {
+                        atk_result = roller.Roll(calculate_diceroll(atk_faction, short_to_long[vs_roll[0]]) + "+" + atk_mod.ToString()).Sum();
+                        rnd.atk_roll = atk_result;
+                    
+                }
+
+                resolve_attack(ref atk_result, ref def_result, ref attacker, ref defender, ref rnd);
+
+                return rnd;
             }
 
-            if (defender.DefenderExtraDice)
-            {
-                def_roll = add_dice(def_roll);
-                def_result = roller.RollKeeps(def_roll).Sum();
-                rnd.def_roll = def_result;
-            }
             else
             {
-                if (def_faction.PMax)
+                rnd.defending_asset = defender;
+                string[] vs_roll = attacker.AttackStats.Split("v");
+
+                long atk_mod = (long)helpers.GetPropValue(atk_faction, short_to_long[vs_roll[0]]);
+
+                long def_mod = (long)helpers.GetPropValue(def_faction, short_to_long[vs_roll[1]]);
+
+                int atk_result = 0;
+                int def_result = 0;
+
+                string atk_roll = calculate_diceroll(atk_faction, short_to_long[vs_roll[0]]) + "+" + atk_mod.ToString();
+
+                string def_roll = calculate_diceroll(def_faction, short_to_long[vs_roll[1]]) + "+" + def_mod.ToString();
+
+                if (attacker.AttackerExtraDice)
                 {
+                    atk_roll = add_dice(atk_roll);
+                    atk_result = roller.RollKeeps(atk_roll).Sum();
+                    rnd.atk_roll = atk_result;
+                }
+                else
+                {
+                    if (atk_faction.PMax)
+                    {
+                        atk_result = roller.RollKeeps(atk_roll).Sum();
+                        rnd.atk_roll = atk_result;
+                    }
+                    else
+                    {
+                        atk_result = roller.Roll(atk_roll).Sum();
+                        rnd.atk_roll = atk_result;
+                    }
+
+                }
+
+                if (defender.DefenderExtraDice)
+                {
+                    def_roll = add_dice(def_roll);
                     def_result = roller.RollKeeps(def_roll).Sum();
                     rnd.def_roll = def_result;
                 }
                 else
                 {
-                    def_result = roller.Roll(def_roll).Sum();
-                    rnd.def_roll = def_result;
+                    if (def_faction.PMax)
+                    {
+                        def_result = roller.RollKeeps(def_roll).Sum();
+                        rnd.def_roll = def_result;
+                    }
+                    else
+                    {
+                        def_result = roller.Roll(def_roll).Sum();
+                        rnd.def_roll = def_result;
+                    }
+
                 }
 
+                if (atk_result < def_result && attacker.AttackerReroll)
+                {
+                    if (reroll_same_or_other(atk_result, def_result))
+                    {
+                        atk_result = roller.Roll(calculate_diceroll(atk_faction, short_to_long[vs_roll[0]]) + "+" + atk_mod.ToString()).Sum();
+                        rnd.atk_roll = atk_result;
+                    }
+                    else
+                    {
+                        def_result = roller.Roll(calculate_diceroll(def_faction, short_to_long[vs_roll[1]]) + "+" + def_mod.ToString()).Sum();
+                    }
+                }
+
+                if (atk_result >= def_result && defender.DefenderReroll)
+                {
+
+                    if (reroll_same_or_other(def_result, atk_result))
+                    {
+                        def_result = roller.Roll(calculate_diceroll(def_faction, short_to_long[vs_roll[1]]) + "+" + def_mod.ToString()).Sum();
+                        rnd.def_roll = def_result;
+                    }
+                    else
+                    {
+                        atk_result = roller.Roll(calculate_diceroll(atk_faction, short_to_long[vs_roll[0]]) + "+" + atk_mod.ToString()).Sum();
+                        rnd.atk_roll = atk_result;
+                    }
+                }
+
+                resolve_attack(ref atk_result, ref def_result, ref attacker, ref defender, ref rnd);
+
+                return rnd;
             }
 
-            if (atk_result < def_result && attacker.AttackerReroll)
-            {
-                if (reroll_same_or_other(atk_result, def_result))
-                {
-                    atk_result = roller.Roll(calculate_diceroll(atk_faction, short_to_long[vs_roll[0]]) + "+" + atk_mod.ToString()).Sum();
-                    rnd.atk_roll = atk_result;
-                }
-                else
-                {
-                    def_result = roller.Roll(calculate_diceroll(def_faction, short_to_long[vs_roll[1]]) + "+" + def_mod.ToString()).Sum();
-                }
-            }
 
-            if (atk_result >= def_result && defender.DefenderReroll)
-            {
-
-                if (reroll_same_or_other(def_result, atk_result))
-                {
-                    def_result = roller.Roll(calculate_diceroll(def_faction, short_to_long[vs_roll[1]]) + "+" + def_mod.ToString()).Sum();
-                    rnd.def_roll = def_result;
-                }
-                else
-                {
-                    atk_result = roller.Roll(calculate_diceroll(atk_faction, short_to_long[vs_roll[0]]) + "+" + atk_mod.ToString()).Sum();
-                    rnd.atk_roll = atk_result;
-                }
-            }
-
-            resolve_attack(ref atk_result, ref def_result, ref attacker, ref defender, ref rnd);
-
-            return rnd;
 
         }
 
@@ -517,7 +585,7 @@ namespace faction_sim
                     else
                     {
                         rnd.counter_damage = roller.Roll(defender.Counterattack).Sum();
-                        attacker.Hp = attacker.Hp - rnd.counter_damage;
+                        attacker.hp = attacker.hp - rnd.counter_damage;
                     }
 
                     rnd.attacking_asset = attacker;
@@ -535,7 +603,7 @@ namespace faction_sim
                     else
                     {
                         rnd.counter_damage = roller.Roll(defender.Counterattack).Sum();
-                        attacker.Hp = attacker.Hp - rnd.counter_damage;
+                        attacker.hp = attacker.hp - rnd.counter_damage;
                     }
 
                     rnd.damage = roller.Roll(attacker.AttackDice).Sum();
@@ -563,6 +631,7 @@ namespace faction_sim
                 db_connection con = new db_connection();
                 Asset asset = new Asset();
                 asset = con.get_asset(id);
+                asset.max_hp = asset.hp;
                 rtner.Add(asset);
             }
 
@@ -573,7 +642,7 @@ namespace faction_sim
         {
             List<Classes.Factions.Faction> rtner = new List<Classes.Factions.Faction>();
 
-            db_connection con = new db_connection();            
+            db_connection con = new db_connection();
 
             List<Classes.Factions.Faction> master_list = con.get_faction();
 

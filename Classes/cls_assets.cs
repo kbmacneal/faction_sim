@@ -12,12 +12,12 @@ namespace faction_sim.Classes.Assets
 
     public partial class Asset
     {
-        [JsonProperty("Name")]
+        [JsonProperty("name")]
         public string Name { get; set; }
 
-        [JsonProperty("HP")]
+        [JsonProperty("hp")]
         [JsonConverter(typeof(ParseStringConverter))]
-        public long Hp { get; set; }
+        public long hp { get; set; }
         public long max_hp { get; set; } = 0;
 
         [JsonProperty("Attack")]
@@ -56,9 +56,14 @@ namespace faction_sim.Classes.Assets
 
         public int instance_discriminator { get; set; } = faction_sim.Program.rand.Next(0, Int32.MaxValue - 5);
 
+        public Asset()
+        {
+            this.max_hp = this.hp;
+        }
+
         public void resetHP()
         {
-            this.Hp = this.max_hp;
+            this.hp = this.max_hp;
         }
 
         public static List<Asset> GetAsset()
@@ -71,7 +76,7 @@ namespace faction_sim.Classes.Assets
 
             store.Dispose();
 
-            returner.ForEach(e=>e.max_hp = e.Hp);
+            returner.ForEach(e=>e.max_hp = e.hp);
 
             return returner;
         }
@@ -86,7 +91,7 @@ namespace faction_sim.Classes.Assets
 
             store.Dispose();
 
-            returner.max_hp = returner.Hp;
+            returner.max_hp = returner.hp;
 
             return returner;
         }
@@ -101,7 +106,7 @@ namespace faction_sim.Classes.Assets
 
             store.Dispose();
 
-            returner.max_hp = returner.Hp;
+            returner.max_hp = returner.hp;
 
             return returner;
         }

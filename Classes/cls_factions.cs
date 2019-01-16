@@ -12,8 +12,8 @@ namespace faction_sim.Classes.Factions
 
     public partial class Faction
     {
-        [JsonProperty("Faction Name")]
-        public string FactionName { get; set; }
+        [JsonProperty("name")]
+        public string Name { get; set; }
 
         [JsonProperty("Force")]
         [JsonConverter(typeof(ParseStringConverter))]
@@ -65,7 +65,7 @@ namespace faction_sim.Classes.Factions
             var store = new DataStore ("data.json");
 
             // Get employee collection
-            var returner = store.GetCollection<Faction> ().AsQueryable ().ToList().FirstOrDefault(e=> e.FactionName == name);
+            var returner = store.GetCollection<Faction> ().AsQueryable ().ToList().FirstOrDefault(e=> e.Name == name);
 
             store.Dispose();
 

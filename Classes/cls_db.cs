@@ -41,14 +41,14 @@ namespace faction_sim.Classes
                         Dictionary<string, string> temp = new Dictionary<string, string>();
                         for (int i = 0; i < reader.GetColumnSchema().Count(); i++)
                         {
-                            temp.TryAdd<string, string>(reader.GetColumnSchema()[i].ColumnName, reader.GetString(i));
+                            temp.TryAdd<string, string>(reader.GetColumnSchema()[i].ColumnName, reader.GetValue(i).ToString());
                         }
 
                         rtn.Add(temp);
                     }
                 }
                 con.Close();
-                return Assets.Asset.FromJson(JsonConvert.SerializeObject(rtn[0]))[0];
+                return JsonConvert.DeserializeObject<Assets.Asset>(JsonConvert.SerializeObject(rtn[0]));
 
             }
         }
@@ -74,14 +74,18 @@ namespace faction_sim.Classes
                         Dictionary<string, string> temp = new Dictionary<string, string>();
                         for (int i = 0; i < reader.GetColumnSchema().Count(); i++)
                         {
-                            temp.TryAdd<string, string>(reader.GetColumnSchema()[i].ColumnName, reader.GetString(i));
+                            temp.TryAdd<string, string>(reader.GetColumnSchema()[i].ColumnName, reader.GetValue(i).ToString());
                         }
 
                         rtn.Add(temp);
                     }
                 }
                 con.Close();
-                return Factions.Faction.FromJson(JsonConvert.SerializeObject(rtn[0]))[0];
+
+                var deserialized = JsonConvert.DeserializeObject<Factions.Faction>(JsonConvert.SerializeObject(rtn[0]));
+                
+                return deserialized;
+
             }
         }
 
@@ -105,7 +109,7 @@ namespace faction_sim.Classes
                         Dictionary<string, string> temp = new Dictionary<string, string>();
                         for (int i = 0; i < reader.GetColumnSchema().Count(); i++)
                         {
-                            temp.TryAdd<string, string>(reader.GetColumnSchema()[i].ColumnName, reader.GetString(i));
+                            temp.TryAdd<string, string>(reader.GetColumnSchema()[i].ColumnName, reader.GetValue(i).ToString());
                         }
 
                         rtn.Add(temp);
@@ -113,13 +117,13 @@ namespace faction_sim.Classes
                 }
                 con.Close();
 
-                return Factions.Faction.FromJson(JsonConvert.SerializeObject(rtn)).ToList();
+                return JsonConvert.DeserializeObject<List<Factions.Faction>>(JsonConvert.SerializeObject(rtn[0])).ToList();
             }
         }
 
         private NpgsqlConnection GetConnection()
         {
-            var connstring = String.Concat("Host=localhost;Username=", this.obj.username, ";Password=", this.obj.password, ";Database=sim_data");
+            var connstring = String.Concat("Host=localhost;Port=5432;Username=", this.obj.username, ";Password=", this.obj.password, ";Database=sim_data");
 
             return new NpgsqlConnection(connstring);
         }
