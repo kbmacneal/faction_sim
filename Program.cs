@@ -137,13 +137,15 @@ namespace faction_sim
 
             if (_runoptions.attacking_id != 0)
             {
-                attacking_faction = Faction.GetFaction(_runoptions.attacking_id);
+                db_connection con = new db_connection();
+                attacking_faction = con.get_faction(_runoptions.attacking_id);
             }
 
             Faction defending_faction = null;
             if (_runoptions.defending_id != 0)
             {
-                defending_faction = Faction.GetFaction(_runoptions.defending_id);
+                db_connection con = new db_connection();
+                defending_faction = con.get_faction(_runoptions.defending_id);
             }
 
             run_options.apply_runoptions(ref attacking_assets, ref defending_assets, ref attacking_faction, ref defending_faction, _runoptions);
@@ -318,7 +320,8 @@ namespace faction_sim
             {
                 for (int i = 0; i < _runoptions.attacking_faction_ids.Count(); i++)
                 {
-                    attackers[i].owner = Faction.GetFaction(_runoptions.attacking_faction_ids[i]);
+                    db_connection con = new db_connection();
+                    attackers[i].owner = con.get_faction(Convert.ToInt32(_runoptions.attacking_faction_ids[i]));
                 }
             }
             else
@@ -334,7 +337,8 @@ namespace faction_sim
             {
                 for (int i = 0; i < _runoptions.defending_faction_ids.Count(); i++)
                 {
-                    defenders[i].owner = Faction.GetFaction(_runoptions.defending_faction_ids[i]);
+                    db_connection con = new db_connection();
+                    defenders[i].owner = con.get_faction(Convert.ToInt32(_runoptions.defending_faction_ids[i]));
                 }
             }
             else
@@ -556,8 +560,9 @@ namespace faction_sim
 
             foreach (int id in ids)
             {
+                db_connection con = new db_connection();
                 Asset asset = new Asset();
-                asset = Asset.GetAsset(id);
+                asset = con.get_asset(id);
                 rtner.Add(asset);
             }
 
@@ -568,7 +573,9 @@ namespace faction_sim
         {
             List<Classes.Factions.Faction> rtner = new List<Classes.Factions.Faction>();
 
-            List<Classes.Factions.Faction> master_list = Faction.GetFaction();
+            db_connection con = new db_connection();            
+
+            List<Classes.Factions.Faction> master_list = con.get_faction();
 
             rtner.Add(master_list.First(e => e.Id == faction_atk));
             rtner.Add(master_list.First(e => e.Id == faction_defend));

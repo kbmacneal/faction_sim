@@ -9,10 +9,11 @@
   <ItemGroup>
     <PackageReference Include="JsonFlatFileDataStore" Version="2.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Npgsql" Version="4.0.4" />
   </ItemGroup>
 
   <ItemGroup>
-  <None Include="data.json" CopyToPublishDirectory="Always" />
+  <None Include="faction_sim.json" CopyToPublishDirectory="Always" />
   <None Include="options.json" CopyToPublishDirectory="Always" />
   <None Include="output.css" CopyToPublishDirectory="Always" />
 </ItemGroup>

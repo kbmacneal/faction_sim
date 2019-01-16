@@ -1,7 +1,15 @@
 {
     "attacking_id": 0,
-    "attacking_assets": [],
+    "attacking_assets": [45,36,36,33,45,20,20,20,20,45,45],
     "defending_id": 0,
-    "defending_assets": [],
-    "iterations": 0
+    "defending_assets": [61,16,66,60],
+    "iterations": 20,
+    "atk_reroll_ids": [],
+    "def_reroll_ids": [],
+    "atk_extra_dice":[],
+    "def_extra_dice":[],
+    "attacking_faction_ids":[7,7,7,7,7,12,12,1,1,4,4],
+    "defending_faction_ids":[11,11,10,2],
+    "attacker_pmax": true,
+    "defender_pmax": false
 }
