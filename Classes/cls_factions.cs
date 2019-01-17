@@ -3,138 +3,14 @@
 namespace faction_sim.Classes.Factions
 {
     using System;
-    using System.Collections.Generic;
-    using JsonFlatFileDataStore;
-    using System.Globalization;
-    using Newtonsoft.Json;
-    using System.Linq;
-    using Newtonsoft.Json.Converters;
 
     public partial class Faction
     {
-        [JsonProperty("name")]
         public string Name { get; set; }
-
-        [JsonProperty("Force")]
-        [JsonConverter(typeof(ParseStringConverter))]
         public long Force { get; set; }
-
-        [JsonProperty("Cunning")]
-        [JsonConverter(typeof(ParseStringConverter))]
         public long Cunning { get; set; }
-
-        [JsonProperty("Wealth")]
-        [JsonConverter(typeof(ParseStringConverter))]
         public long Wealth { get; set; }
-
-        [JsonProperty("ID")]
         public long Id { get; set; }
-
-        [JsonProperty("PMax")]
         public bool PMax { get; set; }
-
-        public static List<Faction> GetFaction()
-        {
-            // Open database (create new if file doesn't exist)
-            var store = new DataStore ("data.json");
-
-            // Get employee collection
-            var returner = store.GetCollection<Faction> ().AsQueryable ().ToList ();
-
-            store.Dispose();
-
-            return returner;
-        }
-
-        public static Faction GetFaction(long ID)
-        {
-            // Open database (create new if file doesn't exist)
-            var store = new DataStore ("data.json");
-
-            // Get employee collection
-            var returner = store.GetCollection<Faction> ().AsQueryable ().ToList().FirstOrDefault(e=> e.Id == ID);
-
-            store.Dispose();
-
-            return returner;
-        }
-
-        public Faction GetFaction(string name)
-        {
-            // Open database (create new if file doesn't exist)
-            var store = new DataStore ("data.json");
-
-            // Get employee collection
-            var returner = store.GetCollection<Faction> ().AsQueryable ().ToList().FirstOrDefault(e=> e.Name == name);
-
-            store.Dispose();
-
-            return returner;
-        }
-
-        public static void InsertFaction(Faction faction)
-        {
-            // Open database (create new if file doesn't exist)
-            var store = new DataStore ("data.json");
-
-            // Get employee collection
-            store.GetCollection<Faction> ().InsertOneAsync(faction).GetAwaiter().GetResult();
-
-            store.Dispose();
-            return;
-        }
-    }
-
-    public partial class Faction
-    {
-        public static Faction[] FromJson(string json) => JsonConvert.DeserializeObject<Faction[]>(json, Converter.Settings);
-    }
-
-    public static class Serialize
-    {
-        public static string ToJson(this Faction[] self) => JsonConvert.SerializeObject(self, Converter.Settings);
-    }
-
-    internal static class Converter
-    {
-        public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
-        {
-            MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
-            DateParseHandling = DateParseHandling.None,
-            Converters = {
-                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
-            },
-        };
-    }
-
-    internal class ParseStringConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(long) || t == typeof(long?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            long l;
-            if (Int64.TryParse(value, out l))
-            {
-                return l;
-            }
-            throw new Exception("Cannot unmarshal type long");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (long)untypedValue;
-            serializer.Serialize(writer, value.ToString());
-            return;
-        }
-
-        public static readonly ParseStringConverter Singleton = new ParseStringConverter();
     }
 }

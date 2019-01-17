@@ -4,6 +4,7 @@ using System.Globalization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Linq;
+using System.Reflection;
 
 namespace faction_sim.Classes
 {
@@ -17,7 +18,21 @@ namespace faction_sim.Classes
 
         public static object SetPropValue(object src, string propName, object value)
         {
-            src.GetType().GetProperty(propName).SetValue(src,value);
+            // src.GetType().GetProperty(propName).SetValue(src, value);
+
+
+            PropertyInfo info = src.GetType().GetProperty(propName);
+            
+            try
+            {
+                value = System.Convert.ChangeType(value,
+                    info.PropertyType);
+            }
+            catch (InvalidCastException)
+            {
+                throw;
+            }
+            info.SetValue(src, value, null);
 
             return src;
         }

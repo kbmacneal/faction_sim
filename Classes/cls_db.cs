@@ -19,36 +19,61 @@ namespace faction_sim.Classes
         }
         settings obj = JsonConvert.DeserializeObject<settings>(System.IO.File.ReadAllText("faction_sim.json"));
 
+        private List<Assets.Asset> DbToAsset(NpgsqlDataReader reader)
+        {
+            List<Assets.Asset> rtn = new List<Assets.Asset>();
+
+            while (reader.Read())
+            {
+                Assets.Asset temp = new Assets.Asset();
+                for (int i = 0; i < reader.GetColumnSchema().Count(); i++)
+                {
+                    helpers.SetPropValue(temp,reader.GetColumnSchema()[i].ColumnName,reader.GetValue(i).ToString());
+                }
+                rtn.Add(temp);
+            }
+
+            return rtn;
+        }
+
+        private List<Factions.Faction> DbToFaction(NpgsqlDataReader reader)
+        {
+            List<Factions.Faction> rtn = new List<Factions.Faction>();
+
+            while (reader.Read())
+            {
+                Factions.Faction temp = new Factions.Faction();
+                for (int i = 0; i < reader.GetColumnSchema().Count(); i++)
+                {
+                    helpers.SetPropValue(temp,reader.GetColumnSchema()[i].ColumnName,reader.GetValue(i).ToString());
+                }
+                rtn.Add(temp);
+            }
+
+            return rtn;
+        }
+
         public Assets.Asset get_asset(int id)
         {
             var con = GetConnection();
 
             con.Open();
 
-            List<Dictionary<string, string>> rtn = new List<Dictionary<string, string>>();
+            Assets.Asset rtn = new Assets.Asset();
 
             using (var cmd = new NpgsqlCommand())
             {
                 cmd.Connection = con;
-                cmd.CommandText = "SELECT * FROM public.assets where public.assets.id = @id;";
-                cmd.Parameters.AddWithValue("id",NpgsqlDbType.Integer,id);
+                cmd.CommandText = "SELECT * FROM assets where assets.\"Id\" = @id;";
+                cmd.Parameters.AddWithValue("id", NpgsqlDbType.Integer, id);
                 // cmd.Parameters.AddWithValue("id", id);
 
                 using (var reader = cmd.ExecuteReader())
                 {
-                    while (reader.Read())
-                    {
-                        Dictionary<string, string> temp = new Dictionary<string, string>();
-                        for (int i = 0; i < reader.GetColumnSchema().Count(); i++)
-                        {
-                            temp.TryAdd<string, string>(reader.GetColumnSchema()[i].ColumnName, reader.GetValue(i).ToString());
-                        }
-
-                        rtn.Add(temp);
-                    }
+                    rtn = DbToAsset(reader)[0];
                 }
                 con.Close();
-                return JsonConvert.DeserializeObject<Assets.Asset>(JsonConvert.SerializeObject(rtn[0]));
+                return rtn;
 
             }
         }
@@ -59,32 +84,21 @@ namespace faction_sim.Classes
 
             con.Open();
 
-            List<Dictionary<string, string>> rtn = new List<Dictionary<string, string>>();
+            Factions.Faction rtn = new Factions.Faction();
 
             using (var cmd = new NpgsqlCommand())
             {
                 cmd.Connection = con;
-                cmd.CommandText = "SELECT * FROM public.factions where public.factions.id = @id;";
+                cmd.CommandText = "SELECT * FROM factions where factions.\"Id\" = @id;";
                 cmd.Parameters.AddWithValue("id", id);
 
                 using (var reader = cmd.ExecuteReader())
                 {
-                    while (reader.Read())
-                    {
-                        Dictionary<string, string> temp = new Dictionary<string, string>();
-                        for (int i = 0; i < reader.GetColumnSchema().Count(); i++)
-                        {
-                            temp.TryAdd<string, string>(reader.GetColumnSchema()[i].ColumnName, reader.GetValue(i).ToString());
-                        }
-
-                        rtn.Add(temp);
-                    }
+                    rtn = DbToFaction(reader)[0];
                 }
                 con.Close();
 
-                var deserialized = JsonConvert.DeserializeObject<Factions.Faction>(JsonConvert.SerializeObject(rtn[0]));
-                
-                return deserialized;
+                return rtn;
 
             }
         }
@@ -95,7 +109,7 @@ namespace faction_sim.Classes
 
             con.Open();
 
-            List<Dictionary<string, string>> rtn = new List<Dictionary<string, string>>();
+            List<Factions.Faction> rtn = new List<Factions.Faction>();
 
             using (var cmd = new NpgsqlCommand())
             {
@@ -104,20 +118,11 @@ namespace faction_sim.Classes
 
                 using (var reader = cmd.ExecuteReader())
                 {
-                    while (reader.Read())
-                    {
-                        Dictionary<string, string> temp = new Dictionary<string, string>();
-                        for (int i = 0; i < reader.GetColumnSchema().Count(); i++)
-                        {
-                            temp.TryAdd<string, string>(reader.GetColumnSchema()[i].ColumnName, reader.GetValue(i).ToString());
-                        }
-
-                        rtn.Add(temp);
-                    }
+                    rtn = DbToFaction(reader);    
                 }
                 con.Close();
 
-                return JsonConvert.DeserializeObject<List<Factions.Faction>>(JsonConvert.SerializeObject(rtn[0])).ToList();
+                return rtn;
             }
         }
 
