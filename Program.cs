@@ -245,7 +245,7 @@ namespace faction_sim
 
                 if (total_successes != 0)
                 {                    
-                    result.attacker_average_faction_damage = string.Format("{0:N6}", result_set.Select(e=>e.direct_faction_damage).Average());
+                    // result.attacker_average_faction_damage = string.Format("{0:N6}", result_set.Select(e=>e.direct_faction_damage).Average());
                 }
                 else
                 {
@@ -287,6 +287,10 @@ namespace faction_sim
                 rtner.Add(result);
 
             }
+
+            double avg_dir = results.Select(e=>e.Select(f=>f.direct_faction_damage).Average()).Average();
+
+            rtner.ForEach(e => e.attacker_average_faction_damage = string.Format("{0:N6}", avg_dir));
 
             double average_faction_dmg = (double)rtner.Select(e => e.total_damage).Sum() / (double)iterations;
 
