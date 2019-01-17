@@ -12,5 +12,6 @@ namespace faction_sim.Classes.Factions
         public long Wealth { get; set; }
         public long Id { get; set; }
         public bool PMax { get; set; }
+        public int hp { get; set; }
     }
 }
