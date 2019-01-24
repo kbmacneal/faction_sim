@@ -13,7 +13,6 @@
 
   <ItemGroup>
   <None Include="options.json" CopyToPublishDirectory="Always" />
-  <None Include="output.css" CopyToPublishDirectory="Always" />
 </ItemGroup>
 
 </Project>
