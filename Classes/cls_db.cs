@@ -14,8 +14,7 @@ namespace faction_sim.Classes
     {
         private class settings
         {
-            public string username { get; set; }
-            public string password { get; set; }
+            public string connection_string {get;set;}
         }
         settings obj = JsonConvert.DeserializeObject<settings>(System.IO.File.ReadAllText("faction_sim.json"));
 
@@ -128,7 +127,7 @@ namespace faction_sim.Classes
 
         private NpgsqlConnection GetConnection()
         {
-            var connstring = String.Concat("Host=localhost;Port=5432;Username=", this.obj.username, ";Password=", this.obj.password, ";Database=sim_data");
+            var connstring = String.Concat(this.obj.connection_string);
 
             return new NpgsqlConnection(connstring);
         }

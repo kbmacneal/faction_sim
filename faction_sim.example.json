@@ -1,4 +1,3 @@
 {
-    "username": "",
-    "password": ""
+    "connection_string":"Host=localhost;Port=5432;Username=USERNAME;Password=PASSWORD;Database=sim_data"
 }
