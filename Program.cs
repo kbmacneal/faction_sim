@@ -207,7 +207,7 @@ namespace faction_sim
             {
                 for (int i = 0; i < _runoptions.atk_asset_hp.Count; i++)
                 {
-                    assets[i].hp = _runoptions.atk_asset_hp[i];
+                    if (_runoptions.atk_asset_hp[i] != 0) assets[i].hp = _runoptions.atk_asset_hp[i];
                 }
             }
 
