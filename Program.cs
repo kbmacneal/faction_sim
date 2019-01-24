@@ -153,7 +153,7 @@ namespace faction_sim
                 db_connection con = new db_connection();
                 defending_faction = con.get_faction(_runoptions.defending_id);
 
-                if(_runoptions.def_faction_hp > 0) defending_faction.hp = _runoptions.def_faction_hp;
+                if (_runoptions.def_faction_hp > 0) defending_faction.hp = _runoptions.def_faction_hp;
             }
 
             run_options.apply_runoptions(ref attacking_assets, ref defending_assets, ref attacking_faction, ref defending_faction, _runoptions);
@@ -680,7 +680,7 @@ namespace faction_sim
                     Asset asset = new Asset();
                     asset = con.get_asset(ids[i]);
                     asset.max_hp = asset.hp;
-                    asset.hp = hps[i];
+                    if (ids[i] != 0) asset.hp = hps[i];
                     rtner.Add(asset);
                 }
             }
