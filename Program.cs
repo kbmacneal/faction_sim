@@ -158,14 +158,19 @@ namespace faction_sim
 
             run_options.apply_runoptions(ref attacking_assets, ref defending_assets, ref attacking_faction, ref defending_faction, _runoptions);
 
-            for (int i = 0; i < _runoptions.iterations; i++)
+            using (var progress = new ProgressBar())
             {
-                Console.WriteLine("Iteration " + i + " of " + _runoptions.iterations);
-                attacking_assets.ForEach(e => e.resetHP());
-                defending_assets.ForEach(e => e.resetHP());
-                var result = run_sim(attacking_faction, defending_faction, attacking_assets, defending_assets);
-                results.Add(result);
+                for (int i = 0; i < _runoptions.iterations; i++)
+                {
+                    progress.Report((double)i / _runoptions.iterations);
+                    attacking_assets.ForEach(e => e.resetHP());
+                    defending_assets.ForEach(e => e.resetHP());
+                    var result = run_sim(attacking_faction, defending_faction, attacking_assets, defending_assets);
+                    results.Add(result);
+                }
             }
+
+
 
             var stats = get_results(results, attacking_assets, _runoptions.iterations);
 
