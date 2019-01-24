@@ -12,5 +12,8 @@
     "defending_faction_ids":[],
     "attacker_pmax": false,
     "defender_pmax": false,
-    "apply_passthrough_damage": true
+    "apply_passthrough_damage": true,
+    "atk_asset_hp": [],
+    "def_asset_hp": [],
+    "def_faction_hp": 0
 }
