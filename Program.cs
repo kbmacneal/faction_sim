@@ -60,6 +60,9 @@ namespace faction_sim
         public bool attacker_pmax { get; set; } = false;
         public bool defender_pmax { get; set; } = false;
         public bool apply_passthrough_damage { get; set; } = false;
+        public List<int> atk_asset_hp { get; set; } = new List<int>();
+        public List<int> def_asset_hp { get; set; } = new List<int>();
+        public int def_faction_hp { get; set; } = 0;
 
         public run_options()
         {
@@ -132,9 +135,9 @@ namespace faction_sim
 
             int[] def_assets = _runoptions.defending_assets.Select(e => e).ToArray();
 
-            List<Asset> attacking_assets = initialize_assets(atk_assets);
+            List<Asset> attacking_assets = initialize_assets(_runoptions.atk_asset_hp, atk_assets);
 
-            List<Asset> defending_assets = initialize_assets(def_assets);
+            List<Asset> defending_assets = initialize_assets(_runoptions.def_asset_hp, def_assets);
 
             Faction attacking_faction = null;
 
@@ -149,6 +152,8 @@ namespace faction_sim
             {
                 db_connection con = new db_connection();
                 defending_faction = con.get_faction(_runoptions.defending_id);
+
+                if(_runoptions.def_faction_hp > 0) defending_faction.hp = _runoptions.def_faction_hp;
             }
 
             run_options.apply_runoptions(ref attacking_assets, ref defending_assets, ref attacking_faction, ref defending_faction, _runoptions);
@@ -192,6 +197,14 @@ namespace faction_sim
             List<result> rtner = new List<result>();
 
             int total_attacker_damage = 0;
+
+            if (_runoptions.atk_asset_hp.Count > 0)
+            {
+                for (int i = 0; i < _runoptions.atk_asset_hp.Count; i++)
+                {
+                    assets[i].hp = _runoptions.atk_asset_hp[i];
+                }
+            }
 
             foreach (var asset in assets)
             {
@@ -244,7 +257,7 @@ namespace faction_sim
                 }
 
                 if (total_successes != 0)
-                {                    
+                {
                     // result.attacker_average_faction_damage = string.Format("{0:N6}", result_set.Select(e=>e.direct_faction_damage).Average());
                 }
                 else
@@ -288,7 +301,7 @@ namespace faction_sim
 
             }
 
-            double avg_dir = results.Select(e=>e.Select(f=>f.direct_faction_damage).Average()).Average();
+            double avg_dir = results.Select(e => e.Select(f => f.direct_faction_damage).Average()).Average();
 
             rtner.ForEach(e => e.attacker_average_faction_damage = string.Format("{0:N6}", avg_dir));
 
@@ -298,23 +311,6 @@ namespace faction_sim
 
             return rtner;
 
-        }
-
-        private static Dictionary<Classes.Factions.Faction, List<Int32>> initialize_stacks(int attacking_id, int defending_id, string[] attacking_ass, string[] defending_ass)
-        {
-            Dictionary<Classes.Factions.Faction, List<Int32>> rtner = new Dictionary<Classes.Factions.Faction, List<Int32>>();
-
-            List<Classes.Factions.Faction> combatants = initialize_factions(attacking_id, defending_id);
-
-            List<Int32> attacking_assets = get_ids(attacking_ass);
-
-            List<Int32> defending_assets = get_ids(defending_ass);
-
-            rtner.Add(combatants[0], attacking_assets);
-
-            rtner.Add(combatants[1], defending_assets);
-
-            return rtner;
         }
 
         private static List<round> run_sim(Faction attacking_faction, Faction defending_faction, List<Asset> attackers, List<Asset> defenders)
@@ -672,41 +668,35 @@ namespace faction_sim
             }
         }
 
-        private static List<int> get_ids(string[] assets)
-        {
-            List<int> rtner = new List<int>();
-
-            assets.ToList().ForEach(e => rtner.Add(Convert.ToInt32(e)));
-
-            return rtner;
-        }
-
-        private static List<Classes.Assets.Asset> initialize_assets(int[] ids)
+        private static List<Classes.Assets.Asset> initialize_assets(List<int> hps, int[] ids)
         {
             List<Classes.Assets.Asset> rtner = new List<Classes.Assets.Asset>();
 
-            foreach (int id in ids)
+            if (hps.Count > 0)
             {
-                db_connection con = new db_connection();
-                Asset asset = new Asset();
-                asset = con.get_asset(id);
-                asset.max_hp = asset.hp;
-                rtner.Add(asset);
+                for (int i = 0; i < hps.Count; i++)
+                {
+                    db_connection con = new db_connection();
+                    Asset asset = new Asset();
+                    asset = con.get_asset(ids[i]);
+                    asset.max_hp = asset.hp;
+                    asset.hp = hps[i];
+                    rtner.Add(asset);
+                }
+            }
+            else
+            {
+                foreach (int id in ids)
+                {
+                    db_connection con = new db_connection();
+                    Asset asset = new Asset();
+                    asset = con.get_asset(id);
+                    asset.max_hp = asset.hp;
+                    rtner.Add(asset);
+                }
             }
 
-            return rtner;
-        }
 
-        private static List<Classes.Factions.Faction> initialize_factions(int faction_atk, int faction_defend)
-        {
-            List<Classes.Factions.Faction> rtner = new List<Classes.Factions.Faction>();
-
-            db_connection con = new db_connection();
-
-            List<Classes.Factions.Faction> master_list = con.get_faction();
-
-            rtner.Add(master_list.First(e => e.Id == faction_atk));
-            rtner.Add(master_list.First(e => e.Id == faction_defend));
 
             return rtner;
         }
