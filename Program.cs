@@ -160,7 +160,7 @@ namespace faction_sim
 
             for (int i = 0; i < _runoptions.iterations; i++)
             {
-
+                Console.WriteLine("Iteration " + i + " of " + _runoptions.iterations);
                 attacking_assets.ForEach(e => e.resetHP());
                 defending_assets.ForEach(e => e.resetHP());
                 var result = run_sim(attacking_faction, defending_faction, attacking_assets, defending_assets);
