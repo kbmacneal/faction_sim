@@ -290,7 +290,7 @@ namespace faction_sim
 
             }
 
-            double avg_dir = results.Select(e => e.Select(f => f.direct_faction_damage).Average()).Average();
+            double avg_dir = results.Select(e => e.Select(f => f.direct_faction_damage).Sum()).Average();
 
             rtner.ForEach(e => e.attacker_average_faction_damage = string.Format("{0:N6}", avg_dir));
 
@@ -361,6 +361,8 @@ namespace faction_sim
                     results.Add(result);
                 }
 
+                eligible_defenders = null;
+
             }
 
             return results;
@@ -418,13 +420,6 @@ namespace faction_sim
                 {
                     def_result = roller.Roll(def_roll).Sum();
                     rnd.def_roll = def_result;
-                }
-
-                if (atk_result >= def_result)
-                {
-                    atk_result = roller.Roll(calculate_diceroll(atk_faction, short_to_long[vs_roll[0]]) + "+" + atk_mod.ToString()).Sum();
-                    rnd.atk_roll = atk_result;
-
                 }
 
                 resolve_attack(ref atk_result, ref def_result, ref attacker, ref defender, ref rnd);
