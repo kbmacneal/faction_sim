@@ -10,7 +10,7 @@ namespace faction_sim.Classes
     /// </summary>
     public class ProgressBar : IDisposable, IProgress<double>
     {
-        private const int blockCount = 100;
+        private const int blockCount = 30;
         private readonly TimeSpan animationInterval = TimeSpan.FromSeconds(1.0 / 8);
         private const string animation = @"|/-\";
 
