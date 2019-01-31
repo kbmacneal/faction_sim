@@ -531,10 +531,6 @@ namespace faction_sim
                 bool will_kill_asset = damage >= def_asset.hp;
                 bool will_kill_faction = damage + total_direct_damage >= def_faction.hp;
 
-                if(will_kill_faction)
-                {
-                    Console.WriteLine(" ");
-                }
 
                 if (will_kill_asset && !will_kill_faction)
                 {
