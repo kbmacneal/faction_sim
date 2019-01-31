@@ -63,7 +63,7 @@ namespace faction_sim
         public List<int> atk_asset_hp { get; set; } = new List<int> ();
         public List<int> def_asset_hp { get; set; } = new List<int> ();
         public int def_faction_hp { get; set; } = 0;
-        public int homeworld_owner_id {get;set;}=1;
+        public int homeworld_owner_id { get; set; } = 1;
 
         public run_options ()
         {
@@ -526,10 +526,7 @@ namespace faction_sim
         {
             if (_runoptions.apply_passthrough_damage)
             {
-                bool will_kill_asset = damage >= def_asset.hp;
-                bool will_kill_faction = damage + total_direct_damage >= def_faction.hp;
-
-                if (will_kill_asset && !will_kill_faction)
+                if (def_asset == null)
                 {
                     rnd.direct_faction_damage += damage;
                     total_direct_damage += damage;
@@ -538,9 +535,23 @@ namespace faction_sim
                 }
                 else
                 {
-                    def_asset.hp -= damage;
-                    if (def_asset.hp <= 0) def_asset.hp = 0;
+                    bool will_kill_asset = damage >= def_asset.hp;
+                    bool will_kill_faction = damage + total_direct_damage >= def_faction.hp;
+
+                    if (will_kill_asset && !will_kill_faction)
+                    {
+                        rnd.direct_faction_damage += damage;
+                        total_direct_damage += damage;
+
+                        rnd.damage = 0;
+                    }
+                    else
+                    {
+                        def_asset.hp -= damage;
+                        if (def_asset.hp <= 0) def_asset.hp = 0;
+                    }
                 }
+
             }
             else
             {
