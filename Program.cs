@@ -107,6 +107,8 @@ namespace faction_sim
     class Program
     {
         public static Random rand = new Random();
+
+        public static int total_direct_damage = 0;
         public static run_options _runoptions = new run_options();
         static void Main(string[] args)
         {
@@ -305,6 +307,8 @@ namespace faction_sim
         private static List<round> run_sim(Faction attacking_faction, Faction defending_faction, List<Asset> attackers, List<Asset> defenders)
         {
             List<round> results = new List<round>();
+
+            total_direct_damage = 0;
 
             if (attacking_faction == null)
             {
@@ -525,11 +529,19 @@ namespace faction_sim
             if (_runoptions.apply_passthrough_damage)
             {
                 bool will_kill_asset = damage >= def_asset.hp;
-                bool will_kill_faction = damage + rnd.direct_faction_damage >= def_faction.hp;
+                bool will_kill_faction = damage + total_direct_damage >= def_faction.hp;
+
+                if(will_kill_faction)
+                {
+                    Console.WriteLine(" ");
+                }
 
                 if (will_kill_asset && !will_kill_faction)
                 {
                     rnd.direct_faction_damage += damage;
+                    total_direct_damage += damage;
+
+                    rnd.damage = 0;
                 }
                 else
                 {
@@ -580,7 +592,6 @@ namespace faction_sim
                 {
                     rnd.atk_success = true;
                     rnd.damage = roller.Roll(attacker.AttackDice).Sum();
-                    rnd.counter_damage = 0;
 
                     if (rnd.defending_asset != null)
                     {
@@ -589,12 +600,10 @@ namespace faction_sim
                     rnd.attacking_asset = attacker;
                     rnd.defending_asset = defender;
                 }
-                if (def_result > atk_result)
+                if (def_result >= atk_result)
                 {
                     rnd.attacking_asset = attacker;
                     rnd.defending_asset = defender;
-                    rnd.atk_success = false;
-                    rnd.damage = 0;
                     if (defender.Counterattack == "None")
                     {
                         rnd.counter_damage = 0;
@@ -608,35 +617,6 @@ namespace faction_sim
                             if (rnd.attacking_asset.hp < 0) rnd.attacking_asset.hp = 0;
                         }
 
-                    }
-
-                }
-
-                if (def_result == atk_result)
-                {
-                    rnd.attacking_asset = attacker;
-                    rnd.defending_asset = defender;
-                    rnd.atk_success = true;
-                    rnd.damage = 0;
-                    if (defender.Counterattack == "None")
-                    {
-                        rnd.counter_damage = 0;
-                    }
-                    else
-                    {
-                        rnd.counter_damage = roller.Roll(defender.Counterattack).Sum();
-                        if (rnd.attacking_asset != null)
-                        {
-                            rnd.attacking_asset.hp -= rnd.counter_damage;
-                            if (rnd.attacking_asset.hp < 0) rnd.attacking_asset.hp = 0;
-                        }
-                    }
-
-                    rnd.damage = roller.Roll(attacker.AttackDice).Sum();
-                    if (rnd.defending_asset != null)
-                    {
-                        rnd.defending_asset.hp -= rnd.damage;
-                        if (rnd.defending_asset.hp < 0) rnd.defending_asset.hp = 0;
                     }
 
                 }
