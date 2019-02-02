@@ -400,7 +400,7 @@ namespace faction_sim
                 }
                 else
                 {
-                    if (atk_faction.PMax)
+                    if (atk_faction.PMax && vs_roll[0] == "C")
                     {
                         atk_result = roller.RollKeeps (atk_roll).Sum ();
                         rnd.atk_roll = atk_result;
@@ -413,7 +413,7 @@ namespace faction_sim
 
                 }
 
-                if (def_faction.PMax)
+                if (def_faction.PMax && vs_roll[1] == "C")
                 {
                     def_result = roller.RollKeeps (def_roll).Sum ();
                     rnd.def_roll = def_result;
