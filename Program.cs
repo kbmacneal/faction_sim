@@ -513,6 +513,8 @@ namespace faction_sim
                         atk_result = roller.Roll (calculate_diceroll (atk_faction, short_to_long[vs_roll[0]]) + "+" + atk_mod.ToString ()).Sum ();
                         rnd.atk_roll = atk_result;
                     }
+
+                    defender.DefenderReroll = false;
                 }
 
                 resolve_attack (ref atk_result, ref def_result, ref attacker, ref defender, ref rnd);
