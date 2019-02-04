@@ -15,7 +15,7 @@ dotnet publish --self-contained=yes -r ubuntu.16.04-x64
 dotnet publish --self-contained=yes -r osx-x64
 
 
-cd bin/Debug/netcoreapp2.1
+cd bin/Debug/netcoreapp2.2
 
 Compress-Archive win10-x64 -DestinationPath win10-x64.zip
 Compress-Archive win10-x86 -DestinationPath win10-x86.zip
