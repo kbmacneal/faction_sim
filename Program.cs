@@ -224,7 +224,8 @@ namespace faction_sim
 
                 int total_damage = result_set.Select (e => e.damage).Sum ();
                 int total_successes = result_set.Where (e => e.atk_success).Count ();
-                int total_deaths = result_set.Where (e => e.attacking_asset.hp == 0).Count ();
+                // int total_deaths = result_set.Where (e => e.attacking_asset.hp == 0).Count ();
+                int total_deaths = result_set.Where(e=>e.counter_damage >= e.attacking_asset.hp).Count();
                 int total_counter = result_set.Select (e => e.counter_damage).Sum ();
                 int atk_faction_damage = result_set.Select (e => e.damage).Sum ();
                 total_attacker_damage += atk_faction_damage;
