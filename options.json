@@ -15,5 +15,6 @@
     "apply_passthrough_damage": true,
     "atk_asset_hp": [],
     "def_asset_hp": [],
-    "def_faction_hp": 0
+    "def_faction_hp": 0,
+    "homeworld_owner_id": 0
 }
