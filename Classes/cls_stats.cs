@@ -62,32 +62,24 @@ namespace faction_sim.Classes
 
             stats.asset_stats.Kurtosis = statistics.Kurtosis;
             stats.asset_stats.Skewness = statistics.Skewness;
+            
+            Normal fac_normal = new Normal(stats.faction_stats.Mean, stats.faction_stats.StandardDeviation,Program.rand);
 
-            var points = new List<count_dist> ();
+            Normal asset_normal = new Normal(stats.asset_stats.Mean, stats.asset_stats.StandardDeviation,Program.rand);
 
-            foreach (var grp in faction_damage.GroupBy (e => e))
+            for (int i = Convert.ToInt32(Math.Floor(stats.faction_stats.Minimum)); i < stats.faction_stats.Maximum; i++)
             {
-                var point = new count_dist ();
-                point.damage = grp.Key;
-                point.count = grp.Count ();
-
-                points.Add (point);
+                double item1 = fac_normal.CumulativeDistribution(i);
+                
+                stats.faction_stats.normalized_dist.Add((i,item1));
             }
 
-            stats.faction_stats.FitData = Fit.Polynomial (points.Select (e => e.damage).ToArray (), points.Select (e => e.count).ToArray (), 4);
-
-            points = new List<count_dist> ();
-
-            foreach (var grp in asset_damage.GroupBy (e => e))
+            for (int i = Convert.ToInt32(Math.Floor(stats.asset_stats.Minimum)); i < stats.asset_stats.Maximum; i++)
             {
-                var point = new count_dist ();
-                point.damage = grp.Key;
-                point.count = grp.Count ();
-
-                points.Add (point);
+                double item1 = fac_normal.CumulativeDistribution(i);
+                
+                stats.asset_stats.normalized_dist.Add((i,item1));
             }
-
-            stats.asset_stats.FitData = Fit.Polynomial (points.Select (e => e.damage).ToArray (), points.Select (e => e.count).ToArray (), 4);
 
             return stats;
         }
@@ -107,6 +99,6 @@ namespace faction_sim.Classes
         public double StandardDeviation { get; set; }
         public double Kurtosis { get; set; }
         public double Skewness { get; set; }
-        public double[] FitData { get; set; }
+        public List<(double, double)> normalized_dist {get;set;} = new List<(double,double)>();
     }
 }
