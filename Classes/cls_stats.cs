@@ -99,6 +99,6 @@ namespace faction_sim.Classes
         public double StandardDeviation { get; set; }
         public double Kurtosis { get; set; }
         public double Skewness { get; set; }
-        public List<(double, double)> normalized_dist {get;set;} = new List<(double,double)>();
+        public List<(double x, double y)> normalized_dist {get;set;} = new List<(double,double)>();
     }
 }
