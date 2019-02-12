@@ -167,6 +167,13 @@ namespace faction_sim
             var stats = get_results (results, attacking_assets, _runoptions.iterations);
 
             System.IO.File.WriteAllText (out_location, Newtonsoft.Json.JsonConvert.SerializeObject (stats, Formatting.Indented));
+
+            var stats_loc = args[0].Replace(".json","_stats.json");
+
+            var statistics = Classes.stats.GenStats(results);
+
+            System.IO.File.WriteAllText (stats_loc, Newtonsoft.Json.JsonConvert.SerializeObject (statistics, Formatting.Indented));
+
             return;
 
         }
