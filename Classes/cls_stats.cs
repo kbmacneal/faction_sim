@@ -31,9 +31,9 @@ namespace faction_sim.Classes
 
             foreach (var i in input)
             {
-                i.Select (e => Convert.ToDouble (e.direct_faction_damage)).ToList ().ForEach (e => faction_damage.Add (e));
+                faction_damage.Add (i.Select (e => Convert.ToDouble (e.direct_faction_damage)).Sum());
 
-                i.Select (e => Convert.ToDouble (e.damage)).ToList ().ForEach (e => asset_damage.Add (e));
+                asset_damage.Add (i.Select (e => Convert.ToDouble (e.damage)).Sum());
             }
 
             var statistics = new DescriptiveStatistics (faction_damage);
@@ -74,7 +74,7 @@ namespace faction_sim.Classes
                 points.Add (point);
             }
 
-            stats.faction_stats.FitData = Fit.Polynomial (points.Select (e => e.count).ToArray (), points.Select (e => e.damage).ToArray (), 4);
+            stats.faction_stats.FitData = Fit.Polynomial (points.Select (e => e.damage).ToArray (), points.Select (e => e.count).ToArray (), 4);
 
             points = new List<count_dist> ();
 
@@ -87,7 +87,7 @@ namespace faction_sim.Classes
                 points.Add (point);
             }
 
-            stats.asset_stats.FitData = Fit.Polynomial (points.Select (e => e.count).ToArray (), points.Select (e => e.damage).ToArray (), 4);
+            stats.asset_stats.FitData = Fit.Polynomial (points.Select (e => e.damage).ToArray (), points.Select (e => e.count).ToArray (), 4);
 
             return stats;
         }
