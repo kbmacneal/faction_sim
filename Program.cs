@@ -8,6 +8,7 @@ using faction_sim.Classes;
 using faction_sim.Classes.Assets;
 using faction_sim.Classes.Factions;
 using Newtonsoft.Json;
+using Npgsql;
 
 namespace faction_sim
 {
@@ -109,8 +110,15 @@ namespace faction_sim
     {
         public static Random rand = new Random ();
 
+        public static db_connection _dbc { get; set; } = new Classes.db_connection ();
+        public static NpgsqlConnection con { get; set; } = _dbc.GetConnection ();
         public static int total_direct_damage = 0;
         public static run_options _runoptions = new run_options ();
+
+        public Program()
+        {
+            con.Open();
+        }
         static void Main (string[] args)
         {
             if (args.Length == 0)
@@ -137,15 +145,13 @@ namespace faction_sim
 
             if (_runoptions.attacking_id != 0)
             {
-                db_connection con = new db_connection ();
-                attacking_faction = con.get_faction (_runoptions.attacking_id);
+                attacking_faction = _dbc.get_faction (con, _runoptions.attacking_id);
             }
 
             Faction defending_faction = null;
             if (_runoptions.defending_id != 0)
             {
-                db_connection con = new db_connection ();
-                defending_faction = con.get_faction (_runoptions.defending_id);
+                defending_faction = _dbc.get_faction (con, _runoptions.defending_id);
 
                 if (_runoptions.def_faction_hp > 0) defending_faction.hp = _runoptions.def_faction_hp;
             }
@@ -168,11 +174,13 @@ namespace faction_sim
 
             System.IO.File.WriteAllText (out_location, Newtonsoft.Json.JsonConvert.SerializeObject (stats, Formatting.Indented));
 
-            var stats_loc = args[0].Replace(".json","_stats.json");
+            var stats_loc = args[0].Replace (".json", "_stats.json");
 
-            var statistics = Classes.stats.GenStats(results);
+            var statistics = Classes.stats.GenStats (results);
 
             System.IO.File.WriteAllText (stats_loc, Newtonsoft.Json.JsonConvert.SerializeObject (statistics, Formatting.Indented));
+
+            con.Close();
 
             return;
 
@@ -232,7 +240,7 @@ namespace faction_sim
                 int total_damage = result_set.Select (e => e.damage).Sum ();
                 int total_successes = result_set.Where (e => e.atk_success).Count ();
                 // int total_deaths = result_set.Where (e => e.attacking_asset.hp == 0).Count ();
-                int total_deaths = result_set.Where(e=>e.counter_damage >= e.attacking_asset.hp).Count();
+                int total_deaths = result_set.Where (e => e.counter_damage >= e.attacking_asset.hp).Count ();
                 int total_counter = result_set.Select (e => e.counter_damage).Sum ();
                 int atk_faction_damage = result_set.Select (e => e.damage).Sum ();
                 total_attacker_damage += atk_faction_damage;
@@ -320,8 +328,7 @@ namespace faction_sim
             {
                 for (int i = 0; i < _runoptions.attacking_faction_ids.Count (); i++)
                 {
-                    db_connection con = new db_connection ();
-                    attackers[i].owner = con.get_faction (Convert.ToInt32 (_runoptions.attacking_faction_ids[i]));
+                    attackers[i].owner = _dbc.get_faction (con, Convert.ToInt32 (_runoptions.attacking_faction_ids[i]));
                 }
             }
             else
@@ -337,8 +344,7 @@ namespace faction_sim
             {
                 for (int i = 0; i < _runoptions.defending_faction_ids.Count (); i++)
                 {
-                    db_connection con = new db_connection ();
-                    defenders[i].owner = con.get_faction (Convert.ToInt32 (_runoptions.defending_faction_ids[i]));
+                    defenders[i].owner = _dbc.get_faction (con, Convert.ToInt32 (_runoptions.defending_faction_ids[i]));
                 }
             }
             else
@@ -592,8 +598,7 @@ namespace faction_sim
 
                 if (defender == null)
                 {
-                    db_connection con = new db_connection ();
-                    Faction temp_fac = con.get_faction (_runoptions.homeworld_owner_id);
+                    Faction temp_fac = _dbc.get_faction (con, _runoptions.homeworld_owner_id);
 
                     apply_damage (ref defender, temp_fac, rnd.damage, ref rnd);
                 }
@@ -635,9 +640,8 @@ namespace faction_sim
             {
                 for (int i = 0; i < hps.Count; i++)
                 {
-                    db_connection con = new db_connection ();
                     Asset asset = new Asset ();
-                    asset = con.get_asset (ids[i]);
+                    asset = _dbc.get_asset (con, ids[i]);
                     asset.max_hp = asset.hp;
                     if (ids[i] != 0) asset.hp = hps[i];
                     rtner.Add (asset);
@@ -647,9 +651,8 @@ namespace faction_sim
             {
                 foreach (int id in ids)
                 {
-                    db_connection con = new db_connection ();
                     Asset asset = new Asset ();
-                    asset = con.get_asset (id);
+                    asset = _dbc.get_asset (con, id);
                     asset.max_hp = asset.hp;
                     rtner.Add (asset);
                 }

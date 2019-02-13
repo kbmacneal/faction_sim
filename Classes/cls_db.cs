@@ -52,10 +52,8 @@ namespace faction_sim.Classes
             return rtn;
         }
 
-        public Assets.Asset get_asset(int id)
+        public Assets.Asset get_asset(NpgsqlConnection con, int id)
         {
-            var con = GetConnection();
-
             con.Open();
 
             Assets.Asset rtn = new Assets.Asset();
@@ -77,10 +75,8 @@ namespace faction_sim.Classes
             }
         }
 
-        public Factions.Faction get_faction(int id)
+        public Factions.Faction get_faction(NpgsqlConnection con, int id)
         {
-            var con = GetConnection();
-
             con.Open();
 
             Factions.Faction rtn = new Factions.Faction();
@@ -102,10 +98,8 @@ namespace faction_sim.Classes
             }
         }
 
-        public List<Factions.Faction> get_faction()
+        public List<Factions.Faction> get_faction(NpgsqlConnection con)
         {
-            var con = GetConnection();
-
             con.Open();
 
             List<Factions.Faction> rtn = new List<Factions.Faction>();
@@ -119,13 +113,13 @@ namespace faction_sim.Classes
                 {
                     rtn = DbToFaction(reader);    
                 }
+                
                 con.Close();
-
                 return rtn;
             }
         }
 
-        private NpgsqlConnection GetConnection()
+        public NpgsqlConnection GetConnection()
         {
             var connstring = String.Concat(this.obj.connection_string);
 
